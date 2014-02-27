@@ -27,7 +27,7 @@ core_fnc_param = {
 	Group: Logging
 */
 
-#define LOG_LEVELS ["info", "notice", "warning", "error", "critical"];
+#define LOG_LEVELS ["info", "notice", "warning", "error", "critical"]
 core_log_level = "";
 
 /*
@@ -88,7 +88,7 @@ core_fnc_log = {
 	if ([core_log_level, _index] call core_fnc_selBinStr) then {
 		private ["_output"];
 		_output = format[
-			"%1: %2 [ T: %3 | TT: %4 | F: '%5:%6' | M: %7 | W: %8 ] %9",
+			"%1: %2 [ T: %3 | TT: %4 | F: '%5:%6' | M: '%7' | W: '%8' ] %9",
 			(_this select 0),
 			(_this select 1),
 			time,
