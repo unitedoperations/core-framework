@@ -1,6 +1,6 @@
 
 /*
-	Function: core_fnc_setLogLevel
+	Function: core_fnc_param
 	Parameters:
 		0 - Parameter list [array]
 		1 - Parameter selection index [number]
