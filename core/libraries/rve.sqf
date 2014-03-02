@@ -1,52 +1,5 @@
 
 /*
-	Function: core_fnc_loadMissionParams
-	Author(s): Naught
-	Description:
-		Loads mission parameters and performs
-		conversions and storage functions.
-	Parameters:
-		None
-	Returns:
-		Nothing
-*/
-core_fnc_loadMissionParams = {
-	#define PARAMS_CONFIG (missionConfigFile >> "Params")
-	private ["_params", "_paramDft"];
-	_params		= [];
-	_paramDft	= false;
-	if (isNil "paramsArray") then {
-		_paramDft = true;
-		paramsArray = [];
-	};
-	for "_i" from 0 to ((count PARAMS_CONFIG) - 1) do {
-		private ["_param", "_var", "_value"];
-		_param = PARAMS_CONFIG select _i;
-		if (isText (_param >> "variable")) then {
-			_var = getText (_param >> "variable");
-		} else {
-			_var = format["param_%1", (configName _param)];
-		};
-		if (_paramDft) then {
-			_value = getNumber (_param >> "default");
-			paramsArray set [_i, _value];
-		} else {
-			_value = paramsArray select _i;
-		};
-		if ((isNumber(_param >> "bool")) && {(getNumber(_param >> "bool")) == 1}) then {
-			_value = [_value] call core_fnc_toBool;
-		};
-		if (isText (_param >> "execute")) then {
-			_value = _value call compile (getText (_param >> "execute"));
-		};
-		if (_var != "") then {
-			missionNameSpace setVariable [_var, _value];
-		};
-		_params = _params + [[getText(_param >> "title"), _var, _value]];
-	};
-};
-
-/*
 	Function: core_fnc_getPos
 	Author(s): Naught
 	Description:

@@ -35,26 +35,104 @@ private ["_startTime"];
 _startTime = diag_tickTime;
 ["Notice", "Core-Init", "Core initialization has started.", [], __FILE__, __LINE__] call core_fnc_log;
 
-/* Load Mission Parameters */
+/* Load Mission Parameters (and Modules) */
 ["Info", "Core-Init", "Loading mission parameters.", [], __FILE__, __LINE__] call core_fnc_log;
-[] call core_fnc_loadMissionParams;
-
-/* Load Modules */
-// TODO: Load Modules
-
-/* Finalize Reference Variables */
-core_init = true;
-if (isServer) then {
-	core_serverInit = true;
-	publicVariable "core_serverInit";
+#define PARAMS_CONFIG (missionConfigFile >> "Params")
+private ["_params", "_modules", "_paramDft"];
+_params = [];
+_modules = [];
+_paramDft = false;
+if (isNil "paramsArray") then {
+	_paramDft = true;
+	paramsArray = [];
+};
+for "_i" from 0 to ((count PARAMS_CONFIG) - 1) do {
+	private ["_param"];
+	_param = PARAMS_CONFIG select _i;
+	if (isText(_param >> "loadmodule")) then {
+		_modules set [(count _modules), _param];
+	} else {
+		private ["_var", "_value"];
+		_var = if (isText(_param >> "variable")) then {
+			getText(_param >> "variable");
+		} else {
+			format["param_%1", (configName(_param))];
+		};
+		_value = if (_paramDft) then {
+			getNumber(_param >> "default");
+			paramsArray set [_i, _value];
+		} else {
+			paramsArray select _i;
+		};
+		if ((isNumber(_param >> "boolean")) && {(getNumber(_param >> "boolean")) == 1}) then {
+			_value = [_value] call core_fnc_toBool;
+		};
+		if (isText(_param >> "execute")) then {
+			_value = _value call compile (getText(_param >> "execute"));
+		};
+		if (_var != "") then {
+			missionNameSpace setVariable [_var, _value];
+		};
+		_params = _params + [[getText(_param >> "title"), _var, _value]];
+	};
 };
 
-/* Finalizing Initialization */
-["Notice", "Core-Init", "Core initialization has finished. Benchmark: %1 sec.", [
-	(diag_tickTime - _startTime)
-], __FILE__, __LINE__] call core_fnc_log;
+/* Load Module Settings and Pre-Init */
+{ // forEach
+	/* Load Module Settings */
+	private ["_settings"];
+	_settings = _x >> "settings";
+	if (isClass _settings) then {
+		for "_i" from 0 to ((count _settings) - 1) do {
+			private ["_setting"];
+			_setting = _settings select _i;
+			if (!(isClass _setting)) then {
+				missionNamespace setVariable [
+					(configName _setting),
+					([_setting] call core_fnc_getConfigValue)
+				];
+			};
+		};
+	};
+	/* Load Module Pre-Init */
+	[] call (["modules\" + (configName _x) + "\preinit.sqf"] call core_fnc_compileFile);
+} forEach _modules;
 
 /* End Loading Screen */
 endLoadingScreen;
 
-core_init = true;
+/* Start Delayed Execution */
+[_startTime, _modules] spawn {
+	
+	/* Wait for XEH Post-Initialization */
+	if (isClass(configFile >> "CfgPatches" >> "cba_xeh")) then {
+		[{!(isNil "SLX_XEH_MACHINE") && {SLX_XEH_MACHINE select 8}}, -1, "XEH Initialization"] call core_fnc_wait;
+	};
+	
+	/* Wait for Server */
+	if (!isServer) then {
+		[{!(isNil "core_serverInit") && {core_serverInit}}, -1, "Core Server Initialization"] call core_fnc_wait;
+	};
+	
+	/* Wait for Player */
+	if (!isDedicated) then {
+		[{!(isNull player)}, -1, "Player Initialization"] call core_fnc_wait;
+	};
+	
+	/* Load Module Post-Inits */
+	{ // forEach
+		[] spawn (["modules\" + (configName _x) + "\postinit.sqf"] call core_fnc_compileFile);
+	} forEach (_this select 1);
+	
+	/* Finalize Reference Variables */
+	core_init = true;
+	if (isServer) then {
+		core_serverInit = true;
+		publicVariable "core_serverInit";
+	};
+	
+	/* Finalizing Initialization */
+	["Notice", "Core-Init", "Core initialization has finished. Benchmark: %1 sec.", [
+		(diag_tickTime - (_this select 0))
+	], __FILE__, __LINE__] call core_fnc_log;
+};

@@ -1,0 +1,13 @@
+
+/* DO NOT EDIT BELOW THIS COMMENT */
+
+#include "core\macros.cpp"
+#include "static\load.cpp"
+
+class Params {
+	#include "modules\modules.cpp"
+};
+
+class Extended_PreInit_EventHandlers {
+	mission_preInit = "call compile preProcessFileLineNumbers 'core\init.sqf'";
+};
