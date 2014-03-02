@@ -1,11 +1,16 @@
 
 /*
 	Function: core_fnc_param
+	Author(s): Naught
+	Description:
+		Selects a parameter from a parameter list.
 	Parameters:
 		0 - Parameter list [array]
 		1 - Parameter selection index [number]
 		2 - Type list [array] (optional)
 		3 - Default value [any] (optional)
+	Returns:
+		Parameter [any]
 */
 core_fnc_param = {
 	private ["_list", "_index", "_typeList"];
@@ -32,8 +37,14 @@ core_log_level = "";
 
 /*
 	Function: core_fnc_convLogLevel
+	Author(s): Naught
+	Description:
+		Converts a log level string to a binary index
+		and vis-versa.
 	Parameters:
 		0 - Log level [string] || [number]
+	Returns:
+		Nothing
 */
 core_fnc_convLogLevel = {
 	private ["_index"];
@@ -50,8 +61,13 @@ core_fnc_convLogLevel = {
 
 /*
 	Function: core_fnc_setLogLevel
+	Author(s): Naught
+	Description:
+		Sets the current log level (local machine).
 	Parameters:
 		0 - Log level [string]
+	Returns:
+		Nothing
 */
 core_fnc_setLogLevel = {
 	private ["_index"];
@@ -59,11 +75,7 @@ core_fnc_setLogLevel = {
 	if (_index >= 0) then {
 		private ["_logLevel"];
 		_logLevel = toArray(core_log_level);
-		/*
-			Note:
-				U+0030 = Digit Zero
-				U+0031 = Digit One
-		*/
+		// Note: U+0030 = Digit Zero; U+0031 = Digit One;
 		while {(count _logLevel) < _index} do {
 			_logLevel set [(count _logLevel), 30];
 		};
@@ -74,6 +86,9 @@ core_fnc_setLogLevel = {
 
 /*
 	Function: core_fnc_log
+	Author(s): Naught
+	Description:
+		Logs a value to the diagnostics logs.
 	Parameters:
 		0 - Log level [string]
 		1 - Component [string]
@@ -81,11 +96,11 @@ core_fnc_setLogLevel = {
 		3 - Message parameters [array] (optional)
 		4 - File path [string] (optional)
 		5 - Line number [number] (optional)
+	Returns:
+		Nothing
 */
 core_fnc_log = {
-	private ["_index"];
-	_index = [toLower(_this select 0)] call core_fnc_convLogLevel;
-	if ([core_log_level, _index] call core_fnc_selBinStr) then {
+	if ([core_log_level, ([toLower(_this select 0)] call core_fnc_convLogLevel)] call core_fnc_selBinStr) then {
 		private ["_output"];
 		_output = format[
 			"%1: %2 [ T: %3 | TT: %4 | F: '%5:%6' | M: '%7' | W: '%8' ] %9",
