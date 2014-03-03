@@ -1,6 +1,8 @@
 
 /* DO NOT EDIT BELOW THIS COMMENT */
 
+#define CONFIG_ENV
+
 #include "core\macros.cpp"
 #include "static\load.cpp"
 

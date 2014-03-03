@@ -1,5 +1,14 @@
 
 /*
+	Title: Math Function Library
+	Notes:
+		1. When updating the library, increment the
+		below library register version number by one.
+*/
+
+["math", 1] call core_fnc_registerLibrary;
+
+/*
 	Function: core_fnc_decHasBin
 	Author(s): Naught
 	Description:

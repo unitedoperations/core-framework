@@ -1,5 +1,14 @@
 
 /*
+	Title: Conversion Function Library
+	Notes:
+		1. When updating the library, increment the
+		below library register version number by one.
+*/
+
+["conversions", 1] call core_fnc_registerLibrary;
+
+/*
 	Function: core_fnc_sideToText
 	Author(s): Naught
 	Description:

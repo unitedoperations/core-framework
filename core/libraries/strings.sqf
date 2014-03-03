@@ -1,5 +1,14 @@
 
 /*
+	Title: String Function Library
+	Notes:
+		1. When updating the library, increment the
+		below library register version number by one.
+*/
+
+["strings", 1] call core_fnc_registerLibrary;
+
+/*
 	Function: core_fnc_selBinStr
 	Author(s): Naught
 	Description:

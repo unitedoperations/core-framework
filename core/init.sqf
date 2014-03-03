@@ -21,14 +21,7 @@ if (isServer) then {
 startLoadingScreen ["Loading Core Mission Framework..."];
 
 /* Load Libraries */
-#include "libraries\arrays.sqf"
-#include "libraries\chrono.sqf"
-#include "libraries\config.sqf"
-#include "libraries\diagnostics.sqf"
-#include "libraries\filesystem.sqf"
-#include "libraries\math.sqf"
-#include "libraries\rve.sqf"
-#include "libraries\strings.sqf"
+#include "libraries.sqf"
 
 /* Start Initialization */
 private ["_startTime"];
@@ -78,6 +71,7 @@ for "_i" from 0 to ((count PARAMS_CONFIG) - 1) do {
 };
 
 /* Load Module Settings and Pre-Init */
+["Info", "Core-Init", "Loading module pre-inits.", [], __FILE__, __LINE__] call core_fnc_log;
 { // forEach
 	/* Load Module Settings */
 	private ["_settings"];
@@ -95,7 +89,10 @@ for "_i" from 0 to ((count PARAMS_CONFIG) - 1) do {
 		};
 	};
 	/* Load Module Pre-Init */
-	[] call (["modules\" + (configName _x) + "\preinit.sqf"] call core_fnc_compileFile);
+	private ["_cfgName"];
+	_cfgName = configName _x;
+	["Info", "Core-Init", "Loading module '%1' pre-init.", [_cfgName], __FILE__, __LINE__] call core_fnc_log;
+	[] call (["modules\" + _cfgName + "\preinit.sqf"] call core_fnc_compileFile);
 } forEach _modules;
 
 /* End Loading Screen */
@@ -120,9 +117,16 @@ endLoadingScreen;
 	};
 	
 	/* Load Module Post-Inits */
+	["Info", "Core-Init", "Loading module post-inits.", [], __FILE__, __LINE__] call core_fnc_log;
 	{ // forEach
-		[] spawn (["modules\" + (configName _x) + "\postinit.sqf"] call core_fnc_compileFile);
+		private ["_cfgName"];
+		_cfgName = configName _x;
+		["Info", "Core-Init", "Loading module '%1' post-init.", [_cfgName], __FILE__, __LINE__] call core_fnc_log;
+		[] spawn (["modules\" + _cfgName + "\postinit.sqf"] call core_fnc_compileFile);
 	} forEach (_this select 1);
+	
+	/* Add Player Framework Documentation */
+	// TODO
 	
 	/* Finalize Reference Variables */
 	core_init = true;

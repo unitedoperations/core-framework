@@ -1,5 +1,14 @@
 
 /*
+	Title: Array Function Library
+	Notes:
+		1. When updating the library, increment the
+		below library register version number by one.
+*/
+
+["arrays", 1] call core_fnc_registerLibrary;
+
+/*
 	Function: core_fnc_push
 	Author(s): Naught
 	Description:

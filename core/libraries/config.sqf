@@ -1,13 +1,23 @@
 
 /*
+	Title: Config Function Library
+	Notes:
+		1. When updating the library, increment the
+		below library register version number by one.
+*/
+
+["config", 1] call core_fnc_registerLibrary;
+
+/*
 	Function: core_fnc_getConfigValue
 	Author(s): Naught
 	Description:
 		Retrieves any config value.
 	Parameters:
 		0 - Config path [config]
+		1 - Default value [any] (optional)
 	Returns:
-		Config value [string:number:array:config:nil]
+		Config value [any]
 */
 core_fnc_getConfigValue = {
 	private ["_cfg"];
@@ -26,7 +36,7 @@ core_fnc_getConfigValue = {
 			_cfg;
 		};
 		default {
-			nil;
+			[_this, 1, [], nil] call core_fnc_param;
 		};
 	};
 };
