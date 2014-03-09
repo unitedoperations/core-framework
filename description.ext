@@ -18,12 +18,6 @@ class Params {
 	#undef PARAMS
 };
 
-class Settings {
-	#define SETTINGS
-	#include "modules\modules.cpp"
-	#undef SETTINGS
-};
-
 #define ROOT
 #include "modules\modules.cpp"
 #undef ROOT
