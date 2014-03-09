@@ -4,7 +4,6 @@
 #define CONFIG_ENV
 
 #include "core\macros.cpp"
-#include "static\load.cpp"
 
 class Modules {
 	#define MODULES
