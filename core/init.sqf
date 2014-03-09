@@ -15,13 +15,25 @@ if (isServer) then {
 };
 
 /* Load Common Macros */
-#include "macros.sqf"
+#include "macros.cpp"
 
 /* Start Loading Screen */
 startLoadingScreen ["Loading Core Mission Framework..."];
 
 /* Load Libraries */
-#include "libraries.sqf"
+#include "libraries\arrays.sqf"
+#include "libraries\chrono.sqf"
+#include "libraries\config.sqf"
+#include "libraries\diagnostics.sqf"
+#include "libraries\filesystem.sqf"
+#include "libraries\math.sqf"
+#include "libraries\rve.sqf"
+#include "libraries\strings.sqf"
+
+/* Load Logging Configuration */
+{ // forEach
+	[_x, true] call core_fnc_setLogLevel;
+} forEach ([(missionConfigFile >> "Core" >> (if (!isMultiplayer) then {"sp_log_level"} else {"mp_log_level"})), []] call core_fnc_getConfigValue);
 
 /* Start Initialization */
 private ["_startTime"];
@@ -132,10 +144,10 @@ endLoadingScreen;
 	if (!isDedicated) then {
 		player createDiarySubject ["core_docs", "Core Framework"];
 		// TODO
-		player createDiarySubject ["core_docs", ["Diagnostics Log", ""]];
-		player createDiarySubject ["core_docs", ["Parameters", ""]];
-		player createDiarySubject ["core_docs", ["Modules", ""]];
-		player createDiarySubject ["core_docs", ["About", ""]];
+		player createDiaryRecord ["core_docs", ["Diagnostics Log", ""]];
+		player createDiaryRecord ["core_docs", ["Parameters", ""]];
+		player createDiaryRecord ["core_docs", ["Modules", ""]];
+		player createDiaryRecord ["core_docs", ["About", ""]];
 	};
 	
 	/* Finalize Reference Variables */

@@ -6,8 +6,6 @@
 		below library register version number by one.
 */
 
-["diagnostics", 1] call core_fnc_registerLibrary;
-
 /*
 	Function: core_fnc_param
 	Author(s): Naught
@@ -72,9 +70,10 @@ core_fnc_convLogLevel = {
 	Function: core_fnc_setLogLevel
 	Author(s): Naught
 	Description:
-		Sets the current log level (local machine).
+		Toggles a log level on the local machine.
 	Parameters:
 		0 - Log level [string]
+		1 - Logging Toggle [bool]
 	Returns:
 		Nothing
 */

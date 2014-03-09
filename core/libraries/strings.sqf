@@ -6,8 +6,6 @@
 		below library register version number by one.
 */
 
-["strings", 1] call core_fnc_registerLibrary;
-
 /*
 	Function: core_fnc_selBinStr
 	Author(s): Naught

@@ -6,8 +6,6 @@
 		below library register version number by one.
 */
 
-["filesystem", 1] call core_fnc_registerLibrary;
-
 /*
 	Function: core_fnc_isFilePath
 	Author(s): Naught

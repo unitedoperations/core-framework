@@ -6,9 +6,27 @@
 #include "core\macros.cpp"
 #include "static\load.cpp"
 
-class Params {
+class Modules {
+	#define MODULES
 	#include "modules\modules.cpp"
+	#undefine MODULES
 };
+
+class Params {
+	#define PARAMS
+	#include "modules\modules.cpp"
+	#undefine PARAMS
+};
+
+class Settings {
+	#define SETTINGS
+	#include "modules\modules.cpp"
+	#undefine SETTINGS
+};
+
+#define ROOT
+#include "modules\modules.cpp"
+#undefine ROOT
 
 class Extended_PreInit_EventHandlers {
 	mission_preInit = "call compile preProcessFileLineNumbers 'core\init.sqf'";

@@ -1,11 +1,17 @@
 
-MODULE(example_module)
-	authors[] = {"My Name"}; // Optional
-	version = "1.0.0"; // Optional
-	url = "http://unitedoperations.net"; // Optional
-	class settings {
-		#include "settings.cpp"
-	};
-END_MODULE;
+#ifdef MODULES
+	#include "module.cpp"
+#endif
 
-#include "params.cpp"
+#ifdef PARAMS
+	#include "params.cpp"
+#endif
+
+#ifdef SETTINGS
+	#include "settings.cpp"
+#endif
+
+#ifdef ROOT
+	#include "ui.cpp"
+	// Include other files if need be
+#endif

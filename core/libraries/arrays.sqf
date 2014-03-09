@@ -6,13 +6,11 @@
 		below library register version number by one.
 */
 
-["arrays", 1] call core_fnc_registerLibrary;
-
 /*
 	Function: core_fnc_push
 	Author(s): Naught
 	Description:
-		Adds a value to the end of an array.
+		Adds a value to the last of an array.
 	Parameters:
 		0 - Array [array]
 		1 - Value to push [any]
@@ -32,7 +30,7 @@ core_fnc_push = {
 	Function: core_fnc_pop
 	Author(s): Naught
 	Description:
-		Removes a value from the end of the array.
+		Removes a value from the last of the array.
 	Parameters:
 		0 - Array [array]
 	Returns:
