@@ -9,24 +9,24 @@
 class Modules {
 	#define MODULES
 	#include "modules\modules.cpp"
-	#undefine MODULES
+	#undef MODULES
 };
 
 class Params {
 	#define PARAMS
 	#include "modules\modules.cpp"
-	#undefine PARAMS
+	#undef PARAMS
 };
 
 class Settings {
 	#define SETTINGS
 	#include "modules\modules.cpp"
-	#undefine SETTINGS
+	#undef SETTINGS
 };
 
 #define ROOT
 #include "modules\modules.cpp"
-#undefine ROOT
+#undef ROOT
 
 class Extended_PreInit_EventHandlers {
 	mission_preInit = "call compile preProcessFileLineNumbers 'core\init.sqf'";
