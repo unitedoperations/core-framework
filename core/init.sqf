@@ -70,10 +70,9 @@ for "_i" from 0 to ((count PARAMS_CONFIG) - 1) do {
 	};
 };
 
-/* Load Module Settings and Pre-Init */
-["Info", "Core-Init", "Loading module pre-inits.", [], __FILE__, __LINE__] call core_fnc_log;
+/* Load Module Settings */
+["Info", "Core-Init", "Loading module settings.", [], __FILE__, __LINE__] call core_fnc_log;
 { // forEach
-	/* Load Module Settings */
 	private ["_settings"];
 	_settings = _x >> "settings";
 	if (isClass _settings) then {
@@ -88,7 +87,11 @@ for "_i" from 0 to ((count PARAMS_CONFIG) - 1) do {
 			};
 		};
 	};
-	/* Load Module Pre-Init */
+} forEach _modules;
+
+/* Load Module Pre-Inits */
+["Info", "Core-Init", "Loading module pre-inits.", [], __FILE__, __LINE__] call core_fnc_log;
+{ // forEach
 	private ["_cfgName"];
 	_cfgName = configName _x;
 	["Info", "Core-Init", "Loading module '%1' pre-init.", [_cfgName], __FILE__, __LINE__] call core_fnc_log;
@@ -125,8 +128,15 @@ endLoadingScreen;
 		[] spawn (["modules\" + _cfgName + "\postinit.sqf"] call core_fnc_compileFile);
 	} forEach (_this select 1);
 	
-	/* Add Player Framework Documentation */
-	// TODO
+	/* Load Framework Documentation */
+	if (!isDedicated) then {
+		player createDiarySubject ["core_docs", "Core Framework"];
+		// TODO
+		player createDiarySubject ["core_docs", ["Diagnostics Log", ""]];
+		player createDiarySubject ["core_docs", ["Parameters", ""]];
+		player createDiarySubject ["core_docs", ["Modules", ""]];
+		player createDiarySubject ["core_docs", ["About", ""]];
+	};
 	
 	/* Finalize Reference Variables */
 	core_init = true;
