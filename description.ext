@@ -3,7 +3,6 @@
 
 #define CONFIG_ENV
 
-#include "core\macros.cpp"
 #include "settings.cpp"
 
 class Modules {

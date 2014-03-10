@@ -15,9 +15,6 @@ if (isServer) then {
 };
 core_version = call compile preprocessFile "core\$VERSION$";
 
-/* Load Common Macros */
-#include "macros.cpp"
-
 /* Start Loading Screen */
 startLoadingScreen ["Loading Core Mission Framework..."];
 
