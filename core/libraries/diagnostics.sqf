@@ -122,6 +122,6 @@ core_fnc_log = {
 			worldName,
 			format([_this select 2] + ([_this, 3, ["ARRAY"], []] call core_fnc_param))
 		];
-		diag_log _output;
+		diag_log text _output;
 	};
 };

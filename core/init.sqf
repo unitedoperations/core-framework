@@ -119,6 +119,9 @@ for "_i" from 0 to ((count MODULES_CONFIG) - 1) do {
 	[] call (["modules\" + _cfgName + "\preinit.sqf"] call core_fnc_compileFile);
 } forEach _modules;
 
+/* Process Vehicle Init Code */
+processInitCommands;
+
 /* End Loading Screen */
 endLoadingScreen;
 
@@ -158,6 +161,9 @@ endLoadingScreen;
 		player createDiaryRecord ["core_docs", ["Modules", ""]];
 		player createDiaryRecord ["core_docs", ["About", ""]];
 	};
+	
+	/* Finish world initialization*/
+	finishMissionInit;
 	
 	/* Finalize Reference Variables */
 	core_init = true;
