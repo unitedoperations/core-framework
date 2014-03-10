@@ -83,11 +83,11 @@ core_fnc_setLogLevel = {
 	if (_index >= 0) then {
 		private ["_logLevel"];
 		_logLevel = toArray(core_log_level);
-		// Note: U+0030 = Digit Zero; U+0031 = Digit One;
+		// Note: 48 = Digit Zero; 49 = Digit One;
 		while {(count _logLevel) < _index} do {
-			_logLevel set [(count _logLevel), 30];
+			_logLevel set [(count _logLevel), 48];
 		};
-		_logLevel set [_index, (if (_this select 1) then {31} else {30})];
+		_logLevel set [_index, (if (_this select 1) then {49} else {48})];
 		core_log_level = toString(_logLevel);
 	};
 };

@@ -31,21 +31,21 @@ startLoadingScreen ["Loading Core Mission Framework..."];
 #include "libraries\strings.sqf"
 
 /* Load Logging Configuration */
+#define GET_LOG_LEVEL(cfg) (missionConfigFile >> "Core" >> cfg)
 { // forEach
 	[_x, true] call core_fnc_setLogLevel;
-} forEach ([(missionConfigFile >> "Core" >> (if (!isMultiplayer) then {"sp_log_level"} else {"mp_log_level"})), []] call core_fnc_getConfigValue);
+} forEach ([(if (!isMultiplayer) then {GET_LOG_LEVEL("sp_log_level")} else {GET_LOG_LEVEL("mp_log_level")}), []] call core_fnc_getConfigValue);
 
 /* Start Initialization */
 private ["_startTime"];
 _startTime = diag_tickTime;
 ["Notice", "Core-Init", "Core initialization has started.", [], __FILE__, __LINE__] call core_fnc_log;
 
-/* Load Mission Parameters (and Modules) */
+/* Load Mission Parameters */
 ["Info", "Core-Init", "Loading mission parameters.", [], __FILE__, __LINE__] call core_fnc_log;
 #define PARAMS_CONFIG (missionConfigFile >> "Params")
-private ["_params", "_modules", "_paramDft"];
+private ["_params", "_paramDft"];
 _params = [];
-_modules = [];
 _paramDft = false;
 if (isNil "paramsArray") then {
 	_paramDft = true;
@@ -80,6 +80,15 @@ for "_i" from 0 to ((count PARAMS_CONFIG) - 1) do {
 		};
 		_params = _params + [[getText(_param >> "title"), _var, _value]];
 	};
+};
+
+/* Load Modules */
+["Info", "Core-Init", "Loading mission modules.", [], __FILE__, __LINE__] call core_fnc_log;
+#define MODULES_CONFIG (missionConfigFile >> "Modules")
+private ["_modules"];
+_modules = [];
+for "_i" from 0 to ((count MODULES_CONFIG) - 1) do {
+	[_modules, (MODULES_CONFIG select _i)] call core_fnc_push;
 };
 
 /* Load Module Settings */
