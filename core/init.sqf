@@ -13,6 +13,7 @@ if (isServer) then {
 	core_serverInit = false;
 	publicVariable "core_serverInit";
 };
+core_version = call compile preprocessFile "core\$VERSION$";
 
 /* Load Common Macros */
 #include "macros.cpp"
@@ -24,6 +25,7 @@ startLoadingScreen ["Loading Core Mission Framework..."];
 #include "libraries\arrays.sqf"
 #include "libraries\chrono.sqf"
 #include "libraries\config.sqf"
+#include "libraries\conversions.sqf"
 #include "libraries\diagnostics.sqf"
 #include "libraries\filesystem.sqf"
 #include "libraries\math.sqf"
@@ -35,6 +37,7 @@ startLoadingScreen ["Loading Core Mission Framework..."];
 { // forEach
 	[_x, true] call core_fnc_setLogLevel;
 } forEach ([(if (!isMultiplayer) then {GET_LOG_LEVEL("sp_log_level")} else {GET_LOG_LEVEL("mp_log_level")}), []] call core_fnc_getConfigValue);
+core_logToDiary = [[missionConfigFile >> "Core" >> "log_to_diary", 0] call core_fnc_getConfigValue] call core_fnc_toBool;
 
 /* Start Initialization */
 private ["_startTime"];
@@ -42,44 +45,35 @@ _startTime = diag_tickTime;
 ["Notice", "Core-Init", "Core initialization has started.", [], __FILE__, __LINE__] call core_fnc_log;
 
 /* Load Mission Parameters */
+private ["_params"];
+_params = [];
 ["Info", "Core-Init", "Loading mission parameters.", [], __FILE__, __LINE__] call core_fnc_log;
 #define PARAMS_CONFIG (missionConfigFile >> "Params")
-private ["_params", "_paramDft"];
-_params = [];
-_paramDft = false;
-if (isNil "paramsArray") then {
-	_paramDft = true;
-	paramsArray = [];
-};
+if (isNil "paramsArray") then {paramsArray = []};
 for "_i" from 0 to ((count PARAMS_CONFIG) - 1) do {
-	private ["_param"];
+	private ["_param", "_var", "_value"];
 	_param = PARAMS_CONFIG select _i;
-	if (isText(_param >> "loadmodule")) then {
-		_modules set [(count _modules), _param];
+	_var = if (isText(_param >> "variable")) then {
+		getText(_param >> "variable");
 	} else {
-		private ["_var", "_value"];
-		_var = if (isText(_param >> "variable")) then {
-			getText(_param >> "variable");
-		} else {
-			format["param_%1", (configName(_param))];
-		};
-		_value = if (_paramDft) then {
-			getNumber(_param >> "default");
-			paramsArray set [_i, _value];
-		} else {
-			paramsArray select _i;
-		};
-		if ((isNumber(_param >> "boolean")) && {(getNumber(_param >> "boolean")) == 1}) then {
-			_value = [_value] call core_fnc_toBool;
-		};
-		if (isText(_param >> "execute")) then {
-			_value = _value call compile (getText(_param >> "execute"));
-		};
-		if (_var != "") then {
-			missionNameSpace setVariable [_var, _value];
-		};
-		_params = _params + [[getText(_param >> "title"), _var, _value]];
+		format["param_%1", (configName(_param))];
 	};
+	_value = if ((count paramsArray) > _i) then {
+		paramsArray select _i;
+	} else {
+		[_param >> "default"] call core_fnc_getConfigValue;
+	};
+	if ((isNumber(_param >> "boolean")) && {(getNumber(_param >> "boolean")) == 1}) then {
+		_value = [_value] call core_fnc_toBool;
+	};
+	if (isText(_param >> "execute")) then {
+		_value = _value call compile (getText(_param >> "execute"));
+	};
+	if (_var != "") then {
+		missionNameSpace setVariable [_var, _value];
+	};
+	[_params, [getText(_param >> "title"), _value]] call core_fnc_push;
+	paramsArray set [_i, _value];
 };
 
 /* Load Modules */
@@ -111,12 +105,9 @@ for "_i" from 0 to ((count MODULES_CONFIG) - 1) do {
 } forEach _modules;
 
 /* Load Module Pre-Inits */
-["Info", "Core-Init", "Loading module pre-inits.", [], __FILE__, __LINE__] call core_fnc_log;
+["Info", "Core-Init", "Loading module preinits.", [], __FILE__, __LINE__] call core_fnc_log;
 { // forEach
-	private ["_cfgName"];
-	_cfgName = configName _x;
-	["Info", "Core-Init", "Loading module '%1' pre-init.", [_cfgName], __FILE__, __LINE__] call core_fnc_log;
-	[] call (["modules\" + _cfgName + "\preinit.sqf"] call core_fnc_compileFile);
+	[_x, "preinit", false] call core_fnc_loadModule;
 } forEach _modules;
 
 /* Process Vehicle Init Code */
@@ -126,7 +117,11 @@ processInitCommands;
 endLoadingScreen;
 
 /* Start Delayed Execution */
-[_startTime, _modules] spawn {
+[_startTime, _modules, _params] spawn {
+	private ["_startTime", "_modules", "_params"];
+	_startTime = _this select 0;
+	_modules = _this select 1;
+	_params = _this select 2;
 	
 	/* Wait for Player */
 	if (!isDedicated) then {
@@ -146,21 +141,47 @@ endLoadingScreen;
 	/* Load Module Post-Inits */
 	["Info", "Core-Init", "Loading module post-inits.", [], __FILE__, __LINE__] call core_fnc_log;
 	{ // forEach
-		private ["_cfgName"];
-		_cfgName = configName _x;
-		["Info", "Core-Init", "Loading module '%1' post-init.", [_cfgName], __FILE__, __LINE__] call core_fnc_log;
-		[] spawn (["modules\" + _cfgName + "\postinit.sqf"] call core_fnc_compileFile);
-	} forEach (_this select 1);
+		[_x, "postinit", true] call core_fnc_loadModule;
+	} forEach _modules;
 	
 	/* Load Framework Documentation */
+	#define DIARY_BUFFER_FLUSH_INTERVAL 1 // second(s)
 	if (!isDedicated) then {
 		player createDiarySubject ["core_docs", "Core Framework"];
-		// TODO
-		player createDiaryRecord ["core_docs", ["Diagnostics Log", ""]];
-		player createDiaryRecord ["core_docs", ["Parameters", ""]];
-		player createDiaryRecord ["core_docs", ["Modules", ""]];
-		player createDiaryRecord ["core_docs", ["About", ""]];
-	};
+		private ["_modDoc", "_paramDoc"];
+		_modDoc = "<br/>Mission Modules:";
+		_paramDoc = "<br/>Mission Parameters:<br/>";
+		{ // forEach
+			_modDoc = _modDoc + format["<br/><br/>------------------------<br/><br/>    Module: %1<br/>    Version: %2<br/>    Author(s): %3<br/>    URL: %4",
+				[_x >> "name", "N/A"] call core_fnc_getConfigValue,
+				[_x >> "version", "N/A"] call core_fnc_getConfigValue,
+				[[_x >> "authors", "N/A"] call core_fnc_getConfigValue] call core_fnc_toString,
+				[_x >> "url", "N/A"] call core_fnc_getConfigValue
+			];
+		} forEach _modules;
+		{ // forEach
+			_paramDoc = _paramDoc + format["<br/>    %1: %2", (_x select 0), (_x select 1)];
+		} forEach _params;
+		player createDiaryRecord ["core_docs", ["About",
+			format["<br/>Core Mission Framework<br/><br/>    Version: %1<br/>    Authors: Naught, Olsen", core_version]
+		]];
+		player createDiaryRecord ["core_docs", ["Modules", _modDoc]];
+		player createDiaryRecord ["core_docs", ["Parameters", _paramDoc]];
+		if (core_logToDiary) then { // Ensure initial load of diary record
+			player createDiaryRecord ["core_docs", ["Diagnostics Log", ""]];
+		};
+		[] spawn {
+			while {true} do {
+				if (core_logToDiary && {(count core_diaryLogQueue) > 0}) then {
+					{ // forEach
+						player createDiaryRecord ["core_docs", ["Diagnostics Log", ("<font face='Zeppelin33' size='10'>" + _x + "</font>")]];
+					} forEach core_diaryLogQueue;
+					core_diaryLogQueue = []; // Okay while SQF variable mutex is guaranteed
+				};
+				uiSleep DIARY_BUFFER_FLUSH_INTERVAL;
+			};
+		};
+};
 	
 	/* Finish world initialization*/
 	finishMissionInit;
@@ -174,6 +195,6 @@ endLoadingScreen;
 	
 	/* Finalizing Initialization */
 	["Notice", "Core-Init", "Core initialization has finished. Benchmark: %1 sec.", [
-		(diag_tickTime - (_this select 0))
+		(diag_tickTime - _startTime)
 	], __FILE__, __LINE__] call core_fnc_log;
 };

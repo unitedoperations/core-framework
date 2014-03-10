@@ -3,7 +3,6 @@
 
 #define CONFIG_ENV
 
-#include "static\load.cpp"
 #include "core\macros.cpp"
 #include "settings.cpp"
 

@@ -2,8 +2,9 @@
 // TODO: Need documentation
 class Core
 {
-	sp_log_level[] = {"info", "notice", "warning", "error", "critical"};
-	mp_log_level[] = {"notice", "warning", "error", "critical"};
+	log_to_diary	= 1;
+	sp_log_level[]	= {"info", "notice", "warning", "error", "critical"};
+	mp_log_level[]	= {"notice", "warning", "error", "critical"};
 };
 
 /************************************************

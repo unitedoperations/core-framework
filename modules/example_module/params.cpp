@@ -6,6 +6,6 @@ class ParamName
 	texts[]		= {"Yes", "No"};
 	boolean		= 1; // optional
 	variable	= "gvar_paramName"; // optional
-	execute		= "_this call core_fnc_function"; // optional
+	//execute		= "_this call core_fnc_function"; // optional
 	default		= DFT_PARAMNAME;
 };

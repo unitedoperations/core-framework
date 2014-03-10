@@ -20,7 +20,7 @@
 core_fnc_isFilePath = {
 	private ["_stringArray"];
 	_stringArray = toArray(_this select 0);
-	((_stringArray find 46) >= 0) && ((_stringArray find 34) < 0) && ((_stringArray find 39) < 0) // 46='.', 34=("), 39=(') (ie: 'path\file.sqf')
+	(46 in _stringArray) && {!(34 in _stringArray)} && {!(39 in _stringArray)} // 46='.', 34=("), 39=(') (ie: 'path\file.sqf')
 };
 
 /*
@@ -39,4 +39,37 @@ core_fnc_compileFile = {
 	if (_file != "") then {
 		compile _file;
 	} else {{}}; // Is empty code okay?
+};
+
+/*
+	Function: core_fnc_loadModule
+	Author(s): Naught
+	Description:
+		Loads a module in a specified environment.
+	Parameters:
+		0 - Module config path [config]
+		1 - Module load type name [string]
+		2 - Run in scheduled environment [bool] (optional)
+	Returns:
+		Module return value [any]
+*/
+core_fnc_loadModule = {
+	private ["_cfg", "_type", "_scheduled", "_cfgName", "_exec"];
+	_cfg = _this select 0;
+	_type = _this select 1;
+	_scheduled = [_this, 2, ["BOOL"], false] call core_fnc_param;
+	_cfgName = configName(_cfg);
+	["Info", "core_fnc_loadModule", "Loading module '%1' %2.", [_cfgName, _type], __FILE__, __LINE__] call core_fnc_log;
+	_exec = [(_cfg >> _type), ("modules\" + _cfgName + "\" + _type + ".sqf")] call core_fnc_getConfigValue;
+	_exec = if ([_exec] call core_fnc_isFilePath) then {
+		[_exec] call core_fnc_compileFile;
+	} else {
+		compile _exec;
+	};
+	if (_scheduled) then {
+		[] spawn _exec;
+	} else {
+		[] call _exec;
+	};
+	["Info", "core_fnc_loadModule", "Loaded module '%1' %2.", [_cfgName, _type], __FILE__, __LINE__] call core_fnc_log;
 };

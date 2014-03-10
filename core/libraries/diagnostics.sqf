@@ -123,5 +123,9 @@ core_fnc_log = {
 			format([_this select 2] + ([_this, 3, ["ARRAY"], []] call core_fnc_param))
 		];
 		diag_log text _output;
+		if (core_logToDiary) then {
+			if (isNil "core_diaryLogQueue") then {core_diaryLogQueue = []};
+			[core_diaryLogQueue, _output] call core_fnc_push;
+		};
 	};
 };

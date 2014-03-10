@@ -60,4 +60,39 @@ core_fnc_toBool = {
 	};
 	_eval
 };
+
+/*
+	Function: core_fnc_toString
+	Author(s): Naught
+	Description:
+		Converts a value to a string.
+	Parameters:
+		0 - Value [any]
+	Returns:
+		String conversion [string]
+*/
+core_fnc_toString = {
+	private ["_val"];
+	_val = _this select 0;
+	switch (typeName(_val)) do {
+		case "STRING": {
+			_val;
+		};
+		case "ARRAY": {
+			private ["_ret"];
+			_ret = "";
+			{ // forEach
+				if (_forEachIndex != 0) then {_ret = _ret + ", "};
+				_ret = _ret + ([_x] call core_fnc_toString);
+			} forEach _val;
+			_ret;
+		};
+		case "SIDE": {
+			[_val] call core_fnc_sideToText;
+		};
+		default {
+			str(_val);
+		};
+	};
+};
 	

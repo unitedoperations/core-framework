@@ -12,4 +12,4 @@
 
 em_allow_teleport_to_sl = 1; // Will be saved as a gvar of "em_allow_teleport_to_sl"
 
-em_building_types[] = {"class_1", "class_2"}; 
+em_building_types[] = {"class_1", "class_2"};
