@@ -128,6 +128,11 @@ endLoadingScreen;
 /* Start Delayed Execution */
 [_startTime, _modules] spawn {
 	
+	/* Wait for Player */
+	if (!isDedicated) then {
+		[{!(isNull player)}, -1, "Player Initialization"] call core_fnc_wait;
+	};
+	
 	/* Wait for XEH Post-Initialization */
 	if (isClass(configFile >> "CfgPatches" >> "cba_xeh")) then {
 		[{!(isNil "SLX_XEH_MACHINE") && {SLX_XEH_MACHINE select 8}}, -1, "XEH Initialization"] call core_fnc_wait;
@@ -136,11 +141,6 @@ endLoadingScreen;
 	/* Wait for Server */
 	if (!isServer) then {
 		[{!(isNil "core_serverInit") && {core_serverInit}}, -1, "Core Server Initialization"] call core_fnc_wait;
-	};
-	
-	/* Wait for Player */
-	if (!isDedicated) then {
-		[{!(isNull player)}, -1, "Player Initialization"] call core_fnc_wait;
 	};
 	
 	/* Load Module Post-Inits */
