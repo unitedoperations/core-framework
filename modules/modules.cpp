@@ -18,4 +18,5 @@
 		"config.cpp" files within the module folders.
 */
 
-#include "example_module\config.cpp"
+//#include "example_module\config.cpp"
+#include "flexi_menu_helper\config.cpp"
