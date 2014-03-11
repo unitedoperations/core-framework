@@ -74,12 +74,13 @@ core_fnc_registerModule = {
 	Author(s): Naught
 	Description:
 		Loads a module in a specified environment.
+		Also loads all module dependencies.
 	Parameters:
 		0 - Module config path [config]
 		1 - Module load type name [string]
 		2 - Run in scheduled environment [bool] (optional)
 	Returns:
-		Module return value [any]
+		Loaded modules [array]
 */
 core_fnc_loadModule = {
 	private ["_cfg", "_type", "_scheduled"];
@@ -87,6 +88,10 @@ core_fnc_loadModule = {
 	_type = _this select 1;
 	_scheduled = [_this, 2, ["BOOL"], false] call core_fnc_param;
 	if (isClass(_cfg)) then {
+		if (([_cfg >> "required_version", 0] call core_fnc_getConfigValue) > core_version) exitWith { // Outdated Core
+			["Error", "core_fnc_loadModule", "Cannot load module '%1' @ %2: Core framework outdated (currently v%3).", [_cfgName, _type, core_version], __FILE__, __LINE__] call core_fnc_log;
+			nil; // Function will return nil
+		};
 		private ["_cfgName", "_loadedModules"];
 		_cfgName = configName(_cfg);
 		_loadedModules = [];

@@ -161,7 +161,7 @@ endLoadingScreen;
 			_paramDoc = _paramDoc + format["<br/>    %1: %2", (_x select 0), (_x select 1)];
 		} forEach _params;
 		player createDiaryRecord ["core_docs", ["About",
-			format["<br/>Core Mission Framework<br/><br/>    Version: %1<br/>    Authors: Naught, Olsen", core_version]
+			format["<br/>Core Mission Framework<br/><br/>Version: %1<br/>Authors: Naught, Olsen", core_version]
 		]];
 		player createDiaryRecord ["core_docs", ["Modules", _modDoc]];
 		player createDiaryRecord ["core_docs", ["Parameters", _paramDoc]];
