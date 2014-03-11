@@ -42,6 +42,34 @@ core_fnc_compileFile = {
 };
 
 /*
+	Function: core_fnc_registerModule
+	Author(s): Naught
+	Description:
+		Registers a new module state.
+	Parameters:
+		0 - Module name [string]
+		1 - Module load type name [string]
+	Returns:
+		New register status [bool]
+*/
+core_fnc_registerModule = {
+	if (isNil "core_moduleList") then {core_moduleList = []};
+	private ["_module", "_type", "_result"];
+	_module = _this select 0;
+	_type = _this select 1;
+	_result = true;
+	{ // forEach
+		if (((_x select 0) == _module) && {(_x select 1) == _type}) exitWith {
+			_result = false;
+		};
+	} forEach core_moduleList;
+	if (!_result) then { // Register new module state
+		[core_moduleList, [_module, _type]] call core_fnc_push;
+	};
+	_result
+};
+
+/*
 	Function: core_fnc_loadModule
 	Author(s): Naught
 	Description:
@@ -54,22 +82,47 @@ core_fnc_compileFile = {
 		Module return value [any]
 */
 core_fnc_loadModule = {
-	private ["_cfg", "_type", "_scheduled", "_cfgName", "_exec"];
+	private ["_cfg", "_type", "_scheduled"];
 	_cfg = _this select 0;
 	_type = _this select 1;
 	_scheduled = [_this, 2, ["BOOL"], false] call core_fnc_param;
-	_cfgName = configName(_cfg);
-	["Info", "core_fnc_loadModule", "Loading module '%1' %2.", [_cfgName, _type], __FILE__, __LINE__] call core_fnc_log;
-	_exec = [(_cfg >> _type), ("modules\" + _cfgName + "\" + _type + ".sqf")] call core_fnc_getConfigValue;
-	_exec = if ([_exec] call core_fnc_isFilePath) then {
-		[_exec] call core_fnc_compileFile;
-	} else {
-		compile _exec;
-	};
-	if (_scheduled) then {
-		[] spawn _exec;
-	} else {
-		[] call _exec;
-	};
-	["Info", "core_fnc_loadModule", "Loaded module '%1' %2.", [_cfgName, _type], __FILE__, __LINE__] call core_fnc_log;
+	if (isClass(_cfg)) then {
+		private ["_cfgName", "_loadedModules"];
+		_cfgName = configName(_cfg);
+		_loadedModules = [];
+		if ([_cfgName, _type] call core_fnc_registerModule) then {
+			["Info", "core_fnc_loadModule", "Loading module '%1' %2.", [_cfgName, _type], __FILE__, __LINE__] call core_fnc_log;
+			private ["_requirements", "_depError"];
+			_requirements = [_cfg >> "requirements", []] call core_fnc_getConfigValue;
+			_depError = false;
+			{ // forEach
+				if (isClass(missionConfigFile >> "Modules" >> _x) || {!isClass(configFile >> "CfgPatches" >> _x)}) then {
+					private ["_retModules"];
+					_retModules = [missionConfigFile >> "Modules" >> _x, _type, _scheduled] call core_fnc_loadModule;
+					if (isNil "_retModules") exitWith {
+						_depError = true;
+						["Error", "core_fnc_loadModule", "Cannot load module '%1' @ %2: Missing dependency '%3'.", [_cfgName, _type, _x], __FILE__, __LINE__] call core_fnc_log;
+					};
+					_loadedModules = _loadedModules + _retModules;
+				};
+			} forEach _requirements;
+			if (!_depError) then {
+				private ["_exec"];
+				_exec = [(_cfg >> _type), ("modules\" + _cfgName + "\" + _type + ".sqf")] call core_fnc_getConfigValue;
+				_exec = if ([_exec] call core_fnc_isFilePath) then {
+					[_exec] call core_fnc_compileFile;
+				} else {
+					compile _exec;
+				};
+				if (_scheduled) then {
+					[] spawn _exec;
+				} else {
+					[] call _exec;
+				};
+				["Info", "core_fnc_loadModule", "Loaded module '%1' %2.", [_cfgName, _type], __FILE__, __LINE__] call core_fnc_log;
+				[_loadedModules, _cfgName] call core_fnc_push;
+			};
+		};
+		_loadedModules;
+	} else {nil};
 };
