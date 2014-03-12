@@ -110,18 +110,20 @@ core_fnc_loadModule = {
 			} forEach _requirements;
 			if (!_depError) then {
 				private ["_exec"];
-				_exec = [(_cfg >> _type), ("modules\" + _cfgName + "\" + _type + ".sqf")] call core_fnc_getConfigValue;
-				_exec = if ([_exec] call core_fnc_isFilePath) then {
-					[_exec] call core_fnc_compileFile;
-				} else {
-					compile _exec;
+				_exec = [(_cfg >> _type), ""] call core_fnc_getConfigValue;
+				if (_exec != "") then {
+					_exec = if ([_exec] call core_fnc_isFilePath) then {
+						["modules\" + _cfgName + "\" + _exec] call core_fnc_compileFile;
+					} else {
+						compile _exec;
+					};
+					if (_scheduled) then {
+						[] spawn _exec;
+					} else {
+						[] call _exec;
+					};
+					["Info", "core_fnc_loadModule", "Loaded module '%1' %2.", [_cfgName, _type], __FILE__, __LINE__] call core_fnc_log;
 				};
-				if (_scheduled) then {
-					[] spawn _exec;
-				} else {
-					[] call _exec;
-				};
-				["Info", "core_fnc_loadModule", "Loaded module '%1' %2.", [_cfgName, _type], __FILE__, __LINE__] call core_fnc_log;
 				[_loadedModules, _cfgName] call core_fnc_push;
 			};
 		};
