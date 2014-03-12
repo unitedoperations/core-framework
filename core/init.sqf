@@ -8,6 +8,7 @@
 */
 
 /* Set Reference Variables */
+#define COMPONENT "Core-Init"
 core_init = false;
 if (isServer) then {
 	core_serverInit = false;
@@ -39,12 +40,12 @@ core_logToDiary = [[missionConfigFile >> "Core" >> "log_to_diary", 0] call core_
 /* Start Initialization */
 private ["_startTime"];
 _startTime = diag_tickTime;
-["Notice", "Core-Init", "Core initialization has started.", [], __FILE__, __LINE__] call core_fnc_log;
+["Notice", COMPONENT, "Core initialization has started.", [], __FILE__, __LINE__] call core_fnc_log;
 
 /* Load Mission Parameters */
 private ["_params"];
 _params = [];
-["Info", "Core-Init", "Loading mission parameters.", [], __FILE__, __LINE__] call core_fnc_log;
+["Info", COMPONENT, "Loading mission parameters.", [], __FILE__, __LINE__] call core_fnc_log;
 #define PARAMS_CONFIG (missionConfigFile >> "Params")
 if (isNil "paramsArray") then {paramsArray = []};
 for "_i" from 0 to ((count PARAMS_CONFIG) - 1) do {
@@ -74,7 +75,7 @@ for "_i" from 0 to ((count PARAMS_CONFIG) - 1) do {
 };
 
 /* Load Modules */
-["Info", "Core-Init", "Loading mission modules.", [], __FILE__, __LINE__] call core_fnc_log;
+["Info", COMPONENT, "Loading mission modules.", [], __FILE__, __LINE__] call core_fnc_log;
 #define MODULES_CONFIG (missionConfigFile >> "Modules")
 private ["_modules"];
 _modules = [];
@@ -83,7 +84,7 @@ for "_i" from 0 to ((count MODULES_CONFIG) - 1) do {
 };
 
 /* Load Module Settings */
-["Info", "Core-Init", "Loading module settings.", [], __FILE__, __LINE__] call core_fnc_log;
+["Info", COMPONENT, "Loading module settings.", [], __FILE__, __LINE__] call core_fnc_log;
 { // forEach
 	private ["_settings"];
 	_settings = _x >> "settings";
@@ -102,7 +103,7 @@ for "_i" from 0 to ((count MODULES_CONFIG) - 1) do {
 } forEach _modules;
 
 /* Load Module Pre-Inits */
-["Info", "Core-Init", "Loading module preinits.", [], __FILE__, __LINE__] call core_fnc_log;
+["Info", COMPONENT, "Loading module preinits.", [], __FILE__, __LINE__] call core_fnc_log;
 { // forEach
 	[_x, "preinit", false] call core_fnc_loadModule;
 } forEach _modules;
@@ -136,7 +137,7 @@ endLoadingScreen;
 	};
 	
 	/* Load Module Post-Inits */
-	["Info", "Core-Init", "Loading module post-inits.", [], __FILE__, __LINE__] call core_fnc_log;
+	["Info", COMPONENT, "Loading module post-inits.", [], __FILE__, __LINE__] call core_fnc_log;
 	{ // forEach
 		[_x, "postinit", true] call core_fnc_loadModule;
 	} forEach _modules;
@@ -160,7 +161,7 @@ endLoadingScreen;
 			_paramDoc = _paramDoc + format["<br/>    %1: %2", (_x select 0), (_x select 1)];
 		} forEach _params;
 		player createDiaryRecord ["core_docs", ["About",
-			format["<br/>Core Mission Framework<br/><br/>    Version: %1<br/>    Authors: Naught, Olsen", core_version]
+			format["<br/>Core Mission Framework<br/><br/>Version: %1<br/>Authors: Naught, Olsen", core_version]
 		]];
 		player createDiaryRecord ["core_docs", ["Modules", _modDoc]];
 		player createDiaryRecord ["core_docs", ["Parameters", _paramDoc]];
@@ -191,7 +192,7 @@ endLoadingScreen;
 	};
 	
 	/* Finalizing Initialization */
-	["Notice", "Core-Init", "Core initialization has finished. Benchmark: %1 sec.", [
+	["Notice", COMPONENT, "Core initialization has finished. Benchmark: %1 sec.", [
 		(diag_tickTime - _startTime)
 	], __FILE__, __LINE__] call core_fnc_log;
 };

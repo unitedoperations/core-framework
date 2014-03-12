@@ -1,9 +1,6 @@
 
 /*
 	Title: Diagnostic Function Library
-	Notes:
-		1. When updating the library, increment the
-		below library register version number by one.
 */
 
 /*

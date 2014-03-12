@@ -20,3 +20,4 @@
 
 #include "example_module\config.cpp"
 #include "marker_control\config.cpp"
+#include "flexi_menu_helper\config.cpp"
