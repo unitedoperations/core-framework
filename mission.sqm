@@ -44,6 +44,16 @@ class Mission
 			};
 		};
 	};
+	class Markers
+	{
+		items=1;
+		class Item0
+		{
+			position[]={3566.9092,19,3616.8276};
+			name="test";
+			type="Faction_CDF";
+		};
+	};
 };
 class Intro
 {
