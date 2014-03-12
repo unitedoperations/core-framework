@@ -95,7 +95,7 @@ core_fnc_loadModule = {
 		if ([_cfgName, _type] call core_fnc_registerModule) then {
 			["Info", "core_fnc_loadModule", "Loading module '%1' %2.", [_cfgName, _type], __FILE__, __LINE__] call core_fnc_log;
 			private ["_requirements", "_depError"];
-			_requirements = [_cfg >> "requirements", []] call core_fnc_getConfigValue;
+			_requirements = [_cfg >> "dependencies", []] call core_fnc_getConfigValue;
 			_depError = false;
 			{ // forEach
 				if (isClass(missionConfigFile >> "Modules" >> _x) || {!isClass(configFile >> "CfgPatches" >> _x)}) then {
