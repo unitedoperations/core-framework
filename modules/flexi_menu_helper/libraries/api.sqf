@@ -44,7 +44,7 @@ fmh_fnc_addFlexiButton = {
 		[_this, 9, ["STRING"], ""] call core_fnc_param,
 		[_this, 8, ["SCALAR"], -1] call core_fnc_param,
 		[_this, 4, ["BOOL"], true] call core_fnc_param,
-		[_this, 5, ["BOOL"], true] call core_fnc_param,
+		[_this, 5, ["BOOL"], true] call core_fnc_param
 	]];
 	_flexiMenu set [1, _buttonArray];
 	_menuDefs set [_menuDefIndex, _flexiMenu];
