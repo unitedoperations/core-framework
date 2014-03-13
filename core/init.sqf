@@ -179,7 +179,7 @@ endLoadingScreen;
 				uiSleep DIARY_BUFFER_FLUSH_INTERVAL;
 			};
 		};
-};
+	};
 	
 	/* Finish world initialization*/
 	finishMissionInit;
