@@ -1,17 +1,12 @@
-#define SYSTEM sideLogic
 
-#define ADDMARKER(SIDE, NAME) \
-_markers set [count _markers, [SIDE, NAME]];
+#define MARKER_CONFIG (missionConfigFile >> "Modules" >> "marker_control" >> "settings" >> "markers")
 
 if (!isDedicated) then {
-
-	_markers = [];
-
-	#include "settings.sqf"
-
-	{
-		if ((_x select 0) != (side player)) then {
-			(_x select 1) setMarkerAlphaLocal 0;
+	for "_i" from 0 to (count MARKER_CONFIG) do {
+		private ["_markerCfg"];
+		_markerCfg = MARKER_CONFIG select _i;
+		if (toLower(getText(_markerCfg >> "side")) != toLower(str(side player))) then {
+			configName(_markerCfg) setMarkerAlphaLocal 0;
 		};
-	} forEach _markers;
+	};
 };
