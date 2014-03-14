@@ -7,4 +7,7 @@ class flexi_menu_helper
 	version = 1;
 	preinit = "preinit.sqf";
 	postinit = "postinit.sqf";
+	class settings {
+		#include "settings.cpp"
+	};
 };
