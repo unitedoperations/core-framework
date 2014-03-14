@@ -3,11 +3,11 @@ _target = _this select 3;
 
 _allDead = false;
 
-if ([_target] call ace_sys_wounds_fnc_isUncon || _target getVariable ["frameworkDead", false] || !(alive _target)) then {
+if ([_target] call ace_sys_wounds_fnc_isUncon || {_target getVariable ["frameworkDead", false] || {!(alive _target)}}) then {
 	_rank = -1;
 
 	{
-		if (rankId _x > _rank && !([_x] call ace_sys_wounds_fnc_isUncon)) then {
+		if (rankId _x > _rank && {!([_x] call ace_sys_wounds_fnc_isUncon)}) then {
 			_rank = rankId _x;
 			_target = _x;
 		};

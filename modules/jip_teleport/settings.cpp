@@ -1,15 +1,5 @@
+// On spawn, if your squad is further then jtp_jipDistance away, you get the option to teleport to them.
+jtp_jipDistance = 200;
 
-/*
-	Note (REMOVE BEFORE PRODUCTION):
-		This settings file is loaded if the module is loaded.
-		All settings will be saved as global variables with the
-		name of the setting used as the variable identifier.
-		Defines can also be used here to customize default values
-		in the params.cpp.
-*/
-
-#define DFT_PARAMNAME 1 // Used in params.cpp
-
-em_allow_teleport_to_sl = 1; // Will be saved as a gvar of "em_allow_teleport_to_sl"
-
-em_building_types[] = {"class_1", "class_2"};
+// If you move jtp_spawnDistance away from your spawnpoint you loose the option to teleport.
+jtp_spawnDistance = 200;
