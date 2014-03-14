@@ -34,7 +34,7 @@ startLoadingScreen ["Loading Core Mission Framework..."];
 #include "libraries\strings.sqf"
 
 /* Load Objects */
-#include "objects\hashmap.h"
+#include "objects\hashmap.sqf"
 
 /* Load Logging Configuration */
 #define GET_LOG_LEVEL(cfg) (missionConfigFile >> "Core" >> cfg)
@@ -178,7 +178,7 @@ endLoadingScreen;
 			while {true} do {
 				if (core_logToDiary && {(count core_diaryLogQueue) > 0}) then {
 					{ // forEach
-						player createDiaryRecord ["core_docs", ["Diagnostics Log", ("<font face='Zeppelin33' size='10'>" + _x + "</font>")]];
+						player createDiaryRecord ["core_docs", ["Diagnostics Log", _x]];
 					} forEach core_diaryLogQueue;
 					core_diaryLogQueue = []; // Okay while SQF variable mutex is guaranteed
 				};
