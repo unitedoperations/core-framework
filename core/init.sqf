@@ -19,6 +19,9 @@ core_version = call compile preprocessFile "core\$VERSION$";
 /* Start Loading Screen */
 startLoadingScreen ["Loading Core Mission Framework..."];
 
+/* Load Headers */
+#include "headers\oop.h"
+
 /* Load Libraries */
 #include "libraries\arrays.sqf"
 #include "libraries\chrono.sqf"
@@ -29,6 +32,9 @@ startLoadingScreen ["Loading Core Mission Framework..."];
 #include "libraries\math.sqf"
 #include "libraries\rve.sqf"
 #include "libraries\strings.sqf"
+
+/* Load Objects */
+#include "objects\hashmap.h"
 
 /* Load Logging Configuration */
 #define GET_LOG_LEVEL(cfg) (missionConfigFile >> "Core" >> cfg)

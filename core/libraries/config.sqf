@@ -44,7 +44,7 @@ core_fnc_getConfigValue = {
 	Parameters:
 		0 - Module name [string]
 		1 - Setting name [string]
-		2 - Convert to bool [bool]
+		2 - Convert to bool [bool] (optional)
 	Returns:
 		Setting [any]
 */
