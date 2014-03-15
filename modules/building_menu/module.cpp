@@ -5,6 +5,7 @@ class building_menu
 	authors[] = {"Naught"};
 	version = 1;
 	dependencies[] = {"flexi_menu_helper", "cba_common"};
+	url = "https://github.com/unitedoperations/Core-framework";
 	preinit = "preinit.sqf";
 	postinit = "postinit.sqf";
 	class settings {
