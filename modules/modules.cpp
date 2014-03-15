@@ -18,8 +18,11 @@
 		"config.cpp" files within the module folders.
 */
 
-#include "building_menu\config.cpp"
-#include "flexi_menu_helper\config.cpp"
+#include "ai_performance\config.cpp" // Not tested
+#include "building_menu\config.cpp" // Not tested
+#include "earplugs\config.cpp"
+#include "flexi_menu_helper\config.cpp" // Not tested
+#include "gear\config.cpp" // Not tested
 #include "jip_teleport\config.cpp"
 #include "marker_control\config.cpp"
 #include "start_text\config.cpp"
