@@ -6,7 +6,7 @@
 			this setVariable ["building_menu_allow", true];
 */
 
-/* General Settings */
+/* Generic Settings */
 
 preview_update_speed = 30; // Hertz; Update speed of preview structure position. Affects performance. Set to 0 for constant updating.
 

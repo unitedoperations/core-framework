@@ -89,11 +89,13 @@ core_fnc_insert = {
 		1. This is slower than core_fnc_uErase.
 */
 core_fnc_erase = {
-	private ["_arr"];
+	private ["_arr", "_arrCount"];
 	_arr = _this select 0;
-	for "_i" from (_this select 1) to ((count _arr) - 2) do {
+	_arrCount = count _arr;
+	for "_i" from (_this select 1) to (_arrCount - 2) do {
 		_arr set [_i, (_arr select (_i + 1))];
 	};
+	_arr resize [_arrCount - 1];
 	_arr
 };
 
