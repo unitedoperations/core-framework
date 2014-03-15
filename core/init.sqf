@@ -48,6 +48,17 @@ private ["_startTime"];
 _startTime = diag_tickTime;
 ["Notice", COMPONENT, "Core initialization has started.", [], __FILE__, __LINE__] call core_fnc_log;
 
+/* Initialize Client ID System */
+if (isServer) then {
+	"core_clientIdRequest" addPublicVariableEventHandler {
+		private ["_clientId"];
+		_clientId = owner(_this select 1);
+		core_clientID = _clientId;
+		_clientId publicVariableClient "core_clientID";
+		core_clientID = nil;
+	};
+};
+
 /* Load Mission Parameters */
 private ["_params"];
 _params = [];
@@ -132,14 +143,26 @@ endLoadingScreen;
 		[{!(isNull player)}, -1, "Player Initialization"] call core_fnc_wait;
 	};
 	
-	/* Wait for XEH Post-Initialization */
-	if (isClass(configFile >> "CfgPatches" >> "cba_xeh")) then {
-		[{!(isNil "SLX_XEH_MACHINE") && {SLX_XEH_MACHINE select 8}}, -1, "XEH Initialization"] call core_fnc_wait;
-	};
-	
 	/* Wait for Server */
 	if (!isServer) then {
 		[{!(isNil "core_serverInit") && {core_serverInit}}, -1, "Core Server Initialization"] call core_fnc_wait;
+	};
+	
+	/* Request Client ID */
+	if (!isDedicated) then {
+		if (isServer) then {
+			core_clientID = owner(player);
+		} else {
+			["Info", COMPONENT, "Requesting Client ID.", [], __FILE__, __LINE__] call core_fnc_log;
+			core_clientIdRequest = player;
+			publicVariableServer "core_clientIdRequest";
+			waitUntil {!isNil "core_clientID"};
+		};
+	};
+	
+	/* Wait for XEH Post-Initialization */
+	if (isClass(configFile >> "CfgPatches" >> "cba_xeh")) then {
+		[{!(isNil "SLX_XEH_MACHINE") && {SLX_XEH_MACHINE select 8}}, -1, "XEH Initialization"] call core_fnc_wait;
 	};
 	
 	/* Load Module Post-Inits */
