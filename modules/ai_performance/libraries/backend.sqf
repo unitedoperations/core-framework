@@ -79,3 +79,46 @@ aip_fnc_aiPerformanceLoop = {
 		uiSleep _loopDelay;
 	};
 };
+
+aip_fnc_debugMode = {
+	while {true} do {
+		[0, {
+			if (isServer && {(count aip_headlessClients) <= 0}) then {
+				aip_hcUnitCount = 0;
+				_this publicVariableClient "aip_hcUnitCount";
+			};
+			if (!isDedicated && !hasInterface) then { // HC
+				aip_hcUnitCount = {local _x} count allUnits;
+				_this publicVariableClient "aip_hcUnitCount";
+			};
+		}, core_clientID] call CBA_fnc_globalExecute;
+		private ["_cachedCount", "_disabledCount"];
+		_cachedCount = 0;
+		_disabledCount = 0;
+		{ // forEach
+			if (_x getVariable ["aip_cached", false]) then {
+				_cachedCount = _cachedCount + 1;
+			};
+			if !(_x getVariable ["aip_caching_allowed", true]) then {
+				_disabledCount = _disabledCount + 1;
+			};
+		} forEach allUnits;
+		waitUntil {!isNil "aip_hcUnitCount"};
+		private ["_totalAI", "_string"];
+		_totalAI = count allUnits;
+		// LC = local cached, DC = disable cached, HC = headless client, AI = total AI
+		_string = format["LC @ %1 (%2%). DC @ %3 (%4%). HC @ %5 (%6%). AI @ %7.",
+			_cachedCount,
+			round((_cachedCount / _totalAI) * 100),
+			_disabledCount,
+			round((_disabledCount / _totalAI) * 100),
+			aip_hcUnitCount,
+			round((aip_hcUnitCount / _totalAI) * 100),
+			_totalAI
+		];
+		player sideChat format["%1 AIP: %2", round(time), _string];
+		["Info", "AIP", _string, [], __FILE__, __LINE__] call core_fnc_log;
+		aip_hcUnitCount = nil;
+		sleep 10;
+	};
+};

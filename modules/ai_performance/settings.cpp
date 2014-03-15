@@ -15,3 +15,7 @@ cache_distance = "viewDistance"; // Meters; Either a code string or number.
 enable_distribution = 1; // Binary; Whether to automatically send units to available headless clients.
 
 ai_loop_delay = 5; // Seconds; Time to sleep between AI cache/distribution checking.
+
+/* Advanced Settings */
+
+debug_mode_enabled = 0; // Binary; Whether to display AI debugging information.
