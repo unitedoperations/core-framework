@@ -14,6 +14,8 @@
 		3. The file name (without '.sqf') of each briefing file will be the config name of each page.
 		4. The text for each config name is the title of the page, which will be displayed in the diary.
 		5. All briefing files must be placed within the 'briefings' folder in the module root.
+		6. Briefing pages will be loaded in reverse-order so pages show up in the diary in the same
+		   order as listed within the class (pseudo-patch of Arma 'bug').
 */
 
 /* Generic Settings */
