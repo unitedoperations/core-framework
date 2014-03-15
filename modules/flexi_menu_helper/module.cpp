@@ -3,8 +3,9 @@ class flexi_menu_helper
 {
 	name = "Flexi Menu Helper";
 	authors[] = {"Naught"};
-	dependencies[] = {"cba_ui", "ace_sys_interaction"};
 	version = 1;
+	dependencies[] = {"cba_ui"};
+	url = "https://github.com/unitedoperations/Core-framework";
 	preinit = "preinit.sqf";
 	postinit = "postinit.sqf";
 	class settings {
