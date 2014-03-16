@@ -128,3 +128,28 @@ core_fnc_unitVehPos = {
 	};
 	_res
 };
+
+/*
+	Function: core_fnc_setDate
+	Author(s): Naught
+	Description:
+		Sets the current local date and time.
+	Parameters:
+		0 - Date [array]
+			~ [minute, hour, day, month, year]
+	Returns:
+		Nothing [nil]
+	Notes:
+		1. You may set any date parameter to nil to use the current.
+*/
+core_fnc_setDate = {
+	private ["_date", "_dateCount"];
+	_date = date;
+	_dateCount = count _date;
+	for "_i" from 0 to (_dateCount - 1) do {
+		if (((count _this) > _i) && {!isNil {_this select _i}}) then {
+			_date set [(_dateCount - _i), (_this select _i)];
+		};
+	};
+	setDate _date;
+};
