@@ -27,3 +27,4 @@
 #include "jip_teleport\config.cpp"
 #include "marker_control\config.cpp"
 #include "start_text\config.cpp"
+#include "sync_time\config.cpp" // Not tested

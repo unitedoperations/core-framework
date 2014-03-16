@@ -50,12 +50,13 @@ _startTime = diag_tickTime;
 
 /* Initialize Client ID System */
 if (isServer) then {
+	core_clientId = -1;
 	"core_clientIdRequest" addPublicVariableEventHandler {
 		private ["_clientId"];
 		_clientId = owner(_this select 1);
-		core_clientID = _clientId;
-		_clientId publicVariableClient "core_clientID";
-		core_clientID = nil;
+		core_clientId = _clientId;
+		_clientId publicVariableClient "core_clientId";
+		core_clientId = -1;
 	};
 };
 
@@ -151,12 +152,12 @@ endLoadingScreen;
 	/* Request Client ID */
 	if (!isDedicated) then {
 		if (isServer) then {
-			core_clientID = owner(player);
+			core_clientId = owner(player);
 		} else {
 			["Info", COMPONENT, "Requesting Client ID.", [], __FILE__, __LINE__] call core_fnc_log;
 			core_clientIdRequest = player;
 			publicVariableServer "core_clientIdRequest";
-			waitUntil {!isNil "core_clientID"};
+			waitUntil {!isNil "core_clientId"};
 		};
 	};
 	
