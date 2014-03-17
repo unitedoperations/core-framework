@@ -1,6 +1,6 @@
 class earplugs
 {
-	name = "earplugs";
+	name = "Earplugs In At Start";
 	authors[] = {"Olsen"};
 	version = 1;
 	required_version = 1; 
