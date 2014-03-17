@@ -19,6 +19,7 @@
 */
 
 #include "ai_performance\config.cpp" // Not tested
+#include "ai_spawner\config.cpp" // Not tested
 #include "briefing\config.cpp" // Not tested
 #include "building_menu\config.cpp" // Not tested
 #include "earplugs\config.cpp"
