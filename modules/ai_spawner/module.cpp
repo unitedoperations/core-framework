@@ -1,15 +1,12 @@
 
-class example_module
+class ai_spawner
 {
-	name = "Example Module";
-	authors[] = {"My Name"}; // Optional
-	version = 1; // Optional
-	required_version = 1;// Optional
-	dependencies[] = {"flexi_menu_helper", "A3_UI_F"}; // Optional, may be module class names or CfgPatches class names
-	url = "http://unitedoperations.net"; // Optional
-	preinit = "preinit.sqf"; // Optional
-	postinit = "postinit.sqf"; // Optional
-	class settings { // Optional
+	name = "AI Spawner Module";
+	authors[] = {"Naught"};
+	version = 1;
+	url = "https://github.com/unitedoperations/Core-framework";
+	postinit = "postinit.sqf";
+	class settings {
 		#include "settings.cpp"
 	};
 };
