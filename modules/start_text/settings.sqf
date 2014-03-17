@@ -1,7 +1,8 @@
-// AREA
-// Text displayed at the start showing what area of the map you spawned in.
-#define AREA "Chernogorsk"
-
-// MAP
-// Text displayed at the start showing what map your playing.
-#define MAP "Chernarus"
+switch (side player) do {
+	case west: {
+		["west spawnpoint", "island"] call st_fnc_displayText;
+	};
+	case east: {
+		["east spawnpoint", "island"] call st_fnc_displayText;
+	};
+};
