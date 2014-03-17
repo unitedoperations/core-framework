@@ -18,7 +18,7 @@ if (isServer) then {
 					private ["_units"];
 					_units = [(_grpCfg >> "units"), []] call core_fnc_getConfigValue;
 					if ((count _units) > 0) then {
-						private ["", "", "", "", "", "", "", ""];
+						private ["_markers", "_markerCount", "_pos", "_group"];
 						_markers = [(_grpCfg >> "markers"), []] call core_fnc_getConfigValue;
 						_markerCount = count _markers;
 						_pos = if (_markerCount > 0) then {
@@ -32,8 +32,10 @@ if (isServer) then {
 						} forEach _units;
 						_group call compile([(_grpCfg >> "init"), ""] call core_fnc_getConfigValue);
 					};
+					_conditions set [_forEachIndex, objNull];
 				};
 			} forEach _conditions;
+			_conditions = _conditions - [objNull];
 			uiSleep _condCheckDelay;
 		};
 	};
