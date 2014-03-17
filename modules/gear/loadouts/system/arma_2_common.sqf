@@ -8,6 +8,9 @@
 		#include "system\arma_2_common.sqf" // Include in all loadout files
 */
 
+#ifndef arma_2_common
+#define arma_2_common
+
 #include "macros.sqf"
 
 REMOVE_ALL_WEAPONS;
@@ -17,3 +20,5 @@ REMOVE_BACKPACK;
 REMOVE_ALL_WEAPONS_CARGO;
 REMOVE_ALL_MAGAZINES_CARGO;
 REMOVE_ALL_BACKPACKS_CARGO;
+
+#endif

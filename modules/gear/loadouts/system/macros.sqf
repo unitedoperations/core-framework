@@ -49,6 +49,9 @@
 		   the compiler may exit without running the code.
 */
 
+#ifndef gear_macros
+#define gear_macros
+
 /*
 	Group: Generic Macros
 */
@@ -171,3 +174,5 @@
 
 #define ADD_ITEM_CARGO(class,amount) \
 	_this addItemCargoGlobal [class,amount]
+
+#endif

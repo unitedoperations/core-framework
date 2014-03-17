@@ -8,7 +8,9 @@
 		#include "system\arma_3_common.sqf" // Include in all loadout files
 */
 
-#include "macros.sqf"
+#ifndef arma_3_common
+#define arma_3_common
+
 #include "arma_2_common.sqf"
 
 REMOVE_ALL_CONTAINERS;
@@ -16,3 +18,5 @@ REMOVE_HEADGEAR;
 REMOVE_GOGGLES;
 REMOVE_ALL_ASSIGNED_ITEMS;
 REMOVE_ALL_ITEMS_CARGO;
+
+#endif

@@ -8,8 +8,12 @@
 		#include "system\ace_2_common.sqf" // Include in all loadout files
 */
 
-#include "macros.sqf"
+#ifndef ace_2_common
+#define ace_2_common
+
 #include "arma_2_common.sqf"
 
 REMOVE_ALL_ACE_ITEMS;
-SET_IFAK_SUPPLIES(0, 0, 0);
+SET_IFAK_SUPPLIES(0,0,0);
+
+#endif
