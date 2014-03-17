@@ -1,12 +1,15 @@
 
 /* Load Briefing(s) */
 if (hasInterface) then {
-	private ["_briefingCfg"];
+	private ["_briefingCfg", "_briefingCount"];
 	_briefingCfg = ["briefing", "briefings"] call core_fnc_getSetting;
-	for "_i" from 0 to ((count _briefingCfg) - 1) do {
-		private ["_briefing"];
-		_briefing = _briefingCfg select _i;
-		if (toLower(str(side player)) == toLower(configName(_briefing))) exitWith {
+	_briefingCount = count _briefingCfg;
+	for "_i" from 1 to _briefingCount do {
+		#define CFG_NAME_MATCHES [toLower(str(side player)), toLower(str(player))]
+		private ["_briefing", "_cfgName"];
+		_briefing = _briefingCfg select (_briefingCount - _i);
+		_cfgName = toLower(configName(_briefing));
+		if (_cfgName in CFG_NAME_MATCHES) then {
 			private ["_pageCount"];
 			_pageCount = count _briefing;
 			for "_j" from 1 to _pageCount do {
