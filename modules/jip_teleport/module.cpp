@@ -1,11 +1,12 @@
 class jip_teleport
 {
 	name = "JIP Teleport";
-	authors[] = {"Olsen"};
-	version = 1;
+	authors[] = {"Olsen", "Naught"};
+	version = 2;
 	required_version = 1;
-	dependencies[] = {"ace_sys_wounds", "flexi_menu_helper"};
+	dependencies[] = {"flexi_menu_helper"};
 	url = "https://github.com/unitedoperations/Core-framework";
+	preinit = "preinit.sqf";
 	postinit = "postinit.sqf";
 	class settings {
 		#include "settings.cpp"
