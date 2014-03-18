@@ -6,4 +6,5 @@ class marker_control
 	required_version = 1;
 	url = "https://github.com/unitedoperations/Core-framework";
 	preinit = "preinit.sqf";
+	postinit = "postinit.sqf";
 };
