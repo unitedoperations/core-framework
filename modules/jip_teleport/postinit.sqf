@@ -4,11 +4,11 @@ if (!isDedicated) then {
 		private["_target", "_rank"];
 		_target = leader player;
 		
-		if (player == _target || {[_target] call ace_sys_wounds_fnc_isUncon}) then {
+		if (player == _target || {[_target] call ace_sys_wounds_fnc_isUncon || {!(alive _target)}}) then {
 			_rank = -1;
 		
 			{
-				if (rankId _x > _rank && {!([_x] call ace_sys_wounds_fnc_isUncon)}) then {
+				if (rankId _x > _rank && {!([_x] call ace_sys_wounds_fnc_isUncon) && {alive _target}}) then {
 					_rank = rankId _x;
 					_target = _x;
 				};
@@ -43,7 +43,7 @@ if (!isDedicated) then {
 	};
 	
 	jt_fnc_addJip = {
-		player setVariable ["jipActionId", ["interaction", "Teleport to Squad", "[] call jt_fnc_jipTeleport;"] call fmh_fnc_addFlexiButton];
+		player setVariable ["jipActionId", ["selfInteraction", "Teleport to Squad", "[] call jt_fnc_jipTeleport;"] call fmh_fnc_addFlexiButton];
 	};
 	
 	jt_fnc_removeJip = {
