@@ -1,27 +1,5 @@
 #define ANY sideLogic
 
-al_fnc_addAoMarker = {
-	private["_side", "_marker"];
-	_side = _this select 0;
-	_marker = _this select 1;
-	
-	if (_side == (side player) || _side == ANY) then {
-		al_markers set [count al_markers, _marker];	
-		_marker setMarkerAlphaLocal 1;
-	};
-};
-
-al_fnc_removeAoMarker = {
-	private["_side", "_marker"];
-	_side = _this select 0;
-	_marker = _this select 1;
-	
-	if (_side == (side player) || _side == ANY) then {
-		al_markers = al_markers - [_marker];
-		_marker setMarkerAlphaLocal 0;
-	};
-};
-
 al_fnc_inArea = {
 	private["_unit", "_marker", "_pos", "_xSize", "_ySize", "_radius", "_result", "_x", "_y", "_temp"];
 
@@ -97,6 +75,28 @@ al_fnc_inArea = {
 };
 
 if (!isDedicated) then {
+
+	al_fnc_addAoMarker = {
+		private["_side", "_marker"];
+		_side = _this select 0;
+		_marker = _this select 1;
+		
+		if (_side == (side player) || _side == ANY) then {
+			al_markers set [count al_markers, _marker];	
+			_marker setMarkerAlphaLocal 1;
+		};
+	};
+
+	al_fnc_removeAoMarker = {
+		private["_side", "_marker"];
+		_side = _this select 0;
+		_marker = _this select 1;
+		
+		if (_side == (side player) || _side == ANY) then {
+			al_markers = al_markers - [_marker];
+			_marker setMarkerAlphaLocal 0;
+		};
+	};
 
 	al_markers = [];
 
