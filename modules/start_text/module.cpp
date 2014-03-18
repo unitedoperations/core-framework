@@ -1,6 +1,6 @@
 class start_text
 {
-	name = "Start Text";
+	name = "Start text";
 	authors[] = {"Olsen"};
 	version = 1;
 	required_version = 1;

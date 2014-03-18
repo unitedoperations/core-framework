@@ -7,7 +7,7 @@ if (!isDedicated && !hasInterface) then { // HC
 			waitUntil {!(isNull player) && {alive player}};
 			[player] call aip_fnc_initHC;
 		};
-	};
+	}];
 };
 
 /* Create AI Performance Loop Thread */

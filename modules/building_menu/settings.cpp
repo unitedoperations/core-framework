@@ -12,7 +12,7 @@ preview_update_speed = 30; // Hertz; Update speed of preview structure position.
 
 preview_method = 0; // 0 = local, 1 = global; Global previews can use a lot of bandwidth if 'preview_update_speed' is set too high.
 
-time_limit = 10 * 60; // Seconds; Amount of time in which players may use the build menu.
+time_limit = 600; // Seconds; Amount of time in which players may use the build menu.
 
 /* Advanced Settings */
 

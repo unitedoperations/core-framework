@@ -60,7 +60,7 @@ core_fnc_registerModule = {
 			_result = false;
 		};
 	} forEach core_moduleList;
-	if (!_result) then { // Register new module state
+	if (_result) then { // Register new module state
 		[core_moduleList, [_module, _type]] call core_fnc_push;
 	};
 	_result
@@ -80,11 +80,12 @@ core_fnc_registerModule = {
 		Loaded modules [array]
 */
 core_fnc_loadModule = {
-	private ["_cfg", "_type", "_scheduled"];
+	private ["_cfg", "_type", "_scheduled", "_exec"];
 	_cfg = _this select 0;
 	_type = _this select 1;
 	_scheduled = [_this, 2, ["BOOL"], false] call core_fnc_param;
-	if (isClass(_cfg)) then {
+	_exec = [(_cfg >> _type), ""] call core_fnc_getConfigValue;
+	if (_exec != "") then {
 		if (([_cfg >> "required_version", 0] call core_fnc_getConfigValue) > core_version) exitWith { // Outdated Core
 			["Error", "core_fnc_loadModule", "Cannot load module '%1' @ %2: Core framework outdated (currently v%3).", [_cfgName, _type, core_version], __FILE__, __LINE__] call core_fnc_log;
 			nil; // Function will return nil
@@ -109,21 +110,17 @@ core_fnc_loadModule = {
 				};
 			} forEach _requirements;
 			if (!_depError) then {
-				private ["_exec"];
-				_exec = [(_cfg >> _type), ""] call core_fnc_getConfigValue;
-				if (_exec != "") then {
-					_exec = if ([_exec] call core_fnc_isFilePath) then {
-						["modules\" + _cfgName + "\" + _exec] call core_fnc_compileFile;
-					} else {
-						compile _exec;
-					};
-					if (_scheduled) then {
-						[] spawn _exec;
-					} else {
-						[] call _exec;
-					};
-					["Info", "core_fnc_loadModule", "Loaded module '%1' %2.", [_cfgName, _type], __FILE__, __LINE__] call core_fnc_log;
+				_exec = if ([_exec] call core_fnc_isFilePath) then {
+					["modules\" + _cfgName + "\" + _exec] call core_fnc_compileFile;
+				} else {
+					compile _exec;
 				};
+				if (_scheduled) then {
+					[] spawn _exec;
+				} else {
+					[] call _exec;
+				};
+				["Info", "core_fnc_loadModule", "Loaded module '%1' %2.", [_cfgName, _type], __FILE__, __LINE__] call core_fnc_log;
 				[_loadedModules, _cfgName] call core_fnc_push;
 			};
 		};

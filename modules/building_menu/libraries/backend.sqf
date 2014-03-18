@@ -4,7 +4,7 @@ build_fnc_defaultMenuCondition = {
 	if (isNil "build_timeLimit") then {
 		build_timeLimit = ["building_menu", "time_limit"] call core_fnc_getSetting;
 	};
-	((alive player) && ((vehicle player) == player) && !building_playerBusy && {player getVariable ["building_menu_allow", false]} && {time <= build_timeLimit});
+	(alive player) && {(vehicle player) == player} && !building_playerBusy && {player getVariable ["building_menu_allow", false]} && {time <= build_timeLimit}
 };
 
 build_fnc_buildStruct = {

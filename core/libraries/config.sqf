@@ -50,8 +50,8 @@ core_fnc_getConfigValue = {
 */
 core_fnc_getSetting = {
 	private ["_ret"];
-	_ret = [missionConfigFile >> "Params" >> (_this select 0) >> (_this select 1)] call core_fnc_getConfigValue;
-	if ([_this, 2, ["BOOLEAN"], false] call core_fnc_param) then {
+	_ret = [missionConfigFile >> "modules" >> (_this select 0) >> "settings" >> (_this select 1)] call core_fnc_getConfigValue;
+	if ([_this, 2, ["BOOL"], false] call core_fnc_param) then {
 		[_ret] call core_fnc_toBool;
 	} else {_ret};
 };

@@ -4,11 +4,11 @@ fmh_fnc_flexiMenuType = {
 	_type = _this select 0;
 	_call = _this select 1; // 0 - get, 1 - set
 	_data = if (_call == 1) then {_this select 2} else {[]};
-	switch (_call) do{ 
+	switch (_call) do { 
 		case 0: {
 			switch (_type) do {
 				case "interaction": {
-					fmh_interactMenuDefs
+					fmh_interactMenuDefs;
 				};
 				case "selfInteraction": {
 					fmh_selfInteractMenuDefs;
@@ -29,7 +29,7 @@ fmh_fnc_flexiMenuType = {
 };
 
 fmh_fnc_loadFlexiMenu = {
-	private ["_menuDefs", "_target", "_params", "_menuName", "_menuRsc", "_menuDef"];
+	private ["_menuDefs", "_target", "_params", "_menuName", "_menuRsc", "_menus", "_menuDef"];
 	#define ENABLED_INDEX	6
 	#define VISIBLE_INDEX	7
 	// _this==[_target, _menuNameOrParams]
@@ -37,6 +37,7 @@ fmh_fnc_loadFlexiMenu = {
 	_params = _this select 1;
 	_menuName = "";
 	_menuRsc = "popup";
+	_menus = [];
 	_menuDef = [];
 	switch (typeName(_params)) do {
 		case (typeName([])): {
@@ -71,27 +72,22 @@ fmh_fnc_loadFlexiMenu = {
 		];
 	*/
 	{ // forEach
-		private ["_menu"];
-		_menu = (_x select 0) select 0;
-		if (_menu == _menuName) exitWith {
+		if (((_x select 0) select 0) == _menuName) exitWith {
 			_menuDef = _x;
 		};
 	} forEach _menuDefs;
 	if ((count _menuDef) > 0) then {
-		private ["_menuArray", "_buttonArray"];
-		_menuArray		= _menuDef select 0;
-		_buttonArray	= _menuDef select 1;
-		_menuArray set [2, _menuRsc];
-		_menuDef set [0, _menuArray];
+		private ["_buttonArray"];
+		_buttonArray = _menuDef select 1;
+		(_menuDef select 0) set [2, _menuRsc];
 		if ((count _buttonArray) > 0) then {
-			for "_i" from 0 to ((count _buttonArray) - 1) do {
-				private ["_selection"];
-				_selection = _buttonArray select _i;
-				_selection set [ENABLED_INDEX, ([(_selection select ENABLED_INDEX), _this] call core_fnc_toBool)];
-				_selection set [VISIBLE_INDEX, ([(_selection select VISIBLE_INDEX), _this] call core_fnc_toBool)];
-				_buttonArray set [_i, _selection];
-			};
-			_menuDef set [1, _buttonArray];
+			{ // forEach
+				private ["_button"];
+				_button = _x;
+				{ // forEach
+					_button set [_x, ([(_button select _x), _this] call core_fnc_toBool)];
+				} forEach [ENABLED_INDEX, VISIBLE_INDEX];
+			} forEach _buttonArray;
 		};
 	};
 	fmh_target = _target;

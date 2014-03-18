@@ -146,7 +146,7 @@ core_fnc_setDate = {
 	private ["_date", "_dateCount"];
 	_date = date;
 	_dateCount = count _date;
-	for "_i" from 0 to (_dateCount - 1) do {
+	for "_i" from 1 to _dateCount do {
 		if (((count _this) > _i) && {!isNil {_this select _i}}) then {
 			_date set [(_dateCount - _i), (_this select _i)];
 		};

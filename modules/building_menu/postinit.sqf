@@ -5,7 +5,7 @@
 	'deployMenu',
 	'Build Menu',
 	true,
-	"_this call build_fnc_menuCondition;",
+	"_this call build_fnc_menuCondition",
 	'Build Menu >',
 	"",
 	"",
@@ -22,7 +22,7 @@ for "_i" from 0 to ((count _structures) - 1) do {
 	[
 		'selfInteraction',
 		_name,
-		(compile format['[player, [%1,%2,%3,%4,%5,%6]] call build_fnc_buildStruct;',
+		(compile format["[player, ['%1','%2','%3',%4,%5,%6]] call build_fnc_buildStruct;",
 			_name,
 			configName(_struct),
 			[_struct >> "preview", configName(_struct)] call core_fnc_getConfigValue,

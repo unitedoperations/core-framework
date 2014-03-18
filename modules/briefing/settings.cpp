@@ -5,7 +5,7 @@
 		{
 			class type
 			{
-				briefing_file_name = "Briefing Page Title"; // File name without the SQF extension
+				briefing_file_name = "Briefing Page Title"; // File name without the .html extension
 			};
 		};
 	Notes:
@@ -16,7 +16,7 @@
 		4. A player may load more than one 'type' class, by which they will load pages from each class in a top-down order.
 		   An example would be a player loading both the 'civilian' and 'hvt_1' classes.
 		5. In each 'type' class within the 'briefings' class holds a list of all of the pages to load.
-		6. The file name (without '.sqf') of each briefing file will be the config name of each page.
+		6. The file name (without '.html') of each briefing file will be the config name of each page.
 		7. The text for each config name is the title of the page, which will be displayed in the diary.
 		8. All briefing files must be placed within the 'briefings' folder in the module root.
 		9. Briefing pages will be loaded in reverse-order so pages show up in the diary in the same

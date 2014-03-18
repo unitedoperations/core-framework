@@ -43,8 +43,8 @@ fmh_fnc_addFlexiButton = {
 		[_this, 7, ["STRING"], ""] call core_fnc_param,
 		[_this, 9, ["STRING"], ""] call core_fnc_param,
 		[_this, 8, ["SCALAR"], -1] call core_fnc_param,
-		[_this, 4, ["BOOL"], true] call core_fnc_param,
-		[_this, 5, ["BOOL"], true] call core_fnc_param
+		[_this, 4, [], true] call core_fnc_param,
+		[_this, 5, [], true] call core_fnc_param
 	]];
 	_flexiMenu set [1, _buttonArray];
 	_menuDefs set [_menuDefIndex, _flexiMenu];
@@ -79,14 +79,14 @@ fmh_fnc_addFlexiMenu = {
 	[
 		(_this select 0),
 		[_this, 5, ["STRING"], format["%1 >",(_this select 2)]] call core_fnc_param,
-		[_this, 6, ["STRING"], ""] call core_fnc_param,
+		[_this, 6, ["STRING", "CODE"], {}] call core_fnc_param,
 		[_this, 10, ["STRING"], "main"] call core_fnc_param,
-		[_this, 3, ["BOOL"], true] call core_fnc_param,
-		[_this, 4, ["BOOL"], true] call core_fnc_param,
+		[_this, 3, [], true] call core_fnc_param,
+		[_this, 4, [], true] call core_fnc_param,
 		[_this, 7, ["STRING"], ""] call core_fnc_param,
 		[_this, 8, ["STRING"], ""] call core_fnc_param,
 		[_this, 9, ["SCALAR"], -1] call core_fnc_param,
-		["_this call fmh_fnc_loadFlexiMenu;", (_this select 1), [_this, 12, ["SCALAR"], 1] call core_fnc_param],
+		["_this call fmh_fnc_loadFlexiMenu;", (_this select 1), ([_this, 12, ["SCALAR"], 1] call core_fnc_param)],
 		[_this, 11, ["STRING"], "Main Menu"] call core_fnc_param
 	] call fmh_fnc_addFlexiButton;
 };

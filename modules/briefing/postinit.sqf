@@ -17,7 +17,7 @@ if (hasInterface) then {
 				_page = _briefing select (_pageCount - _j);
 				player createDiaryRecord ["Diary", [
 					getText(_page),
-					call compile str(preprocessFile("modules\briefing\briefings\" + configName(_page) + ".sqf"))
+					call compile str(preprocessFile("modules\briefing\briefings\" + configName(_page) + ".html"))
 				]];
 			};
 		};
