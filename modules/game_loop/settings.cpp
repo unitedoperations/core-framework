@@ -1,7 +1,7 @@
 
 /* Generic Settings */
 
-game_loop_delay = 15; // Seconds; How often to run the game loop check.
+gl_loop_delay = 15; // Seconds; How often to run the game loop check.
 
 /* Template Settings */
 

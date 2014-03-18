@@ -14,7 +14,7 @@
 
 /* Initialize Self Interaction Buttons */
 private ["_structures"];
-_structures = ["building_menu", "structures"] call core_fnc_getSetting;
+_structures = ["building_menu", "building_structures"] call core_fnc_getSetting;
 for "_i" from 0 to ((count _structures) - 1) do {
 	private ["_struct", "_name"];
 	_struct = _structures select _i;

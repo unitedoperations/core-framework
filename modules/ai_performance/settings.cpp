@@ -9,13 +9,13 @@
 
 /* Generic Settings */
 
-enable_caching = 1; // Binary; Whether to save performance by disabling unneeded units.
-cache_distance = "viewDistance"; // Meters; Either a code string or number.
+aip_enable_caching = 1; // Binary; Whether to save performance by disabling unneeded units.
+aip_cache_distance = "viewDistance"; // Meters; Either a code string or number.
 
-enable_distribution = 1; // Binary; Whether to automatically send units to available headless clients.
+aip_enable_distribution = 1; // Binary; Whether to automatically send units to available headless clients.
 
-ai_loop_delay = 5; // Seconds; Time to sleep between AI cache/distribution checking.
+aip_loop_delay = 5; // Seconds; Time to sleep between AI cache/distribution checking.
 
 /* Advanced Settings */
 
-debug_mode_enabled = 0; // Binary; Whether to display AI debugging information.
+aip_debug_mode_enabled = 0; // Binary; Whether to display AI debugging information.

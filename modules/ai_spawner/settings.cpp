@@ -1,11 +1,11 @@
 
 /* Generic Settings */
 
-condition_check_delay = 5; // Seconds; Time to wait between condition check loops.
+ais_condition_check_delay = 5; // Seconds; Time to wait between condition check loops.
 
 /* AI Settings */
 
-class groups
+class ais_groups
 {
 	/*
 	class example_group

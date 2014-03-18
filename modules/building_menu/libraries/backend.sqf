@@ -1,8 +1,8 @@
 
 build_fnc_defaultMenuCondition = {
 	// Example Visible Condition for structure building menu
-	if (isNil "build_timeLimit") then {
-		build_timeLimit = ["building_menu", "time_limit"] call core_fnc_getSetting;
+	if (isNil "build_time_limit") then {
+		build_time_limit
 	};
 	(alive player) && {(vehicle player) == player} && !building_playerBusy && {player getVariable ["building_menu_allow", false]} && {time <= build_timeLimit}
 };
@@ -35,7 +35,7 @@ build_fnc_buildStruct = {
 	build_objectPlaced = nil;
 	_actions = _actions + [(_unit addAction ["<t color='#0000ff'>Confirm Deployment</t>", "core\execute.sqf", {build_objectPlaced = true;}, 99999])];
 	_actions = _actions + [(_unit addAction ["<t color='#ff0000'>Cancel Deployment</t>", "core\execute.sqf", {build_objectPlaced = false;}, 99998])];
-	_previewObject = switch (build_previewMethod) do {
+	_previewObject = switch (build_preview_method) do {
 		case 0: {_previewClass createVehicleLocal [0, 0, 0]};
 		case 1: {_previewClass createVehicle [0, 0, 0]};
 	};
@@ -57,8 +57,8 @@ build_fnc_buildStruct = {
 		_previewObject setDir _dir;
 		_previewObject setVectorUp _vUp;
 		_previewObject setPosATL _pos;
-		if (build_previewUpdateSpeed > 0) then {
-			sleep (1 / build_previewUpdateSpeed);
+		if (preview_update_speed > 0) then {
+			sleep (1 / preview_update_speed);
 		};
 	};
 	REMOVE_ACTIONS;

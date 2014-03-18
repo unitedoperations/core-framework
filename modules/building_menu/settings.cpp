@@ -8,19 +8,19 @@
 
 /* Generic Settings */
 
-preview_update_speed = 30; // Hertz; Update speed of preview structure position. Affects performance. Set to 0 for constant updating.
+build_preview_update_speed = 30; // Hertz; Update speed of preview structure position. Affects performance. Set to 0 for constant updating.
 
-preview_method = 0; // 0 = local, 1 = global; Global previews can use a lot of bandwidth if 'preview_update_speed' is set too high.
+build_preview_method = 0; // 0 = local, 1 = global; Global previews can use a lot of bandwidth if 'preview_update_speed' is set too high.
 
-time_limit = 600; // Seconds; Amount of time in which players may use the build menu.
+build_time_limit = 600; // Seconds; Amount of time in which players may use the build menu.
 
 /* Advanced Settings */
 
-menu_visible_condition = "_this call build_fnc_defaultMenuCondition"; // Allows for fine-tuning of the menu visible condition. Reference the backend library for the default function.
+build_menu_visible_condition = "_this call build_fnc_defaultMenuCondition"; // Allows for fine-tuning of the menu visible condition. Reference the backend library for the default function.
 
 /* Building Settings */
 
-class structures
+class building_structures
 {
 	class Fort_RazorWire
 	{

@@ -9,8 +9,7 @@ gl_fnc_getTemplateSetting = {
 /* Run server game-loop code */
 if (isServer) then {
 	[] spawn {
-		private ["_loopDelay", "_templateCfg", "_templates"];
-		_loopDelay = ["game_loop", "game_loop_delay"] call core_fnc_getSetting;
+		private ["_templateCfg", "_templates"];
 		_templateCfg = ["game_loop", "templates"] call core_fnc_getSetting;
 		_templates = [];
 		for "_i" from 0 to ((count _templateCfg) - 1) do {
@@ -29,7 +28,7 @@ if (isServer) then {
 					] // TODO
 				};
 			} forEach _templates;
-			uiSleep _loopDelay
+			uiSleep gl_loop_delay;
 		};
 	};
 };
