@@ -9,6 +9,8 @@ if (!isDedicated) then {
 		
 		if (_side != (side player)) then {
 			_marker setMarkerAlphaLocal 0;
+		} else {
+			_marker setMarkerAlphaLocal 1;
 		};
 	};
 	
