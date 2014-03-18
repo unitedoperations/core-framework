@@ -1,6 +1,6 @@
 if (!isDedicated) then {
 
-	#define SYSTEM sideLogic
+	#define NONE sideLogic
 
 	mc_fnc_setMarkerTeam = {
 		private["_marker", "_side"];
