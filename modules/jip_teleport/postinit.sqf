@@ -4,11 +4,11 @@ if (!isDedicated) then {
 		private["_target", "_rank"];
 		_target = leader player;
 		
-		if (player == _target || {[_target] call ace_sys_wounds_fnc_isUncon || {!(alive _target)}}) then {
+		if (player == _target || {[_target] call ace_sys_wounds_fnc_isUncon || {!(alive _target) || {_target getVariable ["spectating", false]}}}) then {
 			_rank = -1;
 		
 			{
-				if (rankId _x > _rank && {!([_x] call ace_sys_wounds_fnc_isUncon) && {alive _target}}) then {
+				if (rankId _x > _rank && {!([_x] call ace_sys_wounds_fnc_isUncon) && {alive _target && {!(_target getVariable ["spectating", false])}}}) then {
 					_rank = rankId _x;
 					_target = _x;
 				};
