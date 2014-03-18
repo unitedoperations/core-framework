@@ -9,27 +9,27 @@ st_fnc_displayText = {
 	_area = _this select 0;	
 	_island = _this select 1;
 	
-	switch (date select 1) do {
-		case 1: {_month = "January"};
-		case 2: {_month = "February"};
-		case 3: {_month = "March"};
-		case 4: {_month = "April"};
-		case 5: {_month = "May"};
-		case 6: {_month = "June"};
-		case 7: {_month = "July"};
-		case 8: {_month = "August"};
-		case 9: {_month = "September"};
-		case 10: {_month = "October"};
-		case 11: {_month = "November"};
-		case 12: {_month = "December"};
+	_month = switch (date select 1) do {
+		case 1: {"January"};
+		case 2: {"February"};
+		case 3: {"March"};
+		case 4: {"April"};
+		case 5: {"May"};
+		case 6: {"June"};
+		case 7: {"July"};
+		case 8: {"August"};
+		case 9: {"September"};
+		case 10: {"October"};
+		case 11: {"November"};
+		case 12: {"December"};
 	};
 
 	_day = format["%1th", date select 2];
 	if (date select 2 < 4 || date select 2 > 20) then {
-		switch ((date select 2) mod 10) do {
-			case 1: {_day = format["%1st", date select 2]};
-			case 2: {_day = format["%1nd", date select 2]};
-			case 3: {_day = format["%1rd", date select 2]};
+		_day = switch ((date select 2) mod 10) do {
+			case 1: {format["%1st", date select 2]};
+			case 2: {format["%1nd", date select 2]};
+			case 3: {format["%1rd", date select 2]};
 		};
 	};
 
