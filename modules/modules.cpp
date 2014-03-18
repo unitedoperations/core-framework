@@ -25,8 +25,8 @@
 #include "earplugs\config.cpp"
 #include "flexi_menu_helper\config.cpp"
 //#include "game_loop\config.cpp" // Unfinished
-#include "gear\config.cpp"
-#include "jip_teleport\config.cpp"
+#include "gear\config.cpp" // Unfinished
+#include "jip_teleport\config.cpp" // Not tested
 #include "marker_control\config.cpp"
 #include "start_text\config.cpp"
 #include "sync_time\config.cpp"

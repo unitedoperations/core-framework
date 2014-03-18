@@ -48,8 +48,6 @@ aip_fnc_distributeUnit = {
 };
 
 aip_fnc_aiPerformanceLoop = {
-	private ["_loopDelay"];
-	_loopDelay = ["ai_performance", "cache_distance"] call core_fnc_getSetting;
 	while {true} do {
 		if (aip_enableCaching) then {
 			private ["_maxDis"];
@@ -76,7 +74,7 @@ aip_fnc_aiPerformanceLoop = {
 			[_x, (aip_headlessClients select round(random((count aip_headlessClients) - 1)))] call aip_fnc_distributeUnit;
 		};
 		} forEach allUnits;
-		uiSleep _loopDelay;
+		uiSleep aip_loop_delay;
 	};
 };
 

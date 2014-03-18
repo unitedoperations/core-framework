@@ -1,9 +1,4 @@
 
-/* Load Settings */
-aip_enableCaching = ["ai_performance", "enable_caching", true] call core_fnc_getSetting;
-aip_enableDistribution = ["ai_performance", "enable_distribution", true] call core_fnc_getSetting;
-aip_cacheDistance = ["ai_performance", "cache_distance"] call core_fnc_getSetting;
-
 /* Initialize Server */
 if (isServer) then {
 	aip_headlessClients = [];

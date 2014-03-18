@@ -14,6 +14,6 @@ if (!isDedicated && !hasInterface) then { // HC
 [] spawn aip_fnc_aiPerformanceLoop;
 
 /* Load Debugging */
-if (hasInterface && {["ai_performance", "debug_mode_enabled", true] call core_fnc_getSetting}) then {
+if (hasInterface && aip_debug_mode_enabled) then {
 	[] spawn aip_fnc_debugMode;
 };

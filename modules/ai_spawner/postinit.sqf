@@ -1,9 +1,8 @@
 
 if (isServer) then {
 	[] spawn {
-		private ["_condCheckDelay", "_groups", "_conditions"];
-		_condCheckDelay = ["ai_spawner", "condition_check_delay"] call core_fnc_getSetting;
-		_groups = ["ai_spawner", "groups"] call core_fnc_getSetting;
+		private ["_groups", "_conditions"];
+		_groups = ["ai_spawner", "ais_groups"] call core_fnc_getSetting;
 		_conditions = [];
 		for "_i" from 0 to ((count _groups) - 1) do {
 			private ["_grpCfg"];
@@ -36,7 +35,7 @@ if (isServer) then {
 				};
 			} forEach _conditions;
 			_conditions = _conditions - [objNull];
-			uiSleep _condCheckDelay;
+			uiSleep ais_condition_check_delay;
 		};
 	};
 };
