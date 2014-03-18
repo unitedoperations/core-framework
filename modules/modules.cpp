@@ -20,12 +20,13 @@
 
 #include "ai_performance\config.cpp" // Not tested
 #include "ai_spawner\config.cpp" // Not tested
-#include "briefing\config.cpp" // Not tested
-#include "building_menu\config.cpp" // Not tested
+#include "briefing\config.cpp"
+#include "building_menu\config.cpp"
 #include "earplugs\config.cpp"
-#include "flexi_menu_helper\config.cpp" // Not tested
-#include "gear\config.cpp" // Not tested
+#include "flexi_menu_helper\config.cpp"
+//#include "game_loop\config.cpp" // Unfinished
+#include "gear\config.cpp"
 #include "jip_teleport\config.cpp"
 #include "marker_control\config.cpp"
 #include "start_text\config.cpp"
-#include "sync_time\config.cpp" // Not tested
+#include "sync_time\config.cpp"

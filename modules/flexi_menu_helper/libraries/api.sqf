@@ -41,7 +41,7 @@ fmh_fnc_addFlexiButton = {
 		(_this select 2),
 		[_this, 6, ["STRING"], ""] call core_fnc_param,
 		[_this, 7, ["STRING"], ""] call core_fnc_param,
-		[_this, 9, ["STRING"], ""] call core_fnc_param,
+		[_this, 9, ["STRING", "ARRAY"], ""] call core_fnc_param,
 		[_this, 8, ["SCALAR"], -1] call core_fnc_param,
 		[_this, 4, [], true] call core_fnc_param,
 		[_this, 5, [], true] call core_fnc_param

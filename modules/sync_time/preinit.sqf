@@ -18,12 +18,7 @@ core_fnc_synchronizeTime = {
 
 /* Set Current Date at Mission Start */
 if (isServer || {time == 0}) then {
-	[
-		param_start_minute,
-		param_start_hour,
-		param_start_day,
-		param_start_month
-	] call core_fnc_setDate;
+	setDate [(date select 0), param_start_month, param_start_day, param_start_hour, param_start_minute];
 };
 
 /* Load Time Synchronization Functionality */

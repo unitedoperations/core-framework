@@ -40,7 +40,8 @@ class Mission
 					player="PLAYER COMMANDER";
 					leader=1;
 					skill=0.60000002;
-					init="this setVariable [""building_menu_allow"", true];";
+					text="asdf";
+					init="this setVariable [""building_menu_allow"", true]; [this, ""usmc_sl""] call gear_fnc_setLoadout;";
 				};
 			};
 		};
