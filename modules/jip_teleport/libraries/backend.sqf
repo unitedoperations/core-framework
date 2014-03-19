@@ -1,32 +1,28 @@
-
 jt_fnc_getTarget = {
-	private ["_unit", "_target", "_rankId"];
-	_unit = _this select 0;
-	_target = objNull;
-	_rankId = -1;
-	{ // forEach
-		if (
-			(alive _unit) &&
-			{((leader _unit) == _x) ||
-			{(rankId _x) > _rankId}} &&
-			{!(_x getVariable ["ace_sys_wounds_uncon", false])} &&
-			{!(_x getVariable ["spectating", false])} &&
-			{_x != _unit}
-		) then {
-			_target = _x;
-			_rankId = rankId(_target);
-		};
-	} forEach (units(group(_unit)));
+	private["_target", "_rank"];
+	_target = leader player;
+	
+	if (player == _target || {_target getVariable ["ace_sys_wounds_uncon", false] || {!(alive _target) || {_target getVariable ["spectating", false]}}}) then {
+		_rank = -1;
+	
+		{
+			if (rankId _x > _rank && {!(_x getVariable ["ace_sys_wounds_uncon", false]) && {alive _x && {!(_x getVariable ["spectating", false])}}}) then {
+				_rank = rankId _x;
+				_target = _x;
+			};
+		} forEach ((units (group player)) - [player]);
+	};
+	
 	_target
 };
 
 jt_fnc_jipTeleport = {
-	private ["_unit", "_target"];
-	_unit = _this select 0;
-	_target = [_unit] call jt_fnc_getTarget;
+	private ["_target"];
+	_target = [] call jt_fnc_getTarget;
 	
-	if (isNull(_target)) exitWith {
-		hint "Cannot find suitable group member to teleport to.";
+	if (_target == player) exitWith {
+		hint "JIP Teleport is no longer possible.\n\nSince no suitable group member could be found.";
+		[] call jt_fnc_disableJip;
 	};
 	
 	if ((vehicle _target) != _target) then { // Checks if the target is in a vehicle
@@ -34,11 +30,21 @@ jt_fnc_jipTeleport = {
 			hint format["No room in %1's vehicle.\nPlease try again later.", name(_target)];
 		}
 		else {
-			_unit moveInCargo (vehicle _target);
+			player moveInCargo (vehicle _target);
 			hint format["Teleported to %1's vehicle.", name(_target)];
+			[] call jt_fnc_disableJip;
 		}; 
 	} else {
-		_unit setPos (getPos _target);
+		player setPos (getPos _target);
 		hint format["Teleported to %1's position.", name(_target)];
+		[] call jt_fnc_disableJip;
 	};
+};
+
+jt_fnc_enableJip = {
+	jt_visible = true;
+};
+
+jt_fnc_disableJip = {
+	jt_visible = false;
 };
