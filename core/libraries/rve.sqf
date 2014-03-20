@@ -52,8 +52,7 @@ core_fnc_closestPlayerDis = {
 	Function: core_fnc_sortObjectDistance
 	Author(s): Naught
 	Description:
-		Sorts distances between an array of objects
-		and a thing.
+		Sorts distances between an array of objects and a thing.
 	Parameters:
 		0 - Object array [object]
 		1 - Reference thing [object:marker:array]

@@ -27,7 +27,7 @@ core_fnc_push = {
 	Function: core_fnc_pop
 	Author(s): Naught
 	Description:
-		Removes a value from the last of the array.
+		Removes a value from the end of the array.
 	Parameters:
 		0 - Array [array]
 	Returns:
@@ -49,8 +49,7 @@ core_fnc_pop = {
 	Function: core_fnc_insert
 	Author(s): Naught
 	Description:
-		Inserts a value into the array at
-		a specified index.
+		Inserts a value into the array at a specified index.
 	Parameters:
 		0 - Array [array]
 		1 - Insert index [number]

@@ -32,6 +32,7 @@ startLoadingScreen ["Loading Core Mission Framework..."];
 #include "libraries\math.sqf"
 #include "libraries\rve.sqf"
 #include "libraries\strings.sqf"
+#include "libraries\ui.sqf"
 
 /* Load Objects */
 #include "objects\hashmap.sqf"
