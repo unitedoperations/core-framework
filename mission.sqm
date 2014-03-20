@@ -4,11 +4,11 @@ class Mission
 	addOns[]=
 	{
 		"utes",
-		"us_military_units"
+		"cacharacters_e"
 	};
 	addOnsAuto[]=
 	{
-		"us_military_units",
+		"cacharacters_e",
 		"utes"
 	};
 	randomSeed=4656359;
@@ -33,17 +33,29 @@ class Mission
 				items=1;
 				class Item0
 				{
-					position[]={3496.7676,19,3611.8384};
+					position[]={3516.3579,19,3609.4165};
+					special="NONE";
 					id=0;
 					side="WEST";
-					vehicle="usm_soldier_80s_d_h_rm1";
+					vehicle="US_Delta_Force_Assault_EP1";
 					player="PLAYER COMMANDER";
 					leader=1;
-					skill=0.60000002;
-					text="asdf";
+					rank="SERGEANT";
+					skill=0.2;
 					init="this setVariable [""building_menu_allow"", true]; [this, ""usmc_sl""] call gear_fnc_setLoadout;";
 				};
 			};
+		};
+	};
+	class Markers
+	{
+		items=1;
+		class Item0
+		{
+			position[]={3517.0723,19,3610.8328};
+			name="test";
+			type="mil_warning";
+			colorName="ColorRed";
 		};
 	};
 };

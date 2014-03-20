@@ -7,6 +7,9 @@
 		modules, parameters, and synchronizes machines.
 */
 
+/* Don't Double Load */
+if !(isNil "core_init") exitWith {};
+
 /* Set Reference Variables */
 #define COMPONENT "Core-Init"
 core_init = false;
@@ -133,6 +136,9 @@ processInitCommands;
 /* End Loading Screen */
 endLoadingScreen;
 
+/* Finish world initialization*/
+finishMissionInit;
+
 /* Start Delayed Execution */
 [_startTime, _modules, _params] spawn {
 	private ["_startTime", "_modules", "_params"];
@@ -211,9 +217,6 @@ endLoadingScreen;
 			};
 		};
 	};
-	
-	/* Finish world initialization*/
-	finishMissionInit;
 	
 	/* Finalize Reference Variables */
 	core_init = true;

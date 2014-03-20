@@ -23,7 +23,7 @@ class Params {
 #undef ROOT
 
 class Extended_PreInit_EventHandlers {
-	mission_preInit = "if (isNil 'core_init') then {call compile preProcessFileLineNumbers 'core\init.sqf'}";
+	mission_preInit = "call compile preProcessFileLineNumbers 'core\init.sqf'";
 };
 
 /* DO NOT EDIT ABOVE THIS COMMENT */

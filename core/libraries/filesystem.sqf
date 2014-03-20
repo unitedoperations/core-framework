@@ -120,7 +120,7 @@ core_fnc_loadModule = {
 				} else {
 					[] call _exec;
 				};
-				["Info", "core_fnc_loadModule", "Loaded module '%1' %2.", [_cfgName, _type], __FILE__, __LINE__] call core_fnc_log;
+				//["Info", "core_fnc_loadModule", "Loaded module '%1' %2.", [_cfgName, _type], __FILE__, __LINE__] call core_fnc_log;
 				[_loadedModules, _cfgName] call core_fnc_push;
 			};
 		};

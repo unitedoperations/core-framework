@@ -4,3 +4,5 @@
 // Example:
 // [west, "start"] call mc_fnc_setMarkerTeam;
 // [NONE, "objPolana"] call mc_fnc_setMarkerTeam;
+
+

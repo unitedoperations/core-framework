@@ -4,6 +4,7 @@ if (!isDedicated) then {
 
 	mc_fnc_setMarkerTeam = {
 		(_this select 1) setMarkerAlphaLocal 0;
+		diag_log diag_tickTime;
 	};
 	
 	#include "settings.sqf"
