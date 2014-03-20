@@ -15,14 +15,24 @@ if (isServer) then {
 		for "_i" from 0 to ((count _templateCfg) - 1) do {
 			private ["_temp"];
 			_temp = _templateCfg select _i;
+			for "_j" from 0 to ((count _temp) - 1) do { // Load settings
+				private ["_setting"];
+				_setting = _temp select _j;
+				if (!(configName(_setting) in ["enabled", "end_screen_message"]) && {!isClass(_setting)}) then {
+					missionNamespace setVariable [
+						format["gl_%1", configName(_setting)], 
+						[_setting] call core_fnc_getConfigValue;
+					];
+				};
+			};
 			[_templates, [_temp, (compile preprocessFileLineNumbers ("modules\game_loop\templates\" + configName(_temp) + ".sqf"))]] call core_fnc_push;
 		};
-		sleep 0.01; // Wait until mission start
+		sleep 1; // Wait until mission start
 		while {true} do {
 			{ // forEach
 				if (call (_x select 1)) then {
 					private ["_temp"];
-					_temp = _x select 1;
+					_temp = _x select 0;
 					[
 						([(_temp >> "end_screen_message"), configName(_temp)] call core_fnc_getConfigValue)
 					] // TODO
