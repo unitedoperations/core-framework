@@ -25,7 +25,7 @@ sp_fnc_prep = {
 };
 
 sp_fnc_spectate = {
-	private["_keyDown_nightVision", "_keyDown_camConstruct", "_keyDown_switchCamera", "_keydown_mouseZ"];
+	private["_keyDownNightVision", "_keyDownLeftClick", "_keyDownRightClick", "_keydownMouseWheel"];
 	sp_target = sp_body;
 	sp_index = 0;
 	
@@ -57,7 +57,7 @@ sp_fnc_spectate = {
 	titleText ["", "BLACK IN", 0.2];
 	
 	if ((count sp_viewModes) > 1) then {
-		_keyDown_nightVision = (finddisplay 46) displayaddeventhandler ["keydown", "
+		_keyDownNightVision = (finddisplay 46) displayaddeventhandler ["keydown", "
 			if ((_this select 1) in (actionkeys 'NightVision')) then {
 				switch (sp_viewModes select sp_viewMode) do {
 					case 'none': {
@@ -83,7 +83,7 @@ sp_fnc_spectate = {
 	};
 	
 	if (sp_thirdPerson) then {
-		_keyDown_camConstruct = (finddisplay 46) displayaddeventhandler ["MouseButtonDown", "
+		_keyDownLeftClick = (finddisplay 46) displayaddeventhandler ["MouseButtonDown", "
 			if (((_this select 1) == 0) && {!sp_thirdPerson}) then {
 				sp_camera cameraeffect ['INTERNAL', 'BACK'];
 				sp_camera setpos [((position sp_target) select 0) + ((sin (getdir sp_target)) * ( - 10)), ((position sp_target) select 1) + ((cos (getdir sp_target)) * (- 10)), ((position sp_target) select 2) + 2];
@@ -93,7 +93,7 @@ sp_fnc_spectate = {
 			};
 		"];
 			
-		_keyDown_switchCamera = (finddisplay 46) displayaddeventhandler ["MouseButtonDown", "
+		_keyDownRightClick = (finddisplay 46) displayaddeventhandler ["MouseButtonDown", "
 			if (((_this select 1) == 1) && {sp_thirdPerson}) then {
 				sp_camera cameraeffect ['TERMINATE', 'BACK'];
 				sp_target switchCamera 'INTERNAL';
@@ -103,7 +103,7 @@ sp_fnc_spectate = {
 		"];
 	};
 		
-	_keydown_mouseZ = (findDisplay 46) displayAddEventHandler ["mousezchanged", "
+	_keydownMouseWheel = (findDisplay 46) displayAddEventHandler ["mousezchanged", "
 		_targets = [];
 		{
 			if (!(_x getVariable ['spectating', false]) && {(side _x) == sp_side}) then {
@@ -112,14 +112,24 @@ sp_fnc_spectate = {
 		} forEach playableUnits;
 		
 		if ((count _targets) > 0) then {
-			sp_target = _targets select (sp_index mod (count _targets));
-			sp_index = sp_index + 1;
-			if (sp_index >= (count _targets)) then {
-				sp_index = 0;
+			if ((_this select 1) < 0) then {
+				sp_index = sp_index - 1;
+				if (sp_index < 0) then {
+					sp_index = ((count _targets) - 1);
+				};
 			};
+			if ((_this select 1) > 0) then {
+				sp_index = sp_index + 1;
+				if (sp_index >= (count _targets)) then {
+					sp_index = 0;
+				};
+			};
+			sp_target = _targets select (sp_index mod (count _targets));
 		} else {
 			sp_target = sp_body;
 		};
+		
+		diag_log sp_index;
 
 		cutText [name sp_target, 'PLAIN DOWN'];
 		if (sp_thirdPerson) then {
