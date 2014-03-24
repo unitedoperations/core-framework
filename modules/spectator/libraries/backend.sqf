@@ -58,7 +58,7 @@ sp_fnc_spectate = {
 	
 	if ((count sp_viewModes) > 1) then {
 		_keyDownNightVision = (finddisplay 46) displayaddeventhandler ["keydown", "
-			if ((_this select 1) in (actionkeys 'NightVision')) then {
+			if ((_this select 1) in (actionkeys 'NightVision') && {sp_thirdPerson}) then {
 				switch (sp_viewModes select sp_viewMode) do {
 					case 'none': {
 						camUseNVG false;
