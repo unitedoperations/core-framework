@@ -30,11 +30,11 @@ if (isServer) then {
 		sleep 1; // Wait until mission start
 		while {true} do {
 			{ // forEach
-				if (call (_x select 1)) then {
-					private ["_temp"];
-					_temp = _x select 0;
+				private ["_res"];
+				_res = call(_x select 1);
+				if (!(isNil "_res")) then {
 					[
-						([(_temp >> "end_screen_message"), configName(_temp)] call core_fnc_getConfigValue)
+						([_res, configName(_x select 0)] call core_fnc_getConfigValue)
 					] // TODO
 				};
 			} forEach _templates;
