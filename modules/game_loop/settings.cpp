@@ -3,21 +3,26 @@
 
 gl_loop_delay = 15; // Seconds; How often to run the game loop check.
 
-/* Template Settings */
+/*
+	Section: Template Settings
+	Notes:
+		1. Sides are written here as strings such as "WEST", "EAST", "GUER", and "CIV".
+*/
 
 class templates
 {
 	class area_cleared
 	{
 		enabled = 0;
-		area = "marker_name"; // Must be rectangle or elipse.
+		clear_area = "marker_name"; // Must be rectangle or elipse.
 		clear_sides[] = {"EAST"}; // Sides to be cleared out of the objective.
+		clear_maximum = 0; // Maximum number of enemies to deem an area as clear
 	};
 	class area_occupied
 	{
 		enabled = 0;
-		area = "marker_name"; // Must be rectangle or elipse.
-		occupy_sides[] = {"EAST"}; // Sides to occupy the objective.
+		occupy_area = "marker_name"; // Must be rectangle or elipse.
+		occupy_sides[] = {"WEST"}; // Sides to occupy the objective.
 		occupy_force_percentage = 50; // Minimum [alive] percent of each side to occupy the objective.
 	};
 	class casualties
@@ -32,13 +37,13 @@ class templates
 	class objects_destroyed
 	{
 		enabled = 0;
-		objects[] = {"opforCo", "opforCommandVeh"}; // May be units, vehicles, structures, etc.
+		objects_destroyed[] = {"opforCo", "opforCommandVeh"}; // May be units, vehicles, structures, etc.
 	};
 	class objects_in_area
 	{
 		enabled = 0;
-		area = "markerName"; // Must be rectangle or elipse.
-		objects[] = {"opforCo", "opforCommandVeh"}; // May be units, vehicles, structures, etc.
+		active_area = "markerName"; // Must be rectangle or elipse.
+		objects_in_area[] = {"opforCo", "opforCommandVeh"}; // May be units, vehicles, structures, etc.
 	};
 	class time_limit
 	{
@@ -49,7 +54,7 @@ class templates
 	{
 		enabled = 0;
 		/* Note: Only one trigger needs to be activated for mission to end. */
-		triggers[] = {"bluforDetectedTrig1"};
+		active_triggers[] = {"bluforDetectedTrig1"};
 	};
 	class variable_conditions
 	{
@@ -61,6 +66,6 @@ class templates
 				   end-mission description.
 				3. Conditions must be string values, but will be run as code at run-time.
 		*/
-		conditions[] = {"condVar1", "[] call my_fnc_checkCond"};
+		variable_conditions[] = {"condVar1", "[] call my_fnc_checkCond"};
 	};
 };

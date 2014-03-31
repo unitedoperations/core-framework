@@ -18,7 +18,7 @@ if (isServer) then {
 			for "_j" from 0 to ((count _temp) - 1) do { // Load settings
 				private ["_setting"];
 				_setting = _temp select _j;
-				if (!(configName(_setting) in ["enabled", "end_screen_message"]) && {!isClass(_setting)}) then {
+				if (!(configName(_setting) in ["enabled"]) && {!isClass(_setting)}) then {
 					missionNamespace setVariable [
 						format["gl_%1", configName(_setting)], 
 						[_setting] call core_fnc_getConfigValue;

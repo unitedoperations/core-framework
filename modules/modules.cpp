@@ -18,14 +18,14 @@
 		"config.cpp" files within the module folders.
 */
 
-#include "ai_performance\config.cpp"
-#include "ai_spawner\config.cpp"
+#include "ai_performance\config.cpp" // Untested
+#include "ai_spawner\config.cpp" // Untested
 #include "ao_limit\config.cpp"
 #include "briefing\config.cpp"
 #include "building_menu\config.cpp"
 #include "earplugs\config.cpp"
 #include "flexi_menu_helper\config.cpp"
-//#include "game_loop\config.cpp" // Unfinished
+#include "game_loop\config.cpp" // Untested
 #include "gear\config.cpp"
 #include "jip_teleport\config.cpp"
 #include "marker_control\config.cpp"
