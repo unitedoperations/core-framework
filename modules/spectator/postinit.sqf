@@ -15,5 +15,5 @@ if (isServer) then {
 if (!isDedicated) then {
 	#include "libraries\backend.sqf"
 	
-	killedEh = player addEventHandler ["Killed", {sp_body = player;sp_side = side player;[] spawn sp_fnc_prep;}];
+	sp_killedEh = player addEventHandler ["Killed", {sp_body = player;sp_side = side player;[] spawn sp_fnc_prep;}];
 };
