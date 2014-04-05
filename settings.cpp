@@ -1,13 +1,28 @@
 
-// TODO: Need documentation
+/************************************************
+*	Core Settings
+*
+*	These are settings relating directly to the
+*	Core mission framework.
+*
+*	The available log levels, in order from
+*	most verbose to most necessary, are:
+*		"info"
+*		"notice"
+*		"warning"
+*		"error"
+*		"critical"
+************************************************/
 class Core
 {
-	log_to_diary	= 1;
+	log_to_diary	= 1; // Show a diagnostics log diary entry while in-game
 	sp_log_level[]	= {"info", "notice", "warning", "error", "critical"};
 	mp_log_level[]	= {"notice", "warning", "error", "critical"};
 };
 
 /************************************************
+*	Mission Header
+*
 *	The purpose of this class definition is to
 *	signal the engine the gameType which is
 *	displayed in the MP game browser. This can
@@ -33,6 +48,8 @@ class Header
 };
 
 /************************************************
+*	Respawn
+*
 *	Sets respawn type.
 *	Can be one of:
 *		- 0 or "NONE" - No respawn
@@ -77,8 +94,9 @@ onLoadMissionTime		= 0;	// Define whether you will see the time and date display
 onLoadIntroTime			= 0;	// Define whether you will see the time and date displayed while the intro loads.
 
 /************************************************
-*	Disable global, side, command and system chat
+*	Disable Channels
 *
+*	Disable global, side, command and system chat
 *		0 = Global
 *		1 = Side
 *		2 = Command
@@ -90,6 +108,8 @@ onLoadIntroTime			= 0;	// Define whether you will see the time and date displaye
 disableChannels[]		= {};
 
 /************************************************
+*	Scoring
+*
 *	Set minimum, average, and maximum scores for
 *	your mission. Score is related to the star
 *	display in the debriefing screen. The score

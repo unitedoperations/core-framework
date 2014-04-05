@@ -1,9 +1,18 @@
 
-/* DO NOT EDIT BELOW THIS COMMENT */
+// You may run pre-core-init scripts here
 
-// Load Core if CBA isn't present
+/**********************************/
+/* DO NOT EDIT BELOW THIS COMMENT */
+/**********************************/
+
 if (isNil "core_init") then {
 	call compile preprocessFileLineNumbers "core\init.sqf";
+} else {
+	waitUntil {core_init};
 };
 
+/**********************************/
 /* DO NOT EDIT ABOVE THIS COMMENT */
+/**********************************/
+
+// You may run post-core-init scripts here
