@@ -21,22 +21,22 @@ jt_fnc_jipTeleport = {
 	_target = [] call jt_fnc_getTarget;
 	
 	if (_target == player) exitWith {
-		hint "JIP Teleport is no longer possible.\n\nSince no suitable group member could be found.";
+		["JIP Teleport is no longer possible.\n\nSince no suitable group member could be found."] call core_fnc_hint;
 		[] call jt_fnc_disableJip;
 	};
 	
 	if ((vehicle _target) != _target) then { // Checks if the target is in a vehicle
 		if (((vehicle _target) emptyPositions "cargo") == 0) then { // Checks if vehicle has empty seats
-			hint format["No room in %1's vehicle.\nPlease try again later.", name(_target)];
+			["No room in %1's vehicle.\nPlease try again later.", [name(_target)]] call core_fnc_hint;
 		}
 		else {
 			player moveInCargo (vehicle _target);
-			hint format["Teleported to %1's vehicle.", name(_target)];
+			["Teleported to %1's vehicle.", [name(_target)]] call core_fnc_hint;
 			[] call jt_fnc_disableJip;
 		}; 
 	} else {
 		player setPos (getPos _target);
-		hint format["Teleported to %1's position.", name(_target)];
+		["Teleported to %1's position.", [name(_target)]] call core_fnc_hint;
 		[] call jt_fnc_disableJip;
 	};
 };

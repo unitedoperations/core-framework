@@ -11,7 +11,7 @@ if (!isDedicated) then {
 
 	if ((_target distance player) >  jtp_jipDistance) then {
 		[] call jt_fnc_enableJip;
-		hint format["You can JIP Teleport with ACE Self Interaction.\n\nBecause your squad is more then %1 meters away.", jtp_jipDistance];
+		["You can JIP Teleport with ACE Self Interaction."] call core_fnc_hint
 		
 		[] spawn {
 			_spawnPos = getPosATL player;

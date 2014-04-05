@@ -38,7 +38,7 @@ if (!isDedicated) then {
 					_vehicle setPos _pos;
 				};
 				
-				hintSilent format["Seconds remaining: %1", round((_marker select 0) - time)];
+				["Seconds remaining: %1", [round((_marker select 0) - time)], true] call core_fnc_hint;
 				
 				if (time >= (_marker select 0)) then {
 					hint "Setup timer expired";
