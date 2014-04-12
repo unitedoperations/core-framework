@@ -29,7 +29,7 @@ ace_sys_tracking_gps_required		= true;			// Exclude tracking of units not carryi
 
 /* BIS Miscellaneous */
 _clientRadioVolume					= 0;			// Change BIS radio volume
-BIS_noCoreConversations				= true;			// Disable BIS Greeting Menu
+_noCoreConversations				= true;			// Disable BIS Greeting Menu
 enableRadio false;									// Disable BIS radio
 enableEngineArtillery false;  						// Disable BI simple artillery computer
 enableSaving [false, false];						// Disable Saving
