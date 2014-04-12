@@ -7,6 +7,7 @@ class game_loop
 	required_version = 1;
 	url = "https://github.com/unitedoperations/Core-framework";
 	postinit = "postinit.sqf";
+	preinit = "preinit.sqf";
 	class settings {
 		#include "settings.cpp"
 	};
