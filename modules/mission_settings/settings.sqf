@@ -15,7 +15,6 @@ ace_viewdistance_limit				= _clientVD;	// Max view distance in ACE settings menu
 /* ACE Wounds */
 ace_sys_wounds_noai					= true; 		// Disable wounds for AI for performance
 ace_wounds_prevtime					= (5 * 60); 	// ACE Wounds Unconscious Countdown Timer
-ace_sys_wounds_withSpect			= nil;			// If player is unconscious, spectator script initializes
 ace_sys_wounds_leftdam				= 0.07;			// How much damage is max left when healed in the field
 ace_sys_wounds_all_medics			= false;		// Set to true for everyone considered as a medic
 ace_sys_wounds_auto_assist			= true;			// Should (non medic) AI units automatically assist unconscious units in their group?
