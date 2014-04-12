@@ -33,9 +33,12 @@ if (isServer) then {
 				private ["_res"];
 				_res = call(_x select 1);
 				if (!(isNil "_res")) then {
-					[
-						([_res, configName(_x select 0)] call core_fnc_getConfigValue)
-					] // TODO
+					#define TIME_LIMIT_TEMPLATE_CFG (missionConfigFile/"modules"/"game_loop"/"settings"/"templates"/"time_limit")
+					[_res,
+						(if (([TIME_LIMIT_TEMPLATE_CFG >> "enabled", 0] call core_fnc_getConfigValue) == 1) then {
+							[TIME_LIMIT_TEMPLATE_CFG >> "time_limit", -1] call core_fnc_getConfigValue;
+						} else {-1})
+					] call es_fnc_endMission;
 				};
 			} forEach _templates;
 			uiSleep gl_loop_delay;
