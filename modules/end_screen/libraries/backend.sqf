@@ -48,8 +48,12 @@ es_fnc_displayEndScreen = {
 		};
 	} forEach _teams;
 
-	_timeLimitText = format["Mission duration: %1 out of %2 minutes", (ceil(time / 60)), (_timeLimt / 60)];
-
+	if (_timeLimt > 0) then {
+		_timeLimitText = format["Mission duration: %1 out of %2 minutes", (ceil(time / 60)), (_timeLimt / 60)];
+	} else {
+		_timeLimitText = "";
+	};
+	
 	_endTitleText = format["%1<br />%2", _scenario, _timeLimitText];
 
 	((findDisplay DIA) displayCtrl ENDTITLE) ctrlSetStructuredText parseText _endTitleText;
@@ -139,5 +143,5 @@ es_fnc_endMission = {
 		_stats set [count _stats, [_teamName, _startSize, _currentSize, _disabled, _destroyed]];
 	} forEach sp_teams;
 	
-	["endScreen", [(_this select 0), (666 * 60), _stats]] call CBA_fnc_globalEvent; // The timelimt needs to be implemented from game loop
+	["endScreen", [(_this select 0), (_this select 1), _stats]] call CBA_fnc_globalEvent; // The timelimt needs to be implemented from game loop
 };
