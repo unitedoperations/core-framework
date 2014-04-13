@@ -73,7 +73,7 @@ class Header
 ************************************************/
 respawn					= "BASE";
 
-respawndelay			= 5;	// Set respawn delay in seconds.
+respawndelay			= 3;	// Set respawn delay in seconds.
 //respawnVehicleDelay	= 11;	// Set vehicle respawn delay in seconds.
 
 respawnDialog			= 0;	// Show the scoreboard and respawn countdown timer for a player if he is killed.
