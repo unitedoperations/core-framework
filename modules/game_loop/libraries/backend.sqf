@@ -29,7 +29,6 @@ gl_fnc_areaOccupied = {
 	_count >= _min
 };
 
-
 gl_fnc_checkCasualties = {
 	private ["_side", "_limit", "_totalCount", "_aliveCount"];
 	_side = _this select 0;
