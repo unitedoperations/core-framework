@@ -20,7 +20,7 @@ if (!isDedicated) then {
 			_marker = [];
 			
 			{
-				if (((_x select 0) == (side player)) && [(vehicle player), (_x select 2)] call al_fnc_inArea) exitWith {
+				if (((_x select 0) == (side player)) && [(vehicle player), (_x select 2)] call core_fnc_inArea) exitWith {
 					_marker = [(_x select 1), (_x select 2)];	
 					(_marker select 1) setMarkerAlphaLocal 1;
 				};
@@ -32,7 +32,7 @@ if (!isDedicated) then {
 			
 				_vehicle = (vehicle player);
 			
-				if ([_vehicle, (_marker select 1)] call al_fnc_inArea) then {
+				if ([_vehicle, (_marker select 1)] call core_fnc_inArea) then {
 					_pos = getPosATL _vehicle;
 				} else {
 					_vehicle setPos _pos;
