@@ -37,7 +37,7 @@ class Mission
 	};
 	class Groups
 	{
-		items=10;
+		items=11;
 		class Item0
 		{
 			side="WEST";
@@ -45,19 +45,6 @@ class Mission
 			{
 				items=7;
 				class Item0
-				{
-					position[]={3269.675,4,4564.2642};
-					azimut=180;
-					special="NONE";
-					id=3;
-					side="WEST";
-					vehicle="FR_AR";
-					player="PLAY CDG";
-					lock="UNLOCKED";
-					skill=0.2;
-					init="[this, ""1'1"", ""MAIN"", ""usmc_ar""] call gear_fnc_setLoadout;";
-				};
-				class Item1
 				{
 					position[]={3264.7754,4.4459043,4560.27};
 					azimut=180;
@@ -71,8 +58,9 @@ class Mission
 					rank="SERGEANT";
 					skill=0.2;
 					init="[this, ""1'1"", ""MAIN"", ""usmc_sl""] call gear_fnc_setLoadout;";
+					description="1'1 / Squad Leader";
 				};
-				class Item2
+				class Item1
 				{
 					position[]={3267.0862,4.0702024,4562.1338};
 					azimut=180;
@@ -84,36 +72,67 @@ class Mission
 					lock="UNLOCKED";
 					rank="CORPORAL";
 					skill=0.2;
-					init="[this, ""1'1"", ""MAIN"", ""usmc_tl""] call gear_fnc_setLoadout;";
+					init="[this, ""1'1"", ""BLUE"", ""usmc_tl""] call gear_fnc_setLoadout;";
+					description="1'1 / FT1 / Fire Team Leader";
+				};
+				class Item2
+				{
+					position[]={3269.675,4,4564.2642};
+					azimut=180;
+					special="NONE";
+					id=2;
+					side="WEST";
+					vehicle="FR_AR";
+					player="PLAY CDG";
+					lock="UNLOCKED";
+					skill=0.2;
+					init="[this, ""1'1"", ""BLUE"", ""usmc_ar""] call gear_fnc_setLoadout;";
+					description="1'1 / FT1 / Automatic Rifleman";
 				};
 				class Item3
+				{
+					position[]={3272.0994,4,4566.2402};
+					azimut=180;
+					special="NONE";
+					id=3;
+					side="WEST";
+					vehicle="FR_Sapper";
+					player="PLAY CDG";
+					lock="UNLOCKED";
+					skill=0.2;
+					init="[this, ""1'1"", ""BLUE"", ""usmc_demo""] call gear_fnc_setLoadout;";
+					description="1'1 / FT1 / Demolitions Specialist";
+				};
+				class Item4
 				{
 					position[]={3262.7119,4.468646,4562.0806};
 					azimut=180;
 					special="NONE";
-					id=2;
+					id=4;
 					side="WEST";
 					vehicle="FR_Assault_GL";
 					player="PLAY CDG";
 					lock="UNLOCKED";
 					rank="CORPORAL";
 					skill=0.2;
-					init="[this, ""1'1"", ""MAIN"", ""usmc_tl""] call gear_fnc_setLoadout;";
+					init="[this, ""1'1"", ""RED"", ""usmc_tl""] call gear_fnc_setLoadout;";
+					description="1'1 / FT2 / Fire Team Leader";
 				};
-				class Item4
+				class Item5
 				{
 					position[]={3260.4685,4.482132,4564.1743};
 					azimut=180;
 					special="NONE";
-					id=4;
+					id=5;
 					side="WEST";
 					vehicle="FR_Marksman";
 					player="PLAY CDG";
 					lock="UNLOCKED";
 					skill=0.2;
-					init="[this, ""1'1"", ""MAIN"", ""usmc_mm""] call gear_fnc_setLoadout;";
+					init="[this, ""1'1"", ""RED"", ""usmc_mm""] call gear_fnc_setLoadout;";
+					description="1'1 / FT2 / Marksman";
 				};
-				class Item5
+				class Item6
 				{
 					position[]={3258.2676,4.4983363,4566.1953};
 					azimut=180;
@@ -124,20 +143,8 @@ class Mission
 					player="PLAY CDG";
 					lock="UNLOCKED";
 					skill=0.2;
-					init="[this, ""1'1"", ""MAIN"", ""usmc_medic""] call gear_fnc_setLoadout;";
-				};
-				class Item6
-				{
-					position[]={3272.0994,4,4566.2402};
-					azimut=180;
-					special="NONE";
-					id=5;
-					side="WEST";
-					vehicle="FR_Sapper";
-					player="PLAY CDG";
-					lock="UNLOCKED";
-					skill=0.2;
-					init="[this, ""1'1"", ""MAIN"", ""usmc_demo""] call gear_fnc_setLoadout;";
+					init="[this, ""1'1"", ""RED"", ""usmc_medic""] call gear_fnc_setLoadout;";
+					description="1'1 / FT2 / Medic";
 				};
 			};
 		};
@@ -1116,6 +1123,30 @@ class Mission
 					{
 					};
 					showWP="NEVER";
+				};
+			};
+		};
+		class Item10
+		{
+			side="CIV";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={4375.2783,22.554523,2431.4036};
+					special="NONE";
+					id=84;
+					side="CIV";
+					vehicle="Citizen1";
+					player="PLAY CDG";
+					leader=1;
+					lock="UNLOCKED";
+					skill=0.2;
+					text="headless_client";
+					init="this setVariable [""ace_w_allow_dam"", false, true]; this allowDamage false; this setCaptive true; hideObject this;";
+					description="Headless Client";
+					forceHeadlessClient=1;
 				};
 			};
 		};
