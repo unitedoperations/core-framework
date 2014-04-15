@@ -113,7 +113,7 @@ aip_fnc_debugMode = {
 			round((aip_hcUnitCount / _totalAI) * 100),
 			_totalAI
 		];
-		["%1 AIP: %2", [round(time), _string], true, 3] call core_fnc_hint;
+		player sideChat format["%1 AIP: %2", round(time), _string];
 		["Info", "AIP", _string, [], __FILE__, __LINE__] call core_fnc_log;
 		aip_hcUnitCount = nil;
 		sleep 10;

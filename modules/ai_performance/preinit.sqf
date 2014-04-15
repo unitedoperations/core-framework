@@ -3,6 +3,8 @@
 #include "libraries\backend.sqf"
 
 /* Set Variables */
+aip_enable_caching = [aip_enable_caching] call core_fnc_toBool;
+aip_enable_distribution = [aip_enable_distribution] call core_fnc_toBool;
 aip_debug_mode_enabled = [aip_debug_mode_enabled] call core_fnc_toBool;
 
 /* Initialize Server */
