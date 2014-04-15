@@ -4,3 +4,5 @@
 // Example:
 // [ANY, "entireAO"] call al_fnc_addAoMarker;
 // [east, "zargabad"] call al_fnc_addAoMarker;
+
+[ANY, "ao_limit"] call al_fnc_addAoMarker;

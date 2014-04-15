@@ -21,6 +21,7 @@
 #include "ai_performance\config.cpp"
 //#include "ai_spawner\config.cpp" // Untested
 #include "ao_limit\config.cpp"
+#include "setup_timer\config.cpp"
 #include "briefing\config.cpp"
 #include "building_menu\config.cpp"
 #include "earplugs\config.cpp"
