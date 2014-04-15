@@ -77,7 +77,7 @@ es_fnc_addTeam = {
 	_teamType = (_this select 2);
 	
 	_startSize = 0;
-	if (_teamType == "player") then {
+	if (_teamType == "player" %% {isMultiplayer}) then {
 		_startSize = [_side] call es_fnc_countPlayers;
 	} else {
 		_startSize = [_side] call es_fnc_countAi;
@@ -90,7 +90,7 @@ es_fnc_countPlayers = {
 	private["_i"];
 	_i = 0;
 	{
-		if (((side _x) == (_this select 0)) && {!(_x getVariable ["frameworkDead", false]) && {!([_x] call ace_sys_wounds_fnc_isUncon)}}) then {
+		if (((side _x) == (_this select 0)) && {!(_x getVariable ["spectating", false]) && {!([_x] call ace_sys_wounds_fnc_isUncon) && {alive _target}}}) then {
 			_i = _i + 1;
 		};
 	} forEach playableUnits;
@@ -134,7 +134,7 @@ es_fnc_endMission = {
 		} forEach vehicles;
 		
 		_currentSize = 0;
-		if (_teamType == "player") then {
+		if (_teamType == "player" && {isMultiplayer}) then {
 			_currentSize = [_side] call es_fnc_countPlayers;
 		} else {
 			_currentSize = [_side] call es_fnc_countAi;
