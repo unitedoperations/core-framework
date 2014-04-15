@@ -1,4 +1,10 @@
 
+/* Load Libraries */
+#include "libraries\backend.sqf"
+
+/* Set Variables */
+aip_debug_mode_enabled = [aip_debug_mode_enabled] call core_fnc_toBool;
+
 /* Initialize Server */
 if (isServer) then {
 	aip_headlessClients = [];

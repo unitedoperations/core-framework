@@ -43,7 +43,7 @@ class Header
 {
 	gameType				= Coop;	// GameType, see above
 	minPlayers				= 1;	// Min number of players to start
-	maxPlayers				= 10;	// Max number of players allowed
+	maxPlayers				= 7;	// Max number of players allowed
 	playerCountMultipleOf	= 1;	// Should always be 1
 };
 
@@ -105,7 +105,7 @@ onLoadIntroTime			= 0;	// Define whether you will see the time and date displaye
 *		5 = Direct
 *		6 = System
 ************************************************/
-disableChannels[]		= {};
+//disableChannels[]		= {};
 
 /************************************************
 *	Scoring

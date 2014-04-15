@@ -49,9 +49,9 @@ aip_fnc_distributeUnit = {
 
 aip_fnc_aiPerformanceLoop = {
 	while {true} do {
-		if (aip_enableCaching) then {
+		if (aip_enable_caching) then {
 			private ["_maxDis"];
-			_maxDis = [aip_cacheDistance] call core_fnc_toNumber;
+			_maxDis = [aip_cache_distance] call core_fnc_toNumber;
 			{ // forEach
 				if (!(isPlayer _x) && {!(local _x)} && {_x getVariable ["aip_caching_allowed", true]}) then { // Cacheable
 					if (_x getVariable ["aip_cached", false]) then { // Cached
@@ -68,19 +68,18 @@ aip_fnc_aiPerformanceLoop = {
 						[_x] call aip_fnc_loadUnitLocal;
 					};
 				};
-			};
+			} forEach allUnits;
 		};
-		if (isServer && {aip_enableDistribution} && {(count aip_headlessClients) > 0} && {local _x} && {_x getVariable ["aip_distribution_allowed", true]} && {!(isPlayer _x)}) then { // Distribute unit
+		if (isServer && {aip_enable_distribution} && {(count aip_headlessClients) > 0} && {local _x} && {_x getVariable ["aip_distribution_allowed", true]} && {!(isPlayer _x)}) then { // Distribute unit
 			[_x, (aip_headlessClients select round(random((count aip_headlessClients) - 1)))] call aip_fnc_distributeUnit;
 		};
-		} forEach allUnits;
 		uiSleep aip_loop_delay;
 	};
 };
 
 aip_fnc_debugMode = {
-	while {true} do {
-		[0, {
+	while {aip_debug_mode_enabled} do {
+		[-2, {
 			if (isServer && {(count aip_headlessClients) <= 0}) then {
 				aip_hcUnitCount = 0;
 				_this publicVariableClient "aip_hcUnitCount";
@@ -114,7 +113,7 @@ aip_fnc_debugMode = {
 			round((aip_hcUnitCount / _totalAI) * 100),
 			_totalAI
 		];
-		player sideChat format["%1 AIP: %2", round(time), _string];
+		["%1 AIP: %2", [round(time), _string], true, 3] call core_fnc_hint;
 		["Info", "AIP", _string, [], __FILE__, __LINE__] call core_fnc_log;
 		aip_hcUnitCount = nil;
 		sleep 10;

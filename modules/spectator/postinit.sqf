@@ -6,10 +6,10 @@ if (isServer) then {
 		_marker setMarkerType "EMPTY";
 	};
 
-	["respawn_west"] call _sp_fnc_createMarker;
-	["respawn_east"] call _sp_fnc_createMarker;
-	["respawn_guerrila"] call _sp_fnc_createMarker;
-	["respawn_civilian"] call _sp_fnc_createMarker;
+	["respawn_west"] call sp_fnc_createMarker;
+	["respawn_east"] call sp_fnc_createMarker;
+	["respawn_guerrila"] call sp_fnc_createMarker;
+	["respawn_civilian"] call sp_fnc_createMarker;
 };
 
 if (!isDedicated) then {
