@@ -12,8 +12,8 @@
 		2 - Fire Team [string]
 		3 - Gear class or loadout file [string]
 	Examples:
-		[this, "squadleader"] call gear_fnc_setLoadout;
-		[this, "west\rifleman.sqf"] call gear_fnc_setLoadout;
+		[this, "1'1", "MAIN", "usmc_sl"] call gear_fnc_setLoadout;
+		[this, "1'2", "BLUE", "west\rifleman.sqf"] call gear_fnc_setLoadout;
 	Notes:
 		1. For vehicles, the group name or fire team doesn't matter.
 		2. The availabe fire teams are: "MAIN", "RED", "GREEN", "BLUE" or "YELLOW".
