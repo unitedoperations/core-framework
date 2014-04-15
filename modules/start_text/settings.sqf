@@ -1,3 +1,4 @@
+
 switch (side player) do {
 	case west: {
 		["west spawnpoint", "island"] call st_fnc_displayText;
