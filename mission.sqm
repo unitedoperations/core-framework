@@ -25,15 +25,14 @@ class Mission
 	randomSeed=4656359;
 	class Intel
 	{
-		briefingName="CO7_OP_APPLE_CORE";
+		briefingName="CO7_APPLE_CORE";
 		briefingDescription="Core Framework Showcase Mission";
 		startWeather=0.39999998;
 		forecastWeather=0.25;
 		year=2008;
-		month=10;
-		day=11;
-		hour=14;
-		minute=20;
+		month=3;
+		hour=2;
+		minute=0;
 	};
 	class Groups
 	{
@@ -64,7 +63,6 @@ class Mission
 				{
 					position[]={3267.0862,4.0702024,4562.1338};
 					azimut=180;
-					special="NONE";
 					id=1;
 					side="WEST";
 					vehicle="FR_Assault_GL";
@@ -79,7 +77,6 @@ class Mission
 				{
 					position[]={3269.675,4,4564.2642};
 					azimut=180;
-					special="NONE";
 					id=2;
 					side="WEST";
 					vehicle="FR_AR";
@@ -93,7 +90,6 @@ class Mission
 				{
 					position[]={3272.0994,4,4566.2402};
 					azimut=180;
-					special="NONE";
 					id=3;
 					side="WEST";
 					vehicle="FR_Sapper";
@@ -107,7 +103,6 @@ class Mission
 				{
 					position[]={3262.7119,4.468646,4562.0806};
 					azimut=180;
-					special="NONE";
 					id=4;
 					side="WEST";
 					vehicle="FR_Assault_GL";
@@ -122,7 +117,6 @@ class Mission
 				{
 					position[]={3260.4685,4.482132,4564.1743};
 					azimut=180;
-					special="NONE";
 					id=5;
 					side="WEST";
 					vehicle="FR_Marksman";
@@ -136,7 +130,6 @@ class Mission
 				{
 					position[]={3258.2676,4.4983363,4566.1953};
 					azimut=180;
-					special="NONE";
 					id=6;
 					side="WEST";
 					vehicle="FR_Corpsman";
@@ -1140,13 +1133,13 @@ class Mission
 					side="CIV";
 					vehicle="Citizen1";
 					player="PLAY CDG";
+					forceHeadlessClient=1;
 					leader=1;
 					lock="UNLOCKED";
 					skill=0.2;
 					text="headless_client";
 					init="this setVariable [""ace_w_allow_dam"", false, true]; this allowDamage false; this setCaptive true; hideObject this;";
 					description="Headless Client";
-					forceHeadlessClient=1;
 				};
 			};
 		};

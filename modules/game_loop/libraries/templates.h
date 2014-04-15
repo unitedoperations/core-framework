@@ -12,7 +12,7 @@
 	([checkSide, limit] call gl_fnc_checkCasualties)
 
 #define OBJECT_DESTROYED(object) \
-	((isNull "object") || {!(alive object)})
+	((isNull object) || {!(alive object)})
 
 #define OBJECT_IN_AREA(object, markerName) \
 	([object, markerName] call cba_fnc_inArea)

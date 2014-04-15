@@ -94,7 +94,7 @@ core_fnc_erase = {
 	for "_i" from (_this select 1) to (_arrCount - 2) do {
 		_arr set [_i, (_arr select (_i + 1))];
 	};
-	_arr resize [_arrCount - 1];
+	_arr resize (_arrCount - 1);
 	_arr
 };
 

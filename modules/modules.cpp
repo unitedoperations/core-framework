@@ -24,7 +24,7 @@
 #include "setup_timer\config.cpp"
 #include "briefing\config.cpp"
 //#include "building_menu\config.cpp"
-#include "earplugs\config.cpp"
+#include "auto_earplugs\config.cpp"
 #include "end_screen\config.cpp"
 #include "flexi_menu_helper\config.cpp"
 #include "game_loop\config.cpp"

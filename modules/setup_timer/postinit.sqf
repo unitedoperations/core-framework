@@ -16,7 +16,7 @@ if (!isDedicated) then {
 	if ((count sut_markers) > 0) then {
 	
 		[] spawn {
-			
+			private ["_marker", "_pos"];
 			_marker = [];
 			
 			{
@@ -28,28 +28,30 @@ if (!isDedicated) then {
 			
 			_pos = getPosATL (vehicle player);
 			
-			while {(count _marker) > 0} do {
-			
-				_vehicle = (vehicle player);
-			
-				if ([_vehicle, (_marker select 1)] call core_fnc_inArea) then {
-					_pos = getPosATL _vehicle;
-				} else {
-					_vehicle setPos _pos;
+			if ((count _marker) > 0) then {
+				#define SETUP_START_TEXT	("<t size=3 align=left>You Have </t><t size=3 color='#6599FF' shadow='1' shadowColor='#000000' align=left>%1</t><t size=3 align=left> Seconds Setup Time.</t>")
+				#define SETUP_OOB_TEXT		("The Setup Area Ends Here.")
+				#define SETUP_END_TEXT		("<t size=3 align=left>SETUP COMPLETE!</t>")
+				[SETUP_START_TEXT, _marker, false, 10] call core_fnc_hint;
+				while {(count _marker) > 0} do {
+					private ["_vehicle"];
+					_vehicle = (vehicle player);
+				
+					if ([_vehicle, (_marker select 1)] call core_fnc_inArea) then {
+						_pos = getPosATL _vehicle;
+					} else {
+						[SETUP_OOB_TEXT, [], false, 0.1] call core_fnc_hint;
+						_vehicle setPos _pos;
+					};
+					
+					if (time >= (_marker select 0)) then {
+						[SETUP_END_TEXT, [], false, 5] call core_fnc_hint;
+						(_marker select 1) setMarkerAlphaLocal 0;
+						_marker = [];
+					};
+					sleep(0.1);
 				};
-				
-				hintSilent format["Seconds remaining: %1", round((_marker select 0) - time)];
-				
-				if (time >= (_marker select 0)) then {
-					hint "Setup timer expired";
-					(_marker select 1) setMarkerAlphaLocal 0;
-					_marker = [];
-				};
-				
-				sleep(0.1);
-				
 			};
-
 		};
 	
 	};

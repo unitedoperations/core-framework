@@ -1,6 +1,6 @@
-class earplugs
+class auto_earplugs
 {
-	name = "Earplugs In At Start";
+	name = "Automatic Earplugs";
 	authors[] = {"Olsen"};
 	version = 1;
 	required_version = 1; 
