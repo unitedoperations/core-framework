@@ -35,7 +35,7 @@ gl_fnc_checkCasualties = {
 	_limit = _this select 1;
 	_totalCount = {(side _x) == _side} count allUnits;
 	_aliveCount = { // count
-		((side _x) == _side)
+		((side _x) == _side) &&
 		{alive _x} &&
 		{!(_x getVariable ["ace_sys_wounds_uncon", false])} &&
 		{!(_x getVariable ["spectating", false])}
