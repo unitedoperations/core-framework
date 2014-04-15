@@ -9,7 +9,8 @@ class Mission
 		"ace_sys_wounds",
 		"ace_sys_repair",
 		"ace_sys_tracking",
-		"acex_veh_gmv"
+		"acex_veh_gmv",
+		"ca_air2_su25"
 	};
 	addOnsAuto[]=
 	{
@@ -18,6 +19,7 @@ class Mission
 		"ace_sys_repair",
 		"ace_sys_tracking",
 		"acex_veh_gmv",
+		"ca_air2_su25",
 		"utes"
 	};
 	randomSeed=4656359;
@@ -1120,7 +1122,7 @@ class Mission
 	};
 	class Vehicles
 	{
-		items=1;
+		items=2;
 		class Item0
 		{
 			position[]={3278.4258,4.2790985,4554.418};
@@ -1132,8 +1134,21 @@ class Mission
 			leader=1;
 			lock="UNLOCKED";
 			skill=0.2;
-			text="usmc_gmv_1";
-			init="[this, ""1'1"", ""MAIN"", ""usmc_gmv""] call gear_fnc_setLoadout;";
+			init="[this, ""1'1"", ""MAIN"", ""usmc_gmv""] call gear_fnc_setLoadout; [this, ""GMV"", ""Force Recon""] call es_fnc_trackAsset;";
+		};
+		class Item1
+		{
+			position[]={3456.8154,18.976007,3642.3989};
+			azimut=151.312;
+			special="NONE";
+			id=83;
+			side="EMPTY";
+			vehicle="Su39";
+			leader=1;
+			lock="UNLOCKED";
+			skill=0.2;
+			text="SU25";
+			init="[this, ""Su-25 Frogfoot"", ""Russian Army""] call es_fnc_trackAsset;";
 		};
 	};
 	class Markers
