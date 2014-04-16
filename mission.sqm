@@ -25,7 +25,7 @@ class Mission
 	randomSeed=4656359;
 	class Intel
 	{
-		briefingName="CO7 Apple Core v1";
+		briefingName="CO7 Apple Core v2";
 		briefingDescription="Core Framework Showcase Mission";
 		startWeather=0.39999998;
 		forecastWeather=0.25;
