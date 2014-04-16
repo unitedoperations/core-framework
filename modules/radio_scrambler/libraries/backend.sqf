@@ -4,7 +4,7 @@ rs_fnc_channelGen = {
 			"_startChannel", "_seedFunc", "_channels"];
 	_channelCount	= _this select 0;
 	_base			= _this select 1;
-	_seed 			= _this select 2;
+	_seed 			= _this select 2; // Use array for pass-by-reference
 	_channelStep 	= _this select 3;
 	_seedStep		= _this select 4;
 	_startChannel	= [_this, 5, ["SCALAR"], 0] call core_fnc_param;
@@ -13,8 +13,8 @@ rs_fnc_channelGen = {
 	_channels = [];
 	for "_i" from _startChannel to (_channelCount - 1) do {
 		private ["_freq"];
-		_seed = [_seed, _base, _channelCount, _i] call _seedFunc;
-		_freq = _base + (_i * _channelStep) + (round(_seed % (_channelStep / _seedStep)) * _seedStep);
+		_seed set [0, ([(_seed select 0), _base, _channelCount, _i] call _seedFunc)];
+		_freq = _base + (_i * _channelStep) + (round((_seed select 0) % (_channelStep / _seedStep)) * _seedStep);
 		_channels set [(_i - _startChannel), _freq];
 	};
 	_channels
@@ -22,7 +22,7 @@ rs_fnc_channelGen = {
 
 rs_fnc_setDefaultChannels = {
 	private ["_seed", "_freqStep", "_seedStep", "_base", "_channelCount", "_channels"];
-	_seed		= _this select 0;
+	_seed		= [_this select 0]; // Use array for pass-by-reference to rs_fnc_channelGen
 	_freqStep	= [_this, 1, ["SCALAR"], 5] call core_fnc_param;
 	_seedStep	= [_this, 2, ["SCALAR"], 0.025] call core_fnc_param;
 	
