@@ -21,15 +21,18 @@
 		Nothing [nil]
 */
 gear_fnc_setLoadout = {
-	private ["_obj", "_class"];
+	private ["_obj"];
 	_obj = _this select 0;
-	_class = _this select 3;
-	if (_obj isKindOf "Man") then {
-		(group _obj) setGroupId [_this select 1];
-		_obj assignTeam (_this select 2);
+	if (local _obj) then {
+		private ["_class"];
+		_class = _this select 3;
+		if (_obj isKindOf "Man") then {
+			(group _obj) setGroupId [_this select 1];
+			_obj assignTeam (_this select 2);
+		};
+		if !([_class] call core_fnc_isFilePath) then {
+			_class = _class + ".sqf";
+		};
+		_obj call compile preprocessFileLineNumbers ("modules\gear\loadouts\" + _class);
 	};
-	if !([_class] call core_fnc_isFilePath) then {
-		_class = _class + ".sqf";
-	};
-	_obj call compile preprocessFileLineNumbers ("modules\gear\loadouts\" + _class);
 };
