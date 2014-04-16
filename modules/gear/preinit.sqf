@@ -33,6 +33,6 @@ gear_fnc_setLoadout = {
 		if !([_class] call core_fnc_isFilePath) then {
 			_class = _class + ".sqf";
 		};
-		_obj call compile preprocessFileLineNumbers ("modules\gear\loadouts\" + _class);
+		_obj spawn compile preprocessFileLineNumbers ("modules\gear\loadouts\" + _class);
 	};
 };

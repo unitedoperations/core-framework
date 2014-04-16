@@ -13,6 +13,8 @@
 
 #include "arma_2_common.sqf"
 
+waitUntil {!(isNil "ACE_fnc_RemoveGear") && {!(isNil "ACE_fnc_PackIFAK")}};
+
 REMOVE_ALL_ACE_ITEMS;
 SET_IFAK_SUPPLIES(0,0,0);
 
