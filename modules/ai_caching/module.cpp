@@ -1,7 +1,7 @@
 
-class ai_performance
+class ai_caching
 {
-	name = "AI Performance Module";
+	name = "AI Caching Module";
 	authors[] = {"Naught"};
 	version = 1;
 	required_version = 1;

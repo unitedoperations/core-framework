@@ -105,7 +105,7 @@ onLoadIntroTime			= 0;	// Define whether you will see the time and date displaye
 *		5 = Direct
 *		6 = System
 ************************************************/
-//disableChannels[]		= {};
+disableChannels[]		= {};
 
 /************************************************
 *	Scoring

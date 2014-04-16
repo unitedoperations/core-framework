@@ -1,6 +1,6 @@
 
 /* Client Code Only */
-if (!hasInterface) then { // May be !isDedicated
+if (hasInterface) then { // May be !isDedicated
 	/* Specific Definitions */
 	#define LOAD_SETTING(key) (call compile format["%1", (["flexi_menu_helper", key] call core_fnc_getSetting)])
 	#define FLEXI_LOAD_FUNC "_this call fmh_fnc_loadFlexiMenu;"
