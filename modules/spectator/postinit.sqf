@@ -1,15 +1,10 @@
 if (isServer) then {
-	sp_fnc_createMarker = {
+	{
 		private["_marker"];
 		_marker = createMarker [(_this select 0), [0, 0, 0]];
 		_marker setMarkerShape "ICON";
 		_marker setMarkerType "EMPTY";
-	};
-
-	["respawn_west"] call sp_fnc_createMarker;
-	["respawn_east"] call sp_fnc_createMarker;
-	["respawn_guerrila"] call sp_fnc_createMarker;
-	["respawn_civilian"] call sp_fnc_createMarker;
+	} forEach ["respawn_west", "respawn_east", "respawn_guerrila", "respawn_civilian"];
 };
 
 if (!isDedicated) then {
