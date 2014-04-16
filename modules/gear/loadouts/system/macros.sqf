@@ -57,9 +57,7 @@
 */
 
 #define FOR_CYCLE(iterations,code) \
-	for "_i" from 1 to iterations do { \
-		code; \
-	}
+	(for "_i" from 1 to iterations do {code})
 
 /*
 	Group: Common Gear Macros
@@ -109,22 +107,22 @@
 */
 
 #define REMOVE_ALL_ACE_ITEMS \
-	[_this, "ALL"] call ACE_fnc_RemoveGear
+	([_this, "ALL"] call ACE_fnc_RemoveGear)
 
 #define ADD_WEAPON_RUCK(class,amount) \
-	[_this, class, amount] call ACE_fnc_PackWeapon
+	([_this, class, amount] call ACE_fnc_PackWeapon)
 
 #define ADD_MAGAZINE_RUCK(class,amount) \
-	[_this, class, amount] call ACE_fnc_packMagazine
+	([_this, class, amount] call ACE_fnc_packMagazine)
 
 #define ADD_WEAPON_ON_BACK(class) \
 	_this setVariable ["ace_weaponOnBack", class]
 	
 #define ADD_IFAK_SUPPLIES(slot1, slot2, slot3) \
-	[_this, slot1, slot2, slot3] call ACE_fnc_PackIFAK
+	([_this, slot1, slot2, slot3] call ACE_fnc_PackIFAK)
 
 #define SET_IFAK_SUPPLIES(slot1, slot2, slot3) \
-	[_this, slot1, slot2, slot3, true] call ACE_fnc_PackIFAK
+	([_this, slot1, slot2, slot3, true] call ACE_fnc_PackIFAK)
 
 /*
 	Group: Arma 3 Gear Macros

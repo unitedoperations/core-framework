@@ -1,7 +1,7 @@
 if (isServer) then {
 	{
 		private["_marker"];
-		_marker = createMarker [(_this select 0), [0, 0, 0]];
+		_marker = createMarker [_x, [0, 0, 0]];
 		_marker setMarkerShape "ICON";
 		_marker setMarkerType "EMPTY";
 	} forEach ["respawn_west", "respawn_east", "respawn_guerrila", "respawn_civilian"];

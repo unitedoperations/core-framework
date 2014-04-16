@@ -20,8 +20,8 @@ rs_fnc_channelGen = {
 	_channels
 };
 
-rs_fnc_setChannelDefaults = {
-	private ["_seed", "_freqStep", "_seedStep"];
+rs_fnc_setDefaultChannels = {
+	private ["_seed", "_freqStep", "_seedStep", "_base", "_channelCount", "_channels"];
 	_seed		= _this select 0;
 	_freqStep	= [_this, 1, ["SCALAR"], 5] call core_fnc_param;
 	_seedStep	= [_this, 2, ["SCALAR"], 0.025] call core_fnc_param;

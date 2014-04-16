@@ -1,8 +1,11 @@
 [] spawn {
-	sleep (0.1);
-	player addWeapon "ACE_Safe";
-	sleep (0.1);
+	waitUntil {
+		if !(player hasWeapon "ACE_Safe") then {
+			player addWeapon "ACE_Safe";
+		};
+		time > 0;
+	};
 	player playMove "aidlpknlmstpslowwrfldnon_idlesteady02";
-	sleep (1);
+	sleep 1;
 	player selectWeapon "ACE_Safe";
 };

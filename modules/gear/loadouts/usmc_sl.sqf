@@ -2,10 +2,6 @@
 /* Common USMC Gear */
 #include "usmc_common.sqf"
 
-/* Weapon Slots */
-ADD_WEAPON("SCAR_L_STD_Mk4CQT");
-ADD_WEAPON("M9");
-
 /* Optics Slots */
 ADD_WEAPON("Binocular_Vector");
 
@@ -37,3 +33,7 @@ ADD_MAGAZINE_RUCK("ACE_Knicklicht_G", 4);
 ADD_MAGAZINE_RUCK("ACE_Knicklicht_R", 4);
 ADD_MAGAZINE_RUCK("ACE_Knicklicht_Y", 4);
 ADD_MAGAZINE_RUCK("ACE_Knicklicht_IR", 4);
+
+/* Weapon Slots */
+ADD_WEAPON("SCAR_L_STD_Mk4CQT");
+ADD_WEAPON("M9");
