@@ -4,4 +4,4 @@
 // Example:
 // [west, (60 * 5), "airfield"] call sut_fnc_addSetupMarker;
 
-[west, (60 * 2), "blu_spawn"] call sut_fnc_addSetupMarker;
+[west, (60 * 3), "blu_spawn"] call sut_fnc_addSetupMarker;

@@ -37,3 +37,4 @@
 #include "spectator\config.cpp"
 #include "start_text\config.cpp"
 #include "sync_time\config.cpp"
+#include "team_roster\config.cpp"

@@ -36,7 +36,7 @@ class Mission
 	};
 	class Groups
 	{
-		items=11;
+		items=12;
 		class Item0
 		{
 			side="WEST";
@@ -45,8 +45,8 @@ class Mission
 				items=7;
 				class Item0
 				{
-					position[]={3264.7754,4.4459043,4560.27};
-					azimut=180;
+					position[]={3262.9128,5.3036814,4533.6309};
+					azimut=160.32526;
 					special="NONE";
 					id=0;
 					side="WEST";
@@ -56,13 +56,14 @@ class Mission
 					lock="UNLOCKED";
 					rank="SERGEANT";
 					skill=0.2;
+					text="blu_1_1_sl";
 					init="[this, ""1'1"", ""MAIN"", ""usmc_sl""] call gear_fnc_setLoadout;";
 					description="1'1 / Squad Leader";
 				};
 				class Item1
 				{
-					position[]={3267.0862,4.0702024,4562.1338};
-					azimut=180;
+					position[]={3264.4614,5.1812282,4536.1641};
+					azimut=160.32526;
 					id=1;
 					side="WEST";
 					vehicle="FR_Assault_GL";
@@ -70,39 +71,42 @@ class Mission
 					lock="UNLOCKED";
 					rank="CORPORAL";
 					skill=0.2;
+					text="blu_1_1_1_ftl";
 					init="[this, ""1'1"", ""BLUE"", ""usmc_tl""] call gear_fnc_setLoadout;";
 					description="1'1 / FT1 / Fire Team Leader";
 				};
 				class Item2
 				{
-					position[]={3269.675,4,4564.2642};
-					azimut=180;
+					position[]={3266.1812,5.0433211,4539.041};
+					azimut=160.32526;
 					id=2;
 					side="WEST";
 					vehicle="FR_AR";
 					player="PLAY CDG";
 					lock="UNLOCKED";
 					skill=0.2;
+					text="blu_1_1_1_ar";
 					init="[this, ""1'1"", ""BLUE"", ""usmc_ar""] call gear_fnc_setLoadout;";
 					description="1'1 / FT1 / Automatic Rifleman";
 				};
 				class Item3
 				{
-					position[]={3272.0994,4,4566.2402};
-					azimut=180;
+					position[]={3267.7996,4.9316602,4541.7173};
+					azimut=160.32526;
 					id=3;
 					side="WEST";
 					vehicle="FR_Sapper";
 					player="PLAY CDG";
 					lock="UNLOCKED";
 					skill=0.2;
+					text="blu_1_1_1_demo";
 					init="[this, ""1'1"", ""BLUE"", ""usmc_demo""] call gear_fnc_setLoadout;";
 					description="1'1 / FT1 / Demolitions Specialist";
 				};
 				class Item4
 				{
-					position[]={3262.7119,4.468646,4562.0806};
-					azimut=180;
+					position[]={3260.3606,5.3499985,4534.6392};
+					azimut=160.32526;
 					id=4;
 					side="WEST";
 					vehicle="FR_Assault_GL";
@@ -110,32 +114,35 @@ class Mission
 					lock="UNLOCKED";
 					rank="CORPORAL";
 					skill=0.2;
+					text="blu_1_1_2_ftl";
 					init="[this, ""1'1"", ""RED"", ""usmc_tl""] call gear_fnc_setLoadout;";
 					description="1'1 / FT2 / Fire Team Leader";
 				};
 				class Item5
 				{
-					position[]={3260.4685,4.482132,4564.1743};
-					azimut=180;
+					position[]={3257.542,5.4471388,4535.8584};
+					azimut=160.32526;
 					id=5;
 					side="WEST";
 					vehicle="FR_Marksman";
 					player="PLAY CDG";
 					lock="UNLOCKED";
 					skill=0.2;
+					text="blu_1_1_2_mm";
 					init="[this, ""1'1"", ""RED"", ""usmc_mm""] call gear_fnc_setLoadout;";
 					description="1'1 / FT2 / Marksman";
 				};
 				class Item6
 				{
-					position[]={3258.2676,4.4983363,4566.1953};
-					azimut=180;
+					position[]={3254.7898,5.5499401,4537.019};
+					azimut=160.32526;
 					id=6;
 					side="WEST";
 					vehicle="FR_Corpsman";
 					player="PLAY CDG";
 					lock="UNLOCKED";
 					skill=0.2;
+					text="blu_1_1_2_medic";
 					init="[this, ""1'1"", ""RED"", ""usmc_medic""] call gear_fnc_setLoadout;";
 					description="1'1 / FT2 / Medic";
 				};
@@ -333,7 +340,7 @@ class Mission
 			};
 			class Waypoints
 			{
-				items=3;
+				items=4;
 				class Item0
 				{
 					position[]={3252.1931,18.994139,3711.5654};
@@ -357,6 +364,15 @@ class Mission
 				class Item2
 				{
 					position[]={3454.7534,19,3596.6104};
+					class Effects
+					{
+					};
+					showWP="NEVER";
+				};
+				class Item3
+				{
+					position[]={3334.0217,18.940212,3539.1223};
+					id=11;
 					type="CYCLE";
 					class Effects
 					{
@@ -491,7 +507,7 @@ class Mission
 			};
 			class Waypoints
 			{
-				items=3;
+				items=4;
 				class Item0
 				{
 					position[]={3470.5579,35.937359,3784.7825};
@@ -515,6 +531,15 @@ class Mission
 				class Item2
 				{
 					position[]={3603.9817,19,3593.8806};
+					class Effects
+					{
+					};
+					showWP="NEVER";
+				};
+				class Item3
+				{
+					position[]={3470.26,19,3593.9092};
+					id=23;
 					type="CYCLE";
 					class Effects
 					{
@@ -661,7 +686,7 @@ class Mission
 			};
 			class Waypoints
 			{
-				items=3;
+				items=4;
 				class Item0
 				{
 					position[]={3774.8315,27.506502,3407.0903};
@@ -685,6 +710,15 @@ class Mission
 				class Item2
 				{
 					position[]={3707.1011,18.928982,3572.4126};
+					class Effects
+					{
+					};
+					showWP="NEVER";
+				};
+				class Item3
+				{
+					position[]={3774.7371,18.923626,3572.3633};
+					id=35;
 					type="CYCLE";
 					class Effects
 					{
@@ -831,7 +865,7 @@ class Mission
 			};
 			class Waypoints
 			{
-				items=3;
+				items=4;
 				class Item0
 				{
 					position[]={3644.5757,26.29455,3691.3713};
@@ -855,6 +889,15 @@ class Mission
 				class Item2
 				{
 					position[]={3837.1013,44.632721,3822.439};
+					class Effects
+					{
+					};
+					showWP="NEVER";
+				};
+				class Item3
+				{
+					position[]={3835.4312,19.353207,3688.7278};
+					id=47;
 					type="CYCLE";
 					class Effects
 					{
@@ -989,7 +1032,7 @@ class Mission
 			};
 			class Waypoints
 			{
-				items=3;
+				items=4;
 				class Item0
 				{
 					position[]={3936.3391,23.317797,3706.1106};
@@ -1013,6 +1056,15 @@ class Mission
 				class Item2
 				{
 					position[]={4069.7629,18.950277,3515.2087};
+					class Effects
+					{
+					};
+					showWP="NEVER";
+				};
+				class Item3
+				{
+					position[]={3936.0413,18.94762,3515.2373};
+					id=59;
 					type="CYCLE";
 					class Effects
 					{
@@ -1159,7 +1211,7 @@ class Mission
 			};
 			class Waypoints
 			{
-				items=3;
+				items=4;
 				class Item0
 				{
 					position[]={3403.9539,19.51861,3408.8357};
@@ -1183,6 +1235,15 @@ class Mission
 				class Item2
 				{
 					position[]={3595.675,19,3541.075};
+					class Effects
+					{
+					};
+					showWP="NEVER";
+				};
+				class Item3
+				{
+					position[]={3594.8179,24.311441,3407.3567};
+					id=71;
 					type="CYCLE";
 					class Effects
 					{
@@ -1212,14 +1273,125 @@ class Mission
 				};
 			};
 		};
+		class Item11
+		{
+			side="WEST";
+			class Vehicles
+			{
+				items=7;
+				class Item0
+				{
+					position[]={3270.2808,4.0048981,4559.9019};
+					azimut=160.325;
+					special="NONE";
+					id=85;
+					side="WEST";
+					vehicle="FR_TL";
+					player="PLAY CDG";
+					leader=1;
+					lock="UNLOCKED";
+					rank="SERGEANT";
+					skill=0.2;
+					text="blu_1_2_sl";
+					init="[this, ""1'2"", ""MAIN"", ""usmc_sl""] call gear_fnc_setLoadout;";
+					description="1'2 / Squad Leader";
+				};
+				class Item1
+				{
+					position[]={3271.8293,4,4562.4351};
+					azimut=160.325;
+					id=86;
+					side="WEST";
+					vehicle="FR_Assault_GL";
+					player="PLAY CDG";
+					lock="UNLOCKED";
+					rank="CORPORAL";
+					skill=0.2;
+					text="blu_1_2_1_ftl";
+					init="[this, ""1'2"", ""BLUE"", ""usmc_tl""] call gear_fnc_setLoadout;";
+					description="1'2 / FT1 / Fire Team Leader";
+				};
+				class Item2
+				{
+					position[]={3273.5491,4,4565.312};
+					azimut=160.325;
+					id=87;
+					side="WEST";
+					vehicle="FR_AR";
+					player="PLAY CDG";
+					lock="UNLOCKED";
+					skill=0.2;
+					text="blu_1_2_1_ar";
+					init="[this, ""1'2"", ""BLUE"", ""usmc_ar""] call gear_fnc_setLoadout;";
+					description="1'2 / FT1 / Automatic Rifleman";
+				};
+				class Item3
+				{
+					position[]={3275.1675,4,4567.9883};
+					azimut=160.325;
+					id=88;
+					side="WEST";
+					vehicle="FR_Sapper";
+					player="PLAY CDG";
+					lock="UNLOCKED";
+					skill=0.2;
+					text="blu_1_2_1_demo";
+					init="[this, ""1'2"", ""BLUE"", ""usmc_demo""] call gear_fnc_setLoadout;";
+					description="1'2 / FT1 / Demolitions Specialist";
+				};
+				class Item4
+				{
+					position[]={3267.7285,4.1224966,4560.9102};
+					azimut=160.325;
+					id=89;
+					side="WEST";
+					vehicle="FR_Assault_GL";
+					player="PLAY CDG";
+					lock="UNLOCKED";
+					rank="CORPORAL";
+					skill=0.2;
+					text="blu_1_2_2_ftl";
+					init="[this, ""1'2"", ""RED"", ""usmc_tl""] call gear_fnc_setLoadout;";
+					description="1'2 / FT2 / Fire Team Leader";
+				};
+				class Item5
+				{
+					position[]={3264.9099,4.2664442,4562.1294};
+					azimut=160.325;
+					id=90;
+					side="WEST";
+					vehicle="FR_Marksman";
+					player="PLAY CDG";
+					lock="UNLOCKED";
+					skill=0.2;
+					text="blu_1_2_2_mm";
+					init="[this, ""1'2"", ""RED"", ""usmc_mm""] call gear_fnc_setLoadout;";
+					description="1'2 / FT2 / Marksman";
+				};
+				class Item6
+				{
+					position[]={3262.1577,4.4096775,4563.29};
+					azimut=160.325;
+					id=91;
+					side="WEST";
+					vehicle="FR_Corpsman";
+					player="PLAY CDG";
+					lock="UNLOCKED";
+					skill=0.2;
+					text="blu_1_2_2_medic";
+					init="[this, ""1'2"", ""RED"", ""usmc_medic""] call gear_fnc_setLoadout;";
+					description="1'2 / FT2 / Medic";
+				};
+			};
+		};
 	};
 	class Vehicles
 	{
-		items=2;
+		items=3;
 		class Item0
 		{
-			position[]={3278.4258,4.2790985,4554.418};
-			azimut=196.66701;
+			position[]={3271.7366,5.2592325,4528.8252};
+			azimut=189.50143;
 			special="NONE";
 			id=10;
 			side="EMPTY";
@@ -1243,13 +1415,26 @@ class Mission
 			text="SU25";
 			init="[this, ""Su-25 Frogfoot (Objective)"", ""Russian Army""] call es_fnc_trackAsset;";
 		};
+		class Item2
+		{
+			position[]={3278.8049,4.2271881,4555.4561};
+			azimut=193.257;
+			special="NONE";
+			id=92;
+			side="EMPTY";
+			vehicle="ACE_HMMWV_GMV";
+			leader=1;
+			lock="UNLOCKED";
+			skill=0.2;
+			init="[this, ""1'2"", ""MAIN"", ""usmc_gmv""] call gear_fnc_setLoadout; [this, ""GMV"", ""Force Recon""] call es_fnc_trackAsset;";
+		};
 	};
 	class Markers
 	{
 		items=5;
 		class Item0
 		{
-			position[]={3269.7058,4.3493237,4555.3877};
+			position[]={3268.4524,4.7332792,4551.3145};
 			name="blu_start";
 			text="Blufor Insertion";
 			type="mil_start";
@@ -1290,7 +1475,7 @@ class Mission
 		};
 		class Item4
 		{
-			position[]={3270.9697,4.2523518,4556.1177};
+			position[]={3269.2571,4.5584173,4552.9775};
 			name="blu_spawn";
 			markerType="RECTANGLE";
 			type="Empty";
