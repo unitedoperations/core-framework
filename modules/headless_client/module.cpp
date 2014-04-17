@@ -8,7 +8,4 @@ class headless_client
 	url = "https://github.com/unitedoperations/Core-framework";
 	preinit = "preinit.sqf";
 	postinit = "postinit.sqf";
-	class settings {
-		#include "settings.cpp"
-	};
 };
