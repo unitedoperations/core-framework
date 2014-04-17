@@ -43,7 +43,7 @@ class Header
 {
 	gameType				= Coop;	// GameType, see above
 	minPlayers				= 1;	// Min number of players to start
-	maxPlayers				= 7;	// Max number of players allowed
+	maxPlayers				= 14;	// Max number of players allowed
 	playerCountMultipleOf	= 1;	// Should always be 1
 };
 
