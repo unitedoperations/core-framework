@@ -26,4 +26,8 @@ class Extended_PreInit_EventHandlers {
 	mission_preInit = "call compile preProcessFileLineNumbers 'core\init.sqf'";
 };
 
+class Mission {
+	#include "mission.sqm"
+};
+
 /* DO NOT EDIT ABOVE THIS COMMENT */

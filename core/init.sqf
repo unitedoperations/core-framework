@@ -33,6 +33,7 @@ startLoadingScreen ["Loading Core Mission Framework..."];
 #include "libraries\diagnostics.sqf"
 #include "libraries\filesystem.sqf"
 #include "libraries\math.sqf"
+#include "libraries\mission.sqf"
 #include "libraries\rve.sqf"
 #include "libraries\strings.sqf"
 #include "libraries\ui.sqf"
@@ -63,6 +64,11 @@ if (isServer) then {
 		core_clientId = -1;
 	};
 };
+
+/* Create Side Centers */
+{ // forEach
+	createCenter _x;
+} forEach [WEST, EAST, RESISTANCE, CIVILIAN, SIDELOGIC];
 
 /* Load Mission Parameters */
 private ["_params"];
