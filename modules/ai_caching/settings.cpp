@@ -7,7 +7,6 @@
 
 /* Generic Settings */
 
-aip_enable_caching = 1; // Binary; Whether to save performance by disabling unneeded units.
 aip_cache_distance = "viewDistance"; // Meters; Either a code string or number.
 
 aip_loop_delay = 5; // Seconds; Time to sleep between AI caching checking.
