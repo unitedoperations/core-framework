@@ -6,6 +6,21 @@
 #define __objCfg(val,dft) ([_cfg >> val, dft] call core_fnc_getConfigValue)
 
 /*
+	Function: core_fnc_fixMissionPos
+	Author(s): Naught
+	Description:
+		Convert from mission.sqm position to game position.
+		Flips Y and Z values.
+	Parameter:
+		Mission Position [array]
+	Returns:
+		Game Position [array]
+*/
+core_fnc_fixMissionPos = {
+	[(_this select 0), (_this select 2), (_this select 1)]
+};
+
+/*
 	Function: core_fnc_spawnMissionObject
 	Author(s): Naught
 	Description:
@@ -30,9 +45,9 @@ core_fnc_spawnMissionObject = {
 		// Vehicle
 		_object = createVehicle [
 			__objCfg("vehicle", ""),
-			position,
+			(__objCfg("position", []) call core_fnc_fixMissionPos),
 			[],
-			__objCfg("position", []),
+			__objCfg("placement", 0),
 			__objCfg("special", "FORM")
 		];
 	} else {
@@ -40,7 +55,7 @@ core_fnc_spawnMissionObject = {
 		private ["_object"];
 		_object = _group createUnit [
 			__objCfg("vehicle", ""),
-			__objCfg("position", []),
+			(__objCfg("position", []) call core_fnc_fixMissionPos),
 			[],
 			__objCfg("placement", 0),
 			__objCfg("special", "FORM")
@@ -60,7 +75,7 @@ core_fnc_spawnMissionObject = {
 	_object setRank __objCfg("rank", "PRIVATE");
 	_object setDamage (1 - __objCfg("health", 1));
 	if (__objCfg("leader", 0) == 1) then {
-		_group setLeader _object;
+		_group selectLeader _object;
 	};
 	this = _object;
 	call compile __objCfg("init", "");
@@ -83,7 +98,7 @@ core_fnc_addMissionWaypoint = {
 	_group = _this select 0;
 	_cfg = _this select 1;
 	_wpt = _group addWaypoint [
-		__objCfg("position", []),
+		(__objCfg("position", []) call core_fnc_fixMissionPos),
 		__objCfg("placement", 0)
 	];
 	_wpt setWaypointType __objCfg("type", "MOVE");
@@ -135,7 +150,11 @@ core_fnc_spawnMissionGroup = {
 			[_group, _objCfg] call core_fnc_spawnMissionObject;
 		};
 	};
-	// Add waypoints
+	if ((count (units _group)) > 0) then {
+		// Add start waypoint
+		_group addWaypoint [getPos(leader _group), 0];
+	};
+	// Add other waypoints
 	private ["_wptCfg"];
 	_wptCfg = _cfg >> "Waypoints";
 	if (isClass(_wptCfg)) then {

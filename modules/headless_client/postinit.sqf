@@ -10,7 +10,7 @@ if (!isDedicated && !hasInterface) then { // HC
 
 if (isServer) then {
 	[] spawn {
-		if ([{!isNull hc_headlessClient}, 30, "Headless Client Module"] call core_fnc_wait) then {
+		if (isMultiplayer && {[{!isNull hc_headlessClient}, 30, "Headless Client Module"] call core_fnc_wait}) then {
 			hc_processMissionObjects = hc_headlessClient;
 			owner(hc_headlessClient) publicVariableClient "hc_processMissionObjects";
 		} else { // Fallback to server
