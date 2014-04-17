@@ -51,8 +51,8 @@ core_fnc_spawnMissionObject = {
 		private ["_vehVarName"];
 		_vehVarName = getText(_cfg >> "text");
 		_object setVehicleVarName _vehVarName;
-		hc_setVehicleVarName = [_object, _vehVarName];
-		publicVariable "hc_setVehicleVarName";
+		core_mission_setVehicleVarName = [_object, _vehVarName];
+		publicVariable "core_mission_setVehicleVarName";
 		missionNamespace setVariable [_vehVarName, _object, true];
 	};
 	_object setDir __objCfg("azimut", 0);
@@ -149,4 +149,12 @@ core_fnc_spawnMissionGroup = {
 	};
 	// Return
 	_group
+};
+
+/* Library Initialization */
+
+"core_mission_setVehicleVarName" addPublicVariableEventHandler {
+	private ["_val"];
+	_val = _this select 1;
+	(_val select 0) setVehicleVarName (_val select 1);
 };
