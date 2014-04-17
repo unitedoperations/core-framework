@@ -180,3 +180,79 @@ core_fnc_inArea = {
 	};
 	_result
 };
+
+/*
+	Function: core_fnc_addHandleDamageEventHandler
+	Author(s): Naught
+	Description:
+		Adds a generic damage event handler wrapper with support for custom handlers.
+		Also factors armor and duplicate hits into processing.
+	Parameters:
+		0 - Unit/Vehicle [object]
+		1 - Custom Handler [code] (optional)
+	Returns:
+		Event Handle [number]
+*/
+core_fnc_addHandleDamageEventHandler = {
+	private ["_veh", "_vehCfg", "_eh"];
+	_veh = _this select 0;
+	_vehCfg = configFile >> "CfgVehicles" >> typeOf(_veh);
+	// Init Static Vehicle Variables
+	_veh setVariable ["hd_cfg", _vehCfg];
+	_veh setVariable ["hd_cfg_total", _compCfg];
+	_veh setVariable ["hd_dam_total", 0, true];
+	// Init Vehicle Variables
+	{ // forEach
+		if (isClass _x) then {
+			for "_i" from 0 to ((count _x) - 1) do {
+				private ["_compCfg", "_name"];
+				_compCfg = _x select _i;
+				_name = getText(_compCfg >> "name");
+				_veh setVariable [("hd_cfg_" + _name), _compCfg];
+				_veh setVariable [("hd_dam_" + _name), 0, true];
+			};
+		};
+	} forEach [
+		_vehCfg >> "HitPoints", // All vehicles
+		_vehCfg >> "Turrets" >> "HitPoints" // Cars, tanks, APCs, helicopters, ships, and planes
+	];
+	// Add Custom Handler
+	if ((count _this) > 1) then {
+		_veh setVariable ["hd_custom_handler", (_this select 1)];
+	};
+	// Add HD EH
+	_eh = _veh addEventHandler ["HandleDamage", {
+		private ["_veh", "_sel", "_dam", "_src"];
+		_veh = _this select 0;
+		_sel = _this select 1;
+		_dam = _this select 2;
+		_src = _this select 3;
+		if (_sel == "") then {
+			private [_lastHit];
+			_lastHit = _veh getVariable ["hd_last_hit", [-1, objNull]];
+			if (time <= ((_lastHit select 0) + 0.03) && {_src == (_lastHit select 1)}) then {
+				_veh setVariable ["hd_ignore_hit", true];
+			} else {
+				_sel = "total";
+				_this set [1, _sel];
+				_veh setVariable ["hd_ignore_hit", false];
+				_veh setVariable ["hd_last_hit", [time, _src]];
+			};
+		};
+		if !(_veh getVariable ["hd_ignore_hit", false]) then {
+			private ["_cfg", "_partCfg"];
+			_cfg =  _veh getVariable ["hd_cfg", nil];
+			_partCfg = _veh getVariable [("hd_cfg_" + _sel), nil];
+			if (!isNil "_cfg" || {!isNil "_partCfg"}) then { // Process damage internally
+				_this set [2, ((_dam - (_veh getVariable [("hd_dam_" + _sel), 0])) * ([_cfg >> "armor", 1] call core_fnc_getConfigValue) * ([_partCfg >> "armor", 1] call core_fnc_getConfigValue))];
+				_dam = _this call (_veh getVariable ["hd_custom_handler", {_this select 2}]);
+				if (isNil "_dam" || {typeName(_dam) != "SCALAR"}) then {_dam = 0};
+				_veh setVariable [("hd_dam_" + _sel), _dam, true];
+			};
+			_dam
+		} else {0};
+	}];
+	// Set EH Variable and Return
+	_veh setVariable ["hd_eh_id", _eh];
+	_eh
+};
