@@ -12,6 +12,19 @@ concurrent level of AI, and for the server to run at a faster pace, reducing lag
 
 ## Usage
 
+First you must place down the headless client player unit, as shown below.
+
+1. Place down a civilian unit somewhere out of the AO, so it won't be noticed. This will be the HC unit.
+2. Name that unit `headless_client`, not for any reason but finding it in the `mission.sqm` file later.
+3. Make the HC unit playable.
+4. Copy this code and put it in the HC's init field:
+	this setCaptive true; this allowDamage false; hideObject this; this setVariable ["ace_w_allow_dam",false];
+5. Save the mission. Do not save again until after step #8.
+6. Open your `mission.sqm` file, and search (CRTL+F) for the text `headless_client`.
+7. Right under the line which reads `text="headless_client";`, copy and pase the following code:
+	forceHeadlessClient=1;
+8. Load your mission again in the editor.
+
 To send a unit to the headless client, first make sure this module is enabled in the `modules.cpp` file.
 Then do the following for each unit you want to send:
 
