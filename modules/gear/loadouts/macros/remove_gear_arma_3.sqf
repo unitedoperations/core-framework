@@ -8,10 +8,10 @@
 		#include "system\arma_3_common.sqf" // Include in all loadout files
 */
 
-#ifndef arma_3_common
-#define arma_3_common
+#ifndef remove_gear_arma_3
+#define remove_gear_arma_3
 
-#include "arma_2_common.sqf"
+#include "remove_gear_arma_2.sqf"
 
 REMOVE_ALL_CONTAINERS;
 REMOVE_HEADGEAR;

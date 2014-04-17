@@ -8,15 +8,11 @@
 		#include "system\arma_2_common.sqf" // Include in all loadout files
 */
 
-#ifndef arma_2_common
-#define arma_2_common
+#ifndef remove_gear_vehicle
+#define remove_gear_vehicle
 
-#include "macros.sqf"
+#include "gear.sqf"
 
-REMOVE_ALL_WEAPONS;
-REMOVE_ALL_MAGAZINES;
-REMOVE_ALL_ITEMS;
-REMOVE_BACKPACK;
 REMOVE_ALL_WEAPONS_CARGO;
 REMOVE_ALL_MAGAZINES_CARGO;
 REMOVE_ALL_BACKPACKS_CARGO;

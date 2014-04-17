@@ -1,6 +1,6 @@
 
-/* Macro Definitons */
-#include "system\macros.sqf"
+/* Vehicle Gear Removal */
+#include "macros\remove_gear_vehicle.sqf"
 
 /* Vehicle Gear Removal */
 REMOVE_ALL_WEAPONS_CARGO;

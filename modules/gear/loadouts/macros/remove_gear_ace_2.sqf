@@ -8,10 +8,10 @@
 		#include "system\ace_2_common.sqf" // Include in all loadout files
 */
 
-#ifndef ace_2_common
-#define ace_2_common
+#ifndef remove_gear_ace_2
+#define remove_gear_ace_2
 
-#include "arma_2_common.sqf"
+#include "remove_gear_arma_2.sqf"
 
 waitUntil {!(isNil "ACE_fnc_RemoveGear") && {!(isNil "ACE_fnc_PackIFAK")}};
 

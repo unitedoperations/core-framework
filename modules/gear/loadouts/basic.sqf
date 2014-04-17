@@ -1,6 +1,6 @@
 
 /* Arma 2 and ACE 2 Gear Removal */
-#include "system\ace_2_common.sqf"
+#include "macros\remove_gear_ace_2.sqf"
 
 /* Item Slots */
 ADD_WEAPON("ItemMap");
