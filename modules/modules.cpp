@@ -28,6 +28,7 @@
 #include "flexi_menu_helper\config.cpp"
 #include "game_loop\config.cpp"
 #include "gear\config.cpp"
+#include "headless_client\config.cpp"
 #include "jip_teleport\config.cpp"
 #include "marker_control\config.cpp"
 #include "mission_settings\config.cpp"
