@@ -34,18 +34,29 @@ aip_fnc_aiPerformanceLoop = {
 		_maxDis = [aip_cache_distance] call core_fnc_toNumber;
 		{ // forEach
 			if (aip_enable_caching && {!isPlayer _x} && {!local _x} && {_x getVariable ["aip_caching_allowed", true]}) then { // Cacheable
+				private ["_cacheUnit"];
+				_cacheUnit = isDedicated || {((_x distance player) > _maxDis) && {!(_x getVariable ["aip_in_combat", false])}};
 				if (_x getVariable ["aip_cached", false]) then { // Cached
-					if (!isDedicated && {(_x distance player) <= _maxDis}) then { // Load unit
+					if (!_cacheUnit) then { // Load unit
 						[_x] call aip_fnc_loadUnitLocal;
 					};
 				} else { // Loaded (not cached)
-					if (isDedicated || {(_x distance player) > _maxDis}) then { // Cache unit
+					if (_cacheUnit) then { // Cache unit
 						[_x] call aip_fnc_cacheUnitLocal;
 					};
 				};
 			} else { // Non-cacheable
 				if (_x getVariable ["aip_cached", false]) then { // Ensure load unit
 					[_x] call aip_fnc_loadUnitLocal;
+				};
+			};
+			if (isMultiplayer && {local _x} && {!isPlayer _x} && {_x getVariable ["aip_caching_allowed", true]}) then { // Update position
+				_x setPos(getPos _x);
+				if (!(_x getVariable ["aip_in_combat", false]) && {(behaviour _x) == "COMBAT"}) then { // Got in combat
+					_x setVariable ["aip_in_combat", true, true];
+				};
+				if ((_x getVariable ["aip_in_combat", false]) && {(behaviour _x) != "COMBAT"}) then { // Got out of combat
+					_x setVariable ["aip_in_combat", false, true];
 				};
 			};
 		} forEach allUnits;
