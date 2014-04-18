@@ -1,19 +1,21 @@
 jt_fnc_getTarget = {
-	private["_target", "_rank"];
-	_target = leader player;
-	
-	if (player == _target || {_target getVariable ["ace_sys_wounds_uncon", false] || {!(alive _target) || {_target getVariable ["spectating", false]}}}) then {
-		_rank = -1;
-	
-		{
-			if (rankId _x > _rank && {!(_x getVariable ["ace_sys_wounds_uncon", false]) && {alive _x && {!(_x getVariable ["spectating", false])}}}) then {
-				_rank = rankId _x;
-				_target = _x;
-			};
-		} forEach ((units (group player)) - [player]);
-	};
-	
-	_target
+	if (isNull(group player)) then {
+		private["_target", "_rank"];
+		_target = leader(group player);
+		
+		if (player == _target || {_target getVariable ["ace_sys_wounds_uncon", false] || {!(alive _target) || {_target getVariable ["spectating", false]}}}) then {
+			_rank = -1;
+		
+			{
+				if (rankId _x > _rank && {!(_x getVariable ["ace_sys_wounds_uncon", false]) && {alive _x && {!(_x getVariable ["spectating", false])}}}) then {
+					_rank = rankId _x;
+					_target = _x;
+				};
+			} forEach ((units (group player)) - [player]);
+		};
+		
+		_target
+	} else {player};
 };
 
 jt_fnc_jipTeleport = {

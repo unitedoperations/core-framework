@@ -61,7 +61,7 @@ core_fnc_spawnMissionObject = {
 			__objCfg("special", "FORM")
 		];
 	};
-	_object setVehicleId __objCfg("id", 0);
+	//_object setVehicleId __objCfg("id", 0);
 	if (isText(_cfg >> "text")) then {
 		private ["_vehVarName"];
 		_vehVarName = getText(_cfg >> "text");

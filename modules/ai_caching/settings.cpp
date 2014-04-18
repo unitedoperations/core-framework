@@ -7,9 +7,9 @@
 
 /* Generic Settings */
 
-aip_cache_distance = "viewDistance"; // Meters; Either a code string or number.
+aip_cache_distance = "viewDistance + 200"; // Meters; Either a code string or number.
 
-aip_loop_delay = 5; // Seconds; Time to sleep between AI caching checking.
+aip_loop_delay = 3; // Seconds; Time to sleep between AI caching checking.
 
 /* Advanced Settings */
 

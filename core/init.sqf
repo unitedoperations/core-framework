@@ -17,7 +17,7 @@ if (isServer) then {
 	core_serverInit = false;
 	publicVariable "core_serverInit";
 };
-core_version = call compile preprocessFile "core\$VERSION$";
+core_version = call compile preprocessFile "core\version";
 
 /* Start Loading Screen */
 startLoadingScreen ["Loading Core Mission Framework..."];
@@ -64,11 +64,6 @@ if (isServer) then {
 		core_clientId = -1;
 	};
 };
-
-/* Create Side Centers */
-{ // forEach
-	createCenter _x;
-} forEach [WEST, EAST, RESISTANCE, CIVILIAN, SIDELOGIC];
 
 /* Load Mission Parameters */
 private ["_params"];

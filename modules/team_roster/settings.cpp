@@ -3,7 +3,7 @@
 
 tro_loop_delay = 60; // Seconds; The delay between creating new rosters.
 
-tro_record_ai = 1; // Binary; Whether to also record AI in the rosters.
+tro_record_ai = 0; // Binary; Whether to also record AI in the rosters.
 
 tro_squad_indent = 0; // Binary; Whether to indent the records of all non-leader units.
 

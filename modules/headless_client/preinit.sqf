@@ -19,7 +19,7 @@ hc_fnc_loadMissionObjects = {
 
 /* Initialize All */
 
-"hc_loadUnits" addPublicVariableEventHandler {
+"hc_processMissionObjects" addPublicVariableEventHandler {
 	if (local(_this select 1)) then {
 		[] call hc_fnc_loadMissionObjects;
 	};

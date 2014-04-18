@@ -25,7 +25,7 @@ class Mission
 	randomSeed=4656359;
 	class Intel
 	{
-		briefingName="CO17 Apple Core v1";
+		briefingName="CO14 Apple Core v5";
 		briefingDescription="Core Framework Showcase Mission";
 		startWeather=0.39999998;
 		forecastWeather=0.25;
@@ -1270,6 +1270,7 @@ class Mission
 					skill=0.2;
 					text="headless_client";
 					init="this setCaptive true; this allowDamage false; hideObject this; this setVariable [""ace_w_allow_dam"",false];";
+					description="Headless Client";
 				};
 			};
 		};

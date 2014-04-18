@@ -19,16 +19,18 @@ if (!isDedicated) then {
 			private ["_marker", "_pos"];
 			_marker = [];
 			
-			{
+			{ // forEach
 				if (((_x select 0) == (side player)) && [(vehicle player), (_x select 2)] call core_fnc_inArea) exitWith {
 					_marker = [(_x select 1), (_x select 2)];	
 					(_marker select 1) setMarkerAlphaLocal 1;
 				};
 			} forEach sut_markers;
 			
+			sleep 1;
+			
 			_pos = getPosATL (vehicle player);
 			
-			if ((count _marker) > 0) then {
+			if (((count _marker) > 0) && {time < (_marker select 0)}) then {
 				["<t size=3 align=left>You Have </t><t size=3 color='#6599FF' shadow='1' shadowColor='#000000' align=left>%1</t><t size=3 align=left> Seconds Setup Time.</t>", _marker, false, 10] call core_fnc_hint;
 				while {(count _marker) > 0} do {
 					private ["_vehicle"];
