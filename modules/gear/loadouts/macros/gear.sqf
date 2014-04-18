@@ -116,7 +116,7 @@
 	([_this, class, amount] call ACE_fnc_packMagazine)
 
 #define ADD_WEAPON_ON_BACK(class) \
-	_this setVariable ["ace_weaponOnBack", class]
+	_this setVariable ["ace_weaponOnBack", class, true]
 	
 #define ADD_IFAK_SUPPLIES(slot1, slot2, slot3) \
 	([_this, slot1, slot2, slot3] call ACE_fnc_PackIFAK)
