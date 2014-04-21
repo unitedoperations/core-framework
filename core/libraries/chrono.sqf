@@ -20,15 +20,19 @@ core_fnc_wait = {
 	_traceComp = [_this, 2, ["STRING"], "component"] call core_fnc_param;
 	_startTime = diag_tickTime;
 	_endTime = _startTime + _maxDuration;
-	["Info", "Core-Wait", "Waiting for %1.", [_traceComp], __FILE__, __LINE__] call core_fnc_log;
+	
+	LOG_FORMAT("Info", "Core-Wait", "Waiting for %1.", [_traceComp]);
+	
 	waitUntil {
 		_val = call _condCode;
 		_val || {(_maxDuration > 0) && {diag_tickTime > _endTime}};
 	};
+	
 	["Info", "Core-Wait", "Done waiting for %1. Benchmark: %2 sec. Value: %3.", [
 		_traceComp,
 		(diag_tickTime - _startTime),
 		_val
 	], __FILE__, __LINE__] call core_fnc_log;
+	
 	_val
 };

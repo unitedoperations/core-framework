@@ -21,6 +21,10 @@ core_fnc_param = {
 	_list = _this select 0;
 	_index = _this select 1;
 	_typeList = if ((count _this) > 2) then {_this select 2} else {[]};
+	
+	if (isNil "_list") then {_list = []};
+	if (typeName(_list) != "ARRAY") then {_list = [_list]};
+	
 	if (((count _list) > _index) && {((count _typeList) == 0) || {typeName(_list select _index) in _typeList}}) then {
 		_list select _index; // Valid value
 	} else {
@@ -30,6 +34,22 @@ core_fnc_param = {
 			nil; // No valid matching value
 		};
 	};
+};
+
+/*
+	Function: core_fnc_estimateMemoryUsage
+	Author(s): Naught
+	Description:
+		Estimates the uncompressed memory usage of some data value.
+	Parameters:
+		0 - Data [any]
+	Returns:
+		Memory usage in bytes [number]
+	Notes:
+		1. Will freeze the game on large data values, so use with caution.
+*/
+core_fnc_estimateMemoryUsage = {
+	count toArray(str(_this select 0))
 };
 
 /*
@@ -53,13 +73,10 @@ core_log_level = "";
 core_fnc_convLogLevel = {
 	private ["_index"];
 	_index = _this select 0;
+	
 	switch (typeName(_index)) do {
-		case "SCALAR": {
-			LOG_LEVELS select _index;
-		};
-		case "STRING": {
-			LOG_LEVELS find _index;
-		};
+		case "SCALAR": {LOG_LEVELS select _index};
+		case "STRING": {LOG_LEVELS find _index};
 	};
 };
 
@@ -77,13 +94,16 @@ core_fnc_convLogLevel = {
 core_fnc_setLogLevel = {
 	private ["_index"];
 	_index = [toLower(_this select 0)] call core_fnc_convLogLevel;
+	
 	if (_index >= 0) then {
 		private ["_logLevel"];
 		_logLevel = toArray(core_log_level);
+		
 		// Note: 48 = Digit Zero; 49 = Digit One;
 		while {(count _logLevel) < _index} do {
 			_logLevel set [(count _logLevel), 48];
 		};
+		
 		_logLevel set [_index, (if (_this select 1) then {49} else {48})];
 		core_log_level = toString(_logLevel);
 	};
@@ -119,7 +139,9 @@ core_fnc_log = {
 			worldName,
 			format([_this select 2] + ([_this, 3, ["ARRAY"], []] call core_fnc_param))
 		];
+		
 		diag_log text _output;
+		
 		if (core_logToDiary) then {
 			if (isNil "core_diaryLogQueue") then {core_diaryLogQueue = []};
 			[core_diaryLogQueue, _output] call core_fnc_push;

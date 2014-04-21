@@ -16,6 +16,7 @@
 core_fnc_getPos = {
 	private ["_thing"];
 	_thing = _this select 0;
+	
 	switch (typeName _thing) do {
 		case "OBJECT": {getPos _thing};
 		case "STRING": {getMarkerPos _thing};
@@ -38,6 +39,7 @@ core_fnc_closestPlayerDis = {
 	private ["_ref", "_minDis"];
 	_ref = [_this select 0] call core_fnc_getPos;
 	_minDis = -1;
+	
 	{ // forEach
 		private ["_dis"];
 		_dis = _x distance _ref;
@@ -45,6 +47,7 @@ core_fnc_closestPlayerDis = {
 			_minDis = _dis;
 		};
 	} forEach (call CBA_fnc_players);
+	
 	_minDis
 };
 
@@ -95,6 +98,7 @@ core_fnc_unitVehPos = {
 		_ind = _this select 3;
 		_tc  = count _c;
 		_cnt = -1;
+		
 		if (_tc > 0) then {
 			for "_i" from 0 to (_tc-1) do {
 				if (isclass (_c select _i)) then {
@@ -108,13 +112,17 @@ core_fnc_unitVehPos = {
 		};
 		_ar	
 	};
+	
 	_u = _this;
 	_v = vehicle _u;
+	
 	if (_u == _v) exitwith {["None"]};
+	
 	_tp = [__cfg,[],_fn,[]] call _fn;
-	//diag_log _tp;
 	_ptp = [];
+	
 	{if (_u == _v turretUnit _x) exitwith {_ptp = _x}} foreach _tp;
+	
 	if (count _ptp > 0) then {
 		_res = ["Turret",_ptp];
 	} else {
@@ -125,6 +133,7 @@ core_fnc_unitVehPos = {
 			default {["Cargo"]};
 		};
 	};
+	
 	_res
 };
 
@@ -143,25 +152,31 @@ core_fnc_inArea = {
 	private["_object", "_marker", "_pos", "_xSize", "_ySize", "_radius", "_result", "_x", "_y", "_temp"];
 	_object = _this select 0;
 	_marker = _this select 1;
+	
 	_pos = markerPos _marker;
 	_xSize = (markerSize _marker) select 0;
 	_ySize = (markerSize _marker) select 1;
 	_radius = _xSize;
+	
 	if (_ySize > _xSize) then {
 		_radius = _ySize;
 	};
+	
 	_result = false;
+	
 	if ((_object distance _pos) <= (_radius * 1.5)) then {
 		_x = (getPosASL _object) select 0;
 		_y = (getPosASL _object) select 1;
 		_angle = markerDir _marker;
 		_x = _x - (_pos select 0);
 		_y = _y - (_pos select 1);
+		
 		if (_angle != 0) then {
 			_temp = _x * cos(_angle) - _y * sin(_angle);
 			_y = _x * sin(_angle) + _y * cos(_angle);
 			_x = _temp;
 		};	
+		
 		if ((markerShape _marker) == "ELLIPSE") then {
 			if (_xSize == _ySize) then {
 				if ((_object distance _pos) <= _radius) then {
@@ -178,6 +193,7 @@ core_fnc_inArea = {
 			};
 		};
 	};
+	
 	_result
 };
 
@@ -197,10 +213,12 @@ core_fnc_addHandleDamageEventHandler = {
 	private ["_veh", "_vehCfg", "_eh"];
 	_veh = _this select 0;
 	_vehCfg = configFile >> "CfgVehicles" >> typeOf(_veh);
+	
 	// Init Static Vehicle Variables
 	_veh setVariable ["hd_cfg", _vehCfg];
 	_veh setVariable ["hd_cfg_total", _compCfg];
 	_veh setVariable ["hd_dam_total", 0, true];
+	
 	// Init Vehicle Variables
 	{ // forEach
 		if (isClass _x) then {
@@ -216,10 +234,12 @@ core_fnc_addHandleDamageEventHandler = {
 		_vehCfg >> "HitPoints", // All vehicles
 		_vehCfg >> "Turrets" >> "HitPoints" // Cars, tanks, APCs, helicopters, ships, and planes
 	];
+	
 	// Add Custom Handler
 	if ((count _this) > 1) then {
 		_veh setVariable ["hd_custom_handler", (_this select 1)];
 	};
+	
 	// Add HD EH
 	_eh = _veh addEventHandler ["HandleDamage", {
 		private ["_veh", "_sel", "_dam", "_src"];
@@ -227,9 +247,11 @@ core_fnc_addHandleDamageEventHandler = {
 		_sel = _this select 1;
 		_dam = _this select 2;
 		_src = _this select 3;
+		
 		if (_sel == "") then {
 			private [_lastHit];
 			_lastHit = _veh getVariable ["hd_last_hit", [-1, objNull]];
+			
 			if (time <= ((_lastHit select 0) + 0.03) && {_src == (_lastHit select 1)}) then {
 				_veh setVariable ["hd_ignore_hit", true];
 			} else {
@@ -239,19 +261,25 @@ core_fnc_addHandleDamageEventHandler = {
 				_veh setVariable ["hd_last_hit", [time, _src]];
 			};
 		};
+		
 		if !(_veh getVariable ["hd_ignore_hit", false]) then {
 			private ["_cfg", "_partCfg"];
 			_cfg =  _veh getVariable ["hd_cfg", nil];
 			_partCfg = _veh getVariable [("hd_cfg_" + _sel), nil];
+			
 			if (!isNil "_cfg" || {!isNil "_partCfg"}) then { // Process damage internally
 				_this set [2, ((_dam - (_veh getVariable [("hd_dam_" + _sel), 0])) * ([_cfg >> "armor", 1] call core_fnc_getConfigValue) * ([_partCfg >> "armor", 1] call core_fnc_getConfigValue))];
 				_dam = _this call (_veh getVariable ["hd_custom_handler", {_this select 2}]);
+				
 				if (isNil "_dam" || {typeName(_dam) != "SCALAR"}) then {_dam = 0};
+				
 				_veh setVariable [("hd_dam_" + _sel), _dam, true];
 			};
+			
 			_dam
 		} else {0};
 	}];
+	
 	// Set EH Variable and Return
 	_veh setVariable ["hd_eh_id", _eh];
 	_eh

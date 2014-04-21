@@ -40,21 +40,26 @@ core_fnc_sideToText = {
 core_fnc_toBool = {
 	private ["_eval"];
 	_eval = _this select 0;
+	
 	if (typeName(_eval) == "STRING") then {
 		_eval = if (_eval == "") then {false} else {compile _eval};
 	};
+	
 	if (typeName(_eval) == "CODE") then {
 		_eval = (if ((count _this) > 1) then {_this select 1} else {[]}) call _eval;
 	};
+	
 	if (typeName(_eval) == "SCALAR") then {
 		switch (_eval) do {
 			case 0: {_eval = false;};
 			case 1: {_eval = true;};
 		};
 	};
+	
 	if (typeName(_eval) != "BOOL") then {
 		_eval = false;
 	};
+	
 	_eval
 };
 
@@ -73,18 +78,23 @@ core_fnc_toBool = {
 core_fnc_toNumber = {
 	private ["_val"];
 	_val = _this select 0;
+	
 	if (typeName(_val) == "STRING") then {
 		_val = compile _val;
 	};
+	
 	if (typeName(_val) == "CODE") then {
 		_val = call _val;
 	};
+	
 	if (typeName(_val) == "BOOL") then {
 		_val = if (_val) then {1} else {0};
 	};
+	
 	if (typeName(_val) != "SCALAR") then {
 		_val = -1;
 	};
+	
 	_val
 };
 
@@ -101,25 +111,22 @@ core_fnc_toNumber = {
 core_fnc_toString = {
 	private ["_val"];
 	_val = _this select 0;
+	
 	switch (typeName(_val)) do {
-		case "STRING": {
-			_val;
-		};
+		case "STRING": {_val};
 		case "ARRAY": {
 			private ["_ret"];
 			_ret = "";
+			
 			{ // forEach
 				if (_forEachIndex != 0) then {_ret = _ret + ", "};
 				_ret = _ret + ([_x] call core_fnc_toString);
 			} forEach _val;
-			_ret;
+			
+			_ret
 		};
-		case "SIDE": {
-			[_val] call core_fnc_sideToText;
-		};
-		default {
-			str(_val);
-		};
+		case "SIDE": {[_val] call core_fnc_sideToText};
+		default {str(_val)};
 	};
 };
 	

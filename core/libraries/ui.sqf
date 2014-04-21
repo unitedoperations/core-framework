@@ -19,18 +19,22 @@
 core_fnc_hint = {
 	if (hasInterface) then { // Don't do anything on non-GUI machines
 		if (isNil "core_hintQueue") then {core_hintQueue = []};
+		
 		[core_hintQueue, _this] call core_fnc_push;
+		
 		if ((count core_hintQueue) == 1) then { // Run queue
 			[] spawn {
 				while {(count core_hintQueue) > 0} do {
 					private ["_curHint", "_text"];
 					_curHint = core_hintQueue select 0;
 					_text = format([_curHint select 0] + ([_curHint, 1, ["ARRAY"], []] call core_fnc_param));
+					
 					if ([_curHint, 2, ["BOOL"], false] call core_fnc_param) then { // Silent
 						hintSilent parseText(_text);
 					} else { // Normal
 						hint parseText(_text);
 					};
+					
 					uiSleep([_curHint, 3, ["SCALAR"], (1.5 + ([_text] call core_fnc_timeToRead))] call core_fnc_param);
 					[core_hintQueue, 0] call core_fnc_erase;
 				};
