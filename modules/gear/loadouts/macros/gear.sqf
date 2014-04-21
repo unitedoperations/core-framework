@@ -53,6 +53,16 @@
 #define gear_macros
 
 /*
+	Section: Gear Initialization
+*/
+
+private ["_object", "_groupName", "_fireTeam", "_class"];
+_object = _this select 0;
+_groupName = _this select 1;
+_fireTeam = _this select 2;
+_class = _this select 3;
+
+/*
 	Group: Generic Macros
 */
 
@@ -64,113 +74,113 @@
 */
 
 #define REMOVE_ALL_WEAPONS \
-	removeAllWeapons _this
+	removeAllWeapons _object
 
 #define REMOVE_ALL_MAGAZINES \
-	{_this removeMagazine _x} forEach (magazines _this)
+	{_object removeMagazine _x} forEach (magazines _object)
 
 #define REMOVE_ALL_ITEMS \
-	removeAllItems _this
+	removeAllItems _object
 
 #define REMOVE_BACKPACK \
-	removeBackpack _this
+	removeBackpack _object
 
 #define REMOVE_ALL_WEAPONS_CARGO \
-	clearWeaponCargoGlobal _this
+	clearWeaponCargoGlobal _object
 
 #define REMOVE_ALL_MAGAZINES_CARGO \
-	clearMagazineCargoGlobal _this
+	clearMagazineCargoGlobal _object
 
 #define REMOVE_ALL_BACKPACKS_CARGO \
-	clearBackpackCargoGlobal _this
+	clearBackpackCargoGlobal _object
 
 #define ADD_WEAPON(class) \
-	_this addWeapon class
+	_object addWeapon class
 
 #define ADD_MAGAZINE(class,amount) \
-	FOR_CYCLE(amount,_this addMagazine class)
+	FOR_CYCLE(amount,_object addMagazine class)
 
 #define ADD_BACKPACK(class) \
-	_this addBackpack class
+	_object addBackpack class
 
 #define ADD_WEAPON_CARGO(class,amount) \
-	_this addWeaponCargoGlobal [class,amount]
+	_object addWeaponCargoGlobal [class,amount]
 
 #define ADD_MAGAZINE_CARGO(class,amount) \
-	_this addMagazineCargoGlobal [class,amount]
+	_object addMagazineCargoGlobal [class,amount]
 
 #define ADD_BACKPACK_CARGO(class,amount) \
-	_this addBackpackCargoGlobal [class,amount]
+	_object addBackpackCargoGlobal [class,amount]
 
 /*
 	Group: ACE 2 Gear Macros
 */
 
 #define REMOVE_ALL_ACE_ITEMS \
-	([_this, "ALL"] call ACE_fnc_RemoveGear)
+	([_object, "ALL"] call ACE_fnc_RemoveGear)
 
 #define ADD_WEAPON_RUCK(class,amount) \
-	([_this, class, amount] call ACE_fnc_PackWeapon)
+	([_object, class, amount] call ACE_fnc_PackWeapon)
 
 #define ADD_MAGAZINE_RUCK(class,amount) \
-	([_this, class, amount] call ACE_fnc_packMagazine)
+	([_object, class, amount] call ACE_fnc_packMagazine)
 
 #define ADD_WEAPON_ON_BACK(class) \
-	_this setVariable ["ace_weaponOnBack", class, true]
+	_object setVariable ["ace_weaponOnBack", class, true]
 	
 #define ADD_IFAK_SUPPLIES(slot1, slot2, slot3) \
-	([_this, slot1, slot2, slot3] call ACE_fnc_PackIFAK)
+	([_object, slot1, slot2, slot3] call ACE_fnc_PackIFAK)
 
 #define SET_IFAK_SUPPLIES(slot1, slot2, slot3) \
-	([_this, slot1, slot2, slot3, true] call ACE_fnc_PackIFAK)
+	([_object, slot1, slot2, slot3, true] call ACE_fnc_PackIFAK)
 
 /*
 	Group: Arma 3 Gear Macros
 */
 
 #define REMOVE_ALL_CONTAINERS \
-	removeAllContainers _this
+	removeAllContainers _object
 
 #define REMOVE_HEADGEAR \
-	removeHeadgear _this
+	removeHeadgear _object
 
 #define REMOVE_GOGGLES \
-	removeGoggles _this
+	removeGoggles _object
 	
 #define REMOVE_ALL_ASSIGNED_ITEMS \
-	removeAllAssignedItems _this
+	removeAllAssignedItems _object
 
 #define REMOVE_ALL_ITEMS_CARGO \
-	clearItemCargoGlobal _this
+	clearItemCargoGlobal _object
 
 #define ADD_ITEM(class) \
-	_this linkItem class
+	_object linkItem class
 
 #define ADD_ITEM_INVENTORY(class,amount) \
-	FOR_CYCLE(amount,_this addItem class)
+	FOR_CYCLE(amount,_object addItem class)
 
 #define ADD_UNIFORM(class) \
-	_this addUniform class
+	_object addUniform class
 
 #define ADD_VEST(class) \
-	_this addVest class
+	_object addVest class
 
 #define ADD_HEADGEAR(class) \
-	_this addHeadgear class
+	_object addHeadgear class
 
 #define ADD_GOGGLES(class) \
-	_this addGoggles class
+	_object addGoggles class
 
 #define ADD_PRIMARY_WEAPON_ITEM(class) \
-	_this addPrimaryWeaponItem class
+	_object addPrimaryWeaponItem class
 
 #define ADD_SECONDARY_WEAPON_ITEM(class) \
-	_this addSecondaryWeaponItem class
+	_object addSecondaryWeaponItem class
 
 #define ADD_HANDGUN_WEAPON_ITEM(class) \
-	_this addHandgunItem class
+	_object addHandgunItem class
 
 #define ADD_ITEM_CARGO(class,amount) \
-	_this addItemCargoGlobal [class,amount]
+	_object addItemCargoGlobal [class,amount]
 
 #endif
