@@ -17,7 +17,7 @@
 */
 
 #define DEPRECATE(oldFnc,newFunc) \
-	(oldFnc = {_this call newFunc}) // Encapsulate in code brackets to disable copying of function
+	oldFnc = {_this call newFunc} // Encapsulate in code brackets to disable copying of function
 
 /*
 	Section: Logging Macros

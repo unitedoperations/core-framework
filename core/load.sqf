@@ -21,6 +21,7 @@
 #include "libraries\filesystem.sqf"
 #include "libraries\math.sqf"
 #include "libraries\mission.sqf"
+#include "libraries\positioning.sqf"
 #include "libraries\rve.sqf"
 #include "libraries\strings.sqf"
 #include "libraries\ui.sqf"
@@ -52,7 +53,7 @@ if (!isDedicated) then {
 	[] spawn {
 		
 		/* Wait For Initialization */
-		waitUntil {!isNull player}
+		waitUntil {!isNull player};
 		
 		/* Request Client ID */
 		if (isServer) then {
