@@ -239,7 +239,7 @@ finishMissionInit;
 					{ // forEach
 						player createDiaryRecord ["core_docs", ["Diagnostics Log", _x]];
 					} forEach core_diaryLogQueue;
-					core_diaryLogQueue = []; // Okay while SQF variable mutex is guaranteed
+					core_diaryLogQueue = []; // Okay while atomic SQF variables are guaranteed
 				};
 				uiSleep DIARY_BUFFER_FLUSH_INTERVAL;
 			};
