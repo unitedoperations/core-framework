@@ -13,19 +13,22 @@
 		Creates an actor unit with the specified message handler.
 	Parameters:
 		0 - Message Handler Code [code]
+		1 - Actor group [group] (optional)
 	Returns:
 		Actor [object]
 */
 
 core_fnc_createActor = {
-	if (!isNil "core_actors_mainGroup") then {
+	private ["_group"];
+	_group = [_this, 1, ["GROUP"], core_actors_mainGroup] call core_fnc_param;
+	if (!isNil "_group") then {
 		private ["_actor"];
-		_actor = core_actors_mainGroup createUnit ["logic", [0,0,0], [], 0, "NONE"];
+		_actor = _group createUnit ["logic", [0,0,0], [], 0, "NONE"];
 		_actor setVariable ["core_actors_owner", core_clientId, true];
 		_actor setVariable ["core_actors_messageHandler", (_this select 0), false];
 		_actor
 	} else {
-		LOG_WARNING("core_fnc_createActor", "Attempted to create actor before the main actor group was initialized!");
+		LOG_WARNING("core_fnc_createActor", "Attempted to create actor before the main actor group was created!");
 		objNull
 	};
 };
@@ -66,16 +69,18 @@ core_fnc_sendMessage = {
 	Description:
 		Returns all actors in the current mission.
 	Parameters:
-		None
+		0 - Actor group [group] (optional)
 	Returns:
 		Actor list [array]
 */
 
 core_fnc_allActors = {
-	if (!isNil "core_actors_mainGroup") then {
-		units core_actors_mainGroup
+	private ["_group"];
+	_group = [_this, 1, ["GROUP"], core_actors_mainGroup] call core_fnc_param;
+	if (!isNil "_group") then {
+		units _group
 	} else {
-		LOG_WARNING("core_fnc_allActors", "Attempted to list actors before the main actor group was initialized!");
+		LOG_WARNING("core_fnc_allActors", "Attempted to list actors before the main actor group was created!");
 		[]
 	};
 };
