@@ -13,6 +13,7 @@
 	Returns:
 		Value [bool]
 */
+
 core_fnc_wait = {
 	private ["_condCode", "_maxDuration", "_traceComp", "_startTime", "_endTime", "_val"];
 	_condCode = if (typeName(_this select 0) == "CODE") then {_this select 0} else {compile(_this select 0)};

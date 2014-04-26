@@ -14,6 +14,7 @@
 	Returns:
 		Index result [bool]
 */
+
 core_fnc_selBinStr = {
 	private ["_binStrArr", "_index"];
 	_binStrArr = toArray(_this select 0);
@@ -32,6 +33,7 @@ core_fnc_selBinStr = {
 	Returns:
 		Time to read in seconds [number]
 */
+
 core_fnc_timeToRead = {
 	count(toArray(_this select 0)) / 19;
 };
@@ -48,6 +50,7 @@ core_fnc_timeToRead = {
 	Returns:
 		Formatted number [string]
 */
+
 core_fnc_formatNumber = {
 	private ["_number", "_intWidth", "_decWidth"];
 	_number = _this select 0;
@@ -102,6 +105,7 @@ core_fnc_formatNumber = {
 			%4 = Hour
 			%5 = Minute
 */
+
 core_fnc_formatDate = {
 	private ["_date", "_month"];
 	_date = _this select 0;

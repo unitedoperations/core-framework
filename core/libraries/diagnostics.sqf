@@ -16,6 +16,7 @@
 	Returns:
 		Parameter [any]
 */
+
 core_fnc_param = {
 	private ["_list", "_index", "_typeList"];
 	_list = _this select 0;
@@ -48,6 +49,7 @@ core_fnc_param = {
 	Notes:
 		1. Will freeze the game on large data values, so use with caution.
 */
+
 core_fnc_estimateMemoryUsage = {
 	count toArray(str(_this select 0))
 };
@@ -70,6 +72,7 @@ core_log_level = "";
 	Returns:
 		Nothing
 */
+
 core_fnc_convLogLevel = {
 	private ["_index"];
 	_index = _this select 0;
@@ -91,6 +94,7 @@ core_fnc_convLogLevel = {
 	Returns:
 		Nothing
 */
+
 core_fnc_setLogLevel = {
 	private ["_index"];
 	_index = [toLower(_this select 0)] call core_fnc_convLogLevel;
@@ -124,6 +128,7 @@ core_fnc_setLogLevel = {
 	Returns:
 		Nothing
 */
+
 core_fnc_log = {
 	if ([core_log_level, ([toLower(_this select 0)] call core_fnc_convLogLevel)] call core_fnc_selBinStr) then {
 		private ["_output"];

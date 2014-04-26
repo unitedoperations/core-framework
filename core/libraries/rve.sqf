@@ -13,6 +13,7 @@
 	Returns:
 		Position [array]
 */
+
 core_fnc_getPos = {
 	private ["_thing"];
 	_thing = _this select 0;
@@ -35,6 +36,7 @@ core_fnc_getPos = {
 	Returns:
 		Minimum distance [number]
 */
+
 core_fnc_closestPlayerDis = {
 	private ["_ref", "_minDis"];
 	_ref = [_this select 0] call core_fnc_getPos;
@@ -62,6 +64,7 @@ core_fnc_closestPlayerDis = {
 	Returns:
 		Sorted array [array]
 */
+
 core_fnc_sortObjectDistance = {
 	private ["_refPos"];
 	_refPos = [_this select 1] call core_fnc_getPos; // Can use in compFunc b/c of SQF scoping
@@ -87,6 +90,7 @@ core_fnc_sortObjectDistance = {
 		["Cargo"] - cargo 
 		["Turret", [turret path]] - turret
 */
+
 core_fnc_unitVehPos = {
 	#define __cfg (configFile >> "CfgVehicles" >> (typeof _v) >> "turrets")
 	private ["_u","_v","_tc","_tp","_st","_stc","_ptp","_res","_fn"];
@@ -148,6 +152,7 @@ core_fnc_unitVehPos = {
 	Returns:
 		Object in area [bool]
 */
+
 core_fnc_inArea = {
 	private["_object", "_marker", "_pos", "_xSize", "_ySize", "_radius", "_result", "_x", "_y", "_temp"];
 	_object = _this select 0;
@@ -209,6 +214,7 @@ core_fnc_inArea = {
 	Returns:
 		Event Handle [number]
 */
+
 core_fnc_addHandleDamageEventHandler = {
 	private ["_veh", "_vehCfg", "_eh"];
 	_veh = _this select 0;

@@ -16,6 +16,7 @@
 	Returns:
 		Game Position [array]
 */
+
 core_fnc_fixMissionPos = {
 	[(_this select 0), (_this select 2), (_this select 1)]
 };
@@ -36,6 +37,7 @@ core_fnc_fixMissionPos = {
 			- Any Info Age
 			- Ammo Levels
 */
+
 core_fnc_spawnMissionObject = {
 	private ["_group", "_cfg", "_object"];
 	_group = _this select 0;
@@ -99,6 +101,7 @@ core_fnc_spawnMissionObject = {
 	Returns:
 		Waypoint [array]
 */
+
 core_fnc_addMissionWaypoint = {
 	private ["_group", "_cfg", "_wpt"];
 	_group = _this select 0;
@@ -138,6 +141,7 @@ core_fnc_addMissionWaypoint = {
 	Returns:
 		Group [group]
 */
+
 core_fnc_spawnMissionGroup = {
 	private ["_cfg", "_vehCond", "_side", "_group"];
 	_cfg = _this select 0;

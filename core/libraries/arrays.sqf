@@ -16,6 +16,7 @@
 	Notes:
 		1. This is faster than core_fnc_insert.
 */
+
 core_fnc_push = {
 	private ["_arr"];
 	_arr = _this select 0;
@@ -35,6 +36,7 @@ core_fnc_push = {
 	Notes:
 		1. This is faster than core_fnc_erase.
 */
+
 core_fnc_pop = {
 	private ["_arr", "_arrCount"];
 	_arr = _this select 0;
@@ -60,6 +62,7 @@ core_fnc_pop = {
 		1. This is slower than core_fnc_push.
 		2. The lower the index, the higher the recursion.
 */
+
 core_fnc_insert = {
 	private ["_arr", "_idx", "_arrCount"];
 	_arr = _this select 0;
@@ -89,6 +92,7 @@ core_fnc_insert = {
 	Notes:
 		1. This is slower than core_fnc_uErase.
 */
+
 core_fnc_erase = {
 	private ["_arr", "_arrCount"];
 	_arr = _this select 0;
@@ -115,6 +119,7 @@ core_fnc_erase = {
 	Notes:
 		1. This is faster than core_fnc_erase.
 */
+
 core_fnc_uErase = {
 	private ["_arr", "_last"];
 	_arr = _this select 0;
@@ -137,6 +142,7 @@ core_fnc_uErase = {
 	Notes:
 		1. This function is untested.
 */
+
 core_fnc_heapSort = {
 	private ["_fnc_swap", "_fnc_siftDown"];
 	_fnc_swap = {
@@ -224,6 +230,7 @@ core_fnc_heapSort = {
 		second parameter (for numbers).
 		3. Default sorting order is ASCENDING.
 */
+
 core_fnc_shellSort = {
 	private ["_list", "_selectSortValue", "_n", "_cols", "_j", "_k", "_h", "_t", "_i"];
 	_list = +(_this select 0);
@@ -294,6 +301,7 @@ core_fnc_shellSort = {
 		second parameter (for numbers).
 		5. Default sorting order is ASCENDING
 */
+
 core_fnc_insertSort = {
 	private ["_list", "_selectSortValue", "_item", "_i", "_j"];
 	_list = +(_this select 0);

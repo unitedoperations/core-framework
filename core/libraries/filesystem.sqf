@@ -14,6 +14,7 @@
 	Returns:
 		Is file path [bool]
 */
+
 core_fnc_isFilePath = {
 	private ["_stringArray"];
 	_stringArray = toArray(_this select 0);
@@ -30,6 +31,7 @@ core_fnc_isFilePath = {
 	Returns:
 		Compiled file [code:nil]
 */
+
 core_fnc_compileFile = {
 	private ["_file"];
 	_file = preprocessFileLineNumbers (_this select 0);
@@ -50,6 +52,7 @@ core_fnc_compileFile = {
 	Returns:
 		New register status [bool]
 */
+
 core_fnc_registerModule = {
 	if (isNil "core_moduleList") then {core_moduleList = []};
 	private ["_module", "_type", "_result"];
@@ -83,6 +86,7 @@ core_fnc_registerModule = {
 	Returns:
 		Loaded modules [array]
 */
+
 core_fnc_loadModule = {
 	private ["_cfg", "_type", "_scheduled", "_exec"];
 	_cfg = _this select 0;

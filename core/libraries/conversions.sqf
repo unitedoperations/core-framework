@@ -13,6 +13,7 @@
 	Returns:
 		Side name [string]
 */
+
 core_fnc_sideToText = {
 	switch (_this select 0) do {
 		case WEST: {'Blufor'};
@@ -37,6 +38,7 @@ core_fnc_sideToText = {
 	Notes:
 		1. Not safe for user input.
 */
+
 core_fnc_toBool = {
 	private ["_eval"];
 	_eval = _this select 0;
@@ -75,6 +77,7 @@ core_fnc_toBool = {
 	Notes:
 		1. Not safe for user input.
 */
+
 core_fnc_toNumber = {
 	private ["_val"];
 	_val = _this select 0;
@@ -108,6 +111,7 @@ core_fnc_toNumber = {
 	Returns:
 		String conversion [string]
 */
+
 core_fnc_toString = {
 	private ["_val"];
 	_val = _this select 0;

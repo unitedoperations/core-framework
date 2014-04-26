@@ -16,6 +16,7 @@
 	Returns:
 		Nothing [nil]
 */
+
 core_fnc_hint = {
 	if (hasInterface) then { // Don't do anything on non-GUI machines
 		if (isNil "core_hintQueue") then {core_hintQueue = []};

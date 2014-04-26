@@ -14,6 +14,7 @@
 	Returns:
 		Config value [any]
 */
+
 core_fnc_getConfigValue = {
 	private ["_cfg"];
 	_cfg = _this select 0;
@@ -39,6 +40,7 @@ core_fnc_getConfigValue = {
 	Returns:
 		Setting [any]
 */
+
 core_fnc_getSetting = {
 	private ["_ret"];
 	_ret = [missionConfigFile >> "modules" >> (_this select 0) >> "settings" >> (_this select 1)] call core_fnc_getConfigValue;

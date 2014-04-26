@@ -14,6 +14,7 @@
 	Returns:
 		Rounded decimal [number]
 */
+
 core_fnc_roundDecimal = {
 	private ["_prec"];
 	_prec = 10^(_this select 1);
@@ -31,6 +32,7 @@ core_fnc_roundDecimal = {
 	Returns:
 		Decimal has binary number [bool]
 */
+
 core_fnc_decHasBin = {
 	private ["_decimal", "_binary", "_return"];
 	_decimal	= _this select 0;
@@ -74,6 +76,7 @@ core_fnc_decHasBin = {
 	Returns:
 		Binary array [array]
 */
+
 core_fnc_decToBinArr = {
 	private ["_decimal", "_return"];
 	_decimal	= _this select 0;
@@ -102,6 +105,7 @@ core_fnc_decToBinArr = {
 	Returns:
 		Random number [number]
 */
+
 core_fnc_random = {
 	(((2^8) + 1) * (if ((count _this) > 0) then {_this select 0} else {random(2^16)}) + ((2^11) + 1)) mod (2^16);
 };
