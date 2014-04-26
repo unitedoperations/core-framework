@@ -193,7 +193,88 @@ core_fnc_spawnMissionGroup = {
 	_group
 };
 
+/*
+	Function: core_fnc_loadModule
+	Author(s): Naught
+	Description:
+		Loads a module in a specified environment.
+		Also loads all module dependencies.
+	Parameters:
+		0 - Module config path [config]
+		1 - Module load type name [string]
+		2 - Run in scheduled environment [bool] (optional)
+	Returns:
+		Loaded modules [array]
+*/
+
+core_fnc_loadModule = {
+	private ["_cfg", "_type", "_scheduled", "_exec"];
+	_cfg = _this select 0;
+	_type = _this select 1;
+	_scheduled = [_this, 2, ["BOOL"], false] call core_fnc_param;
+	_exec = [(_cfg >> _type), ""] call core_fnc_getConfigValue;
+	
+	if (_exec != "") then {
+		
+		if (([_cfg >> "required_version", 0] call core_fnc_getConfigValue) > core_version) exitWith { // Outdated Core
+			["Error", "core_fnc_loadModule", "Cannot load module '%1' @ %2: Core framework outdated (currently v%3).", [_cfgName, _type, core_version], __FILE__, __LINE__] call core_fnc_log;
+			nil // Function will return nil
+		};
+		
+		private ["_cfgName", "_loadedModules", "_register"];
+		_cfgName = configName(_cfg);
+		_loadedModules = [];
+		_register = true;
+		
+		{ // forEach
+			if (((_x select 0) == _cfgName) && {(_x select 1) == _type}) exitWith {
+				_register = false;
+			};
+		} forEach core_moduleList;
+		
+		if (_register) then { // Register new module state
+			[core_moduleList, [_cfgName, _type]] call core_fnc_push;
+			
+			["Info", "core_fnc_loadModule", "Loading module '%1' %2.", [_cfgName, _type], __FILE__, __LINE__] call core_fnc_log;
+			
+			private ["_requirements", "_depError"];
+			_requirements = [_cfg >> "dependencies", []] call core_fnc_getConfigValue;
+			_depError = false;
+			
+			{ // forEach
+				if (isClass(missionConfigFile >> "Modules" >> _x) || {!isClass(configFile >> "CfgPatches" >> _x)}) then {
+					private ["_retModules"];
+					_retModules = [missionConfigFile >> "Modules" >> _x, _type, _scheduled] call core_fnc_loadModule;
+					
+					if (isNil "_retModules") exitWith {
+						_depError = true;
+						["Error", "core_fnc_loadModule", "Cannot load module '%1' @ %2: Missing dependency '%3'.", [_cfgName, _type, _x], __FILE__, __LINE__] call core_fnc_log;
+					};
+					
+					_loadedModules = _loadedModules + _retModules;
+				};
+			} forEach _requirements;
+			
+			if (!_depError) then {
+				_exec = if ([_exec] call core_fnc_isFilePath) then {["modules\" + _cfgName + "\" + _exec] call core_fnc_compileFile} else {compile _exec};
+				
+				if (_scheduled) then {
+					[] spawn _exec;
+				} else {
+					[] call _exec;
+				};
+				
+				[_loadedModules, _cfgName] call core_fnc_push;
+			};
+		};
+		
+		_loadedModules
+	} else {nil};
+};
+
 /* Library Initialization */
+
+core_moduleList = [];
 
 "core_mission_setVehicleVarName" addPublicVariableEventHandler {
 	private ["_val"];

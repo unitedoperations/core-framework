@@ -7,14 +7,6 @@
 		modules, parameters, and synchronizes machines.
 */
 
-/* Don't Double Load */
-if !(isNil "core_init") exitWith {};
-
-/* Set Defines */
-#define COMPONENT "Core-Init"
-//#define BENCHMARK
-#define DIARY_BUFFER_FLUSH_INTERVAL 1 // second(s)
-
 /* Set Reference Variables */
 core_init = false;
 
@@ -24,58 +16,11 @@ if (isServer) then {
 	publicVariable "core_serverInit";
 };
 
-/* Load Version Number */
-core_version = call compile preprocessFile "core\version";
-
-/* Start Loading Screen */
-startLoadingScreen ["Loading Core Mission Framework..."];
-
-/* Load Headers */
-#include "headers\macros.h"
-#include "headers\oop.h"
-
-/* Load Libraries */
-#include "libraries\arrays.sqf"
-#include "libraries\chrono.sqf"
-#include "libraries\config.sqf"
-#include "libraries\conversions.sqf"
-#include "libraries\diagnostics.sqf"
-#include "libraries\environment.sqf"
-#include "libraries\filesystem.sqf"
-#include "libraries\math.sqf"
-#include "libraries\mission.sqf"
-#include "libraries\rve.sqf"
-#include "libraries\strings.sqf"
-#include "libraries\ui.sqf"
-
-/* Load Objects */
-#include "objects\hashmap.sqf"
-
-/* Load Logging Configuration */
-#define C_GET_LOG_LEVEL(cfg) (missionConfigFile >> "Core" >> cfg)
-{ // forEach
-	[_x, true] call core_fnc_setLogLevel;
-} forEach ([(if (!isMultiplayer) then {C_GET_LOG_LEVEL("sp_log_level")} else {C_GET_LOG_LEVEL("mp_log_level")}), []] call core_fnc_getConfigValue);
-
-core_logToDiary = [[missionConfigFile >> "Core" >> "log_to_diary", 0] call core_fnc_getConfigValue] call core_fnc_toBool;
+LOG_NOTICE(COMPONENT, "Core initialization has started.");
 
 /* Start Initialization */
 private ["_startTime"];
 _startTime = diag_tickTime;
-
-LOG_NOTICE(COMPONENT, "Core initialization has started.");
-
-/* Initialize Client ID System */
-if (isServer) then {
-	core_clientId = -1;
-	"core_clientIdRequest" addPublicVariableEventHandler {
-		private ["_clientId"];
-		_clientId = owner(_this select 1);
-		core_clientId = _clientId;
-		_clientId publicVariableClient "core_clientId";
-		core_clientId = -1;
-	};
-};
 
 LOG_INFO(COMPONENT, "Loading mission parameters.");
 
@@ -158,9 +103,6 @@ LOG_INFO(COMPONENT, "Loading module preinits.");
 /* Process Vehicle Init Code */
 processInitCommands;
 
-/* End Loading Screen */
-endLoadingScreen;
-
 /* Finish world initialization*/
 finishMissionInit;
 
@@ -179,18 +121,6 @@ finishMissionInit;
 	/* Wait for Server */
 	if (!isServer) then {
 		[{!(isNil "core_serverInit") && {core_serverInit}}, -1, "Core Server Initialization"] call core_fnc_wait;
-	};
-	
-	/* Request Client ID */
-	if (!isDedicated) then {
-		if (isServer) then {
-			core_clientId = owner(player);
-		} else {
-			LOG_INFO("Requesting Client ID.");
-			core_clientIdRequest = player;
-			publicVariableServer "core_clientIdRequest";
-			waitUntil {!isNil "core_clientId"};
-		};
 	};
 	
 	/* Wait for XEH Post-Initialization */
@@ -224,25 +154,13 @@ finishMissionInit;
 			_paramDoc = _paramDoc + format["<br/>    %1: %2", (_x select 0), (_x select 1)];
 		} forEach _params;
 		
-		player createDiarySubject ["core_docs", "Core Framework"];
-		player createDiaryRecord ["core_docs", ["About", format["<br/>Core Mission Framework<br/><br/>Version: %1<br/>Authors: Naught, Olsen", core_version]]];
-		player createDiaryRecord ["core_docs", ["Modules", _modDoc]];
-		player createDiaryRecord ["core_docs", ["Parameters", _paramDoc]];
+		waitUntil {player diarySubjectExists C_DIARY_SUBJECT};
+		player createDiaryRecord [C_DIARY_SUBJECT, ["About", format["<br/>Core Mission Framework<br/><br/>Version: %1<br/>Authors: Naught, Olsen", core_version]]];
+		player createDiaryRecord [C_DIARY_SUBJECT, ["Modules", _modDoc]];
+		player createDiaryRecord [C_DIARY_SUBJECT, ["Parameters", _paramDoc]];
 		
-		if (core_logToDiary) then { // Ensure initial load of diary record
-			player createDiaryRecord ["core_docs", ["Diagnostics Log", ""]];
-		};
-		
-		[] spawn {
-			while {true} do {
-				if (core_logToDiary && {(count core_diaryLogQueue) > 0}) then {
-					{ // forEach
-						player createDiaryRecord ["core_docs", ["Diagnostics Log", _x]];
-					} forEach core_diaryLogQueue;
-					core_diaryLogQueue = []; // Okay while atomic SQF variables are guaranteed
-				};
-				uiSleep DIARY_BUFFER_FLUSH_INTERVAL;
-			};
+		if (core_logToDiary) then { // Ensure initial load of logging diary record
+			player createDiaryRecord [C_DIARY_SUBJECT, ["Diagnostics Log", ""]];
 		};
 	};
 	

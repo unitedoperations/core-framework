@@ -6,7 +6,7 @@
 /**********************************/
 
 if (isNil "core_init") then {
-	call compile preprocessFileLineNumbers "core\init.sqf";
+	call compile preprocessFileLineNumbers "core\boot.sqf";
 } else {
 	waitUntil {core_init};
 };
