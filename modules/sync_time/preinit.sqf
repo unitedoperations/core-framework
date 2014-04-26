@@ -1,6 +1,6 @@
 
 /*
-	Function: core_fnc_synchronizeTime
+	Function: syt_fnc_synchronizeTime
 	Author(s): Naught
 	Description:
 		Synchronize the client's time with the server.
@@ -9,7 +9,7 @@
 	Returns:
 		Nothing [nil]
 */
-core_fnc_synchronizeTime = {
+syt_fnc_synchronizeTime = {
 	if (!(isNil "core_clientId") && {core_clientId >= 0}) then {
 		syt_requestServerTime = core_clientId;
 		publicVariableServer "syt_requestServerTime";
