@@ -29,7 +29,7 @@ if (!isDedicated) then {
 	#include "settings.sqf"
 	
 	if ((count al_markers) > 0) then {
-		[] spawn {
+		0 spawn {
 			private ["_pos", "_allowedOutside"];
 			_pos = getPosATL (vehicle player);
 			_allowedOutside = false;

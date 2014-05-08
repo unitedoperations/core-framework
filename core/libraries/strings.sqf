@@ -14,6 +14,7 @@
 	Returns:
 		Index result [bool]
 */
+
 core_fnc_selBinStr = {
 	private ["_binStrArr", "_index"];
 	_binStrArr = toArray(_this select 0);
@@ -32,6 +33,7 @@ core_fnc_selBinStr = {
 	Returns:
 		Time to read in seconds [number]
 */
+
 core_fnc_timeToRead = {
 	count(toArray(_this select 0)) / 19;
 };
@@ -48,29 +50,38 @@ core_fnc_timeToRead = {
 	Returns:
 		Formatted number [string]
 */
+
 core_fnc_formatNumber = {
 	private ["_number", "_intWidth", "_decWidth"];
 	_number = _this select 0;
 	_intWidth = [_this, 1, ["SCALAR"], 1] call core_fnc_param;
 	_decWidth = [_this, 2, ["SCALAR"], 0] call core_fnc_param;
+	
 	if (typeName(_number) != "STRING") then {_number = str(_number)};
+	
 	private ["_integer", "_decimal", "_decIndex"];
 	_integer = toArray(_number);
 	_decimal = [];
 	_decIndex = _integer find 46;
+	
 	if (_decIndex >= 0) then { // Decimal number
 		for "_i" from (_decIndex + 1) to ((count _integer) - 1) do {
 			[_decimal, (_integer select _i)] call core_fnc_push;
 		};
+		
 		_integer resize _decIndex;
+		
 		while {(count _decimal) < _decWidth} do {
 			[_decimal, 48] call core_fnc_push;
 		};
+		
 		_decimal resize _decWidth;
 	};
+	
 	for "_i" from 1 to (_intWidth - (count _integer)) do {
 		_integer = [48] + _integer;
 	};
+	
 	_integer resize _intWidth;
 	toString(_integer + (if ((count _decimal) > 0) then {[46] + _decimal} else {[]}));
 };
@@ -94,9 +105,11 @@ core_fnc_formatNumber = {
 			%4 = Hour
 			%5 = Minute
 */
+
 core_fnc_formatDate = {
 	private ["_date", "_month"];
 	_date = _this select 0;
+	
 	_month = switch (_date select 1) do {
 		case 1: {"January"};
 		case 2: {"February"};
@@ -112,6 +125,7 @@ core_fnc_formatDate = {
 		case 12: {"December"};
 		default {"Month"};
 	};
+	
 	format[(_this select 1),
 		(_date select 0),
 		_month,

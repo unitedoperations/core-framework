@@ -15,10 +15,12 @@
 /* Initialize Self Interaction Buttons */
 private ["_structures"];
 _structures = ["building_menu", "building_structures"] call core_fnc_getSetting;
+
 for "_i" from 0 to ((count _structures) - 1) do {
 	private ["_struct", "_name"];
 	_struct = _structures select _i;
 	_name = [_struct >> "name"] call core_fnc_getConfigValue;
+	
 	[
 		'selfInteraction',
 		_name,

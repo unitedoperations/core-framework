@@ -1,13 +1,13 @@
 
 /*
-	File: execute.sqf
+	File: exec.sqf
 	Author(s): Naught
 	Description:
 		Executes code from an addAction event.
 	Syntax:
 		http://community.bistudio.com/wiki/addAction
 	Example:
-		player addAction ["Run free!", "core\execute.sqf", {_this call my_fnc_name}];
+		player addAction ["Run free!", "core\exec.sqf", {_this call my_fnc_name}];
 	Notes:
 		1. The argument (index 3) should be the code to run.
 		2. The code is called from the addAction runtime environment.
