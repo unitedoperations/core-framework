@@ -107,14 +107,15 @@ processInitCommands;
 finishMissionInit;
 
 /* Start Delayed Execution */
-[_startTime, _modules, _params] spawn {
+private ["_postInit"];
+_postInit = [_startTime, _modules, _params] spawn {
 	private ["_startTime", "_modules", "_params"];
 	_startTime = _this select 0;
 	_modules = _this select 1;
 	_params = _this select 2;
 	
 	/* Wait for Player */
-	if (!isDedicated) then {
+	if (isMultiplayer && {!isDedicated}) then {
 		[{!(isNull player)}, -1, "Player Initialization"] call core_fnc_wait;
 	};
 	
@@ -162,6 +163,11 @@ finishMissionInit;
 		if (core_logToDiary) then { // Ensure initial load of logging diary record
 			player createDiaryRecord [C_DIARY_SUBJECT, ["Diagnostics Log", ""]];
 		};
+	};
+	
+	/* Wait For Post-Inits To Finish Processing */
+	if ((count core_scheduledModules) > 0) then {
+		[{{if !(scriptDone _x) exitWith {false}; true} forEach core_scheduledModules}, 15, "Core Post-Initialization"] call core_fnc_wait;
 	};
 	
 	/* Finalize Reference Variables */

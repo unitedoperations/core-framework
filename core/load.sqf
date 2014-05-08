@@ -19,8 +19,8 @@
 #include "libraries\diagnostics.sqf"
 #include "libraries\environment.sqf"
 #include "libraries\filesystem.sqf"
+#include "libraries\framework.sqf"
 #include "libraries\math.sqf"
-#include "libraries\mission.sqf"
 #include "libraries\positioning.sqf"
 #include "libraries\rve.sqf"
 #include "libraries\strings.sqf"
@@ -50,7 +50,7 @@ if (isServer) then {
 
 /* Load Player-Side Systems */
 if (!isDedicated) then {
-	[] spawn {
+	0 spawn {
 		
 		/* Wait For Initialization */
 		waitUntil {!isNull player};
@@ -59,7 +59,6 @@ if (!isDedicated) then {
 		if (isServer) then {
 			core_clientId = owner(player);
 		} else {
-			LOG_INFO("Requesting Client ID.");
 			core_clientIdRequest = player;
 			publicVariableServer "core_clientIdRequest";
 			waitUntil {!isNil "core_clientId"};

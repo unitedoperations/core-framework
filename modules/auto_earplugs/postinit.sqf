@@ -1,5 +1,5 @@
 if (!isDedicated) then {
-	[] spawn {
+	0 spawn {
 		sleep 3;
 		waitUntil {!isNull player};
 		if (player hasWeapon "ACE_Earplugs") then {

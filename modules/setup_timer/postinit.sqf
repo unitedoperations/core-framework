@@ -15,7 +15,7 @@ if (!isDedicated) then {
 
 	if ((count sut_markers) > 0) then {
 	
-		[] spawn {
+		0 spawn {
 			private ["_marker", "_pos"];
 			_marker = [];
 			

@@ -2,7 +2,7 @@
 /* Setup automatic synchronization */
 if (isServer) then {
 	if (syt_auto_sync_time == 1) then {
-		[] spawn {
+		0 spawn {
 			while {true} do {
 				syt_serverDate = date;
 				publicVariable "syt_serverDate";

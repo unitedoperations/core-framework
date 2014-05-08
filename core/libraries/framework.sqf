@@ -1,6 +1,6 @@
 
 /*
-	Title: Mission Function Library
+	Title: Framework Function Library
 */
 
 #define __objCfg(val,dft) ([_cfg >> val, dft] call core_fnc_getConfigValue)
@@ -259,7 +259,7 @@ core_fnc_loadModule = {
 				_exec = if ([_exec] call core_fnc_isFilePath) then {["modules\" + _cfgName + "\" + _exec] call core_fnc_compileFile} else {compile _exec};
 				
 				if (_scheduled) then {
-					[] spawn _exec;
+					[core_scheduledModules, (0 spawn _exec)] call core_fnc_push;
 				} else {
 					[] call _exec;
 				};
@@ -275,6 +275,7 @@ core_fnc_loadModule = {
 /* Library Initialization */
 
 core_moduleList = [];
+core_scheduledModules = [];
 
 "core_mission_setVehicleVarName" addPublicVariableEventHandler {
 	private ["_val"];
