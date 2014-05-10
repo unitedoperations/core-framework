@@ -13,17 +13,24 @@
 		Creates an actor unit with the specified message handler.
 	Parameters:
 		0 - Message Handler Code [code]
-		1 - Actor group [group] (optional)
+		1 - Actor unit [object] (optional)
+		2 - Actor group [group] (optional)
 	Returns:
 		Actor [object]
 */
 
 core_fnc_createActor = {
-	private ["_group"];
-	_group = [_this, 1, ["GROUP"], core_actors_mainGroup] call core_fnc_param;
+	private ["_actor", "_group"];
+	_actor = [_this, 1, ["OBJECT"], objNull] call core_fnc_param;
+	_group = [_this, 2, ["GROUP"], core_actors_mainGroup] call core_fnc_param;
 	if (!isNil "_group") then {
-		private ["_actor"];
-		_actor = _group createUnit ["logic", [0,0,0], [], 0, "NONE"];
+		if (isNull _actor) then {
+			_actor = _group createUnit ["logic", [0,0,0], [], 0, "NONE"];
+		} else {
+			if (!(isNull _group) && {(group _actor) != _group}) then {
+				[_actor] joinSilent _group;
+			};
+		};
 		_actor setVariable ["core_actors_owner", core_clientId, true];
 		_actor setVariable ["core_actors_messageHandler", (_this select 0), false];
 		_actor
@@ -46,19 +53,18 @@ core_fnc_createActor = {
 */
 
 core_fnc_sendMessage = {
-	private ["_actor", "_message"];
+	private ["_actor"];
 	_actor = _this select 0;
-	_message = _this select 1;
 	if (local _actor) then {
-		_message spawn (_actor getVariable "core_actors_messageHandler");
+		+(_this) spawn (_actor getVariable "core_actors_messageHandler");
 	} else {
 		private ["_owner"];
-		_owner = _actor getVariable "core_actors_owner";
-		core_actors_newMessage = [_actor, _message];
+		_owner = _actor getVariable ["core_actors_owner", -1];
+		core_actors_newMessage = _this;
 		if (_owner < 0) then {
 			publicVariableServer "core_actors_newMessage";
 		} else {
-			(_actor getVariable "core_actors_owner") publicVariableClient "core_actors_newMessage";
+			_owner publicVariableClient "core_actors_newMessage";
 		};
 	};
 };
@@ -99,6 +105,6 @@ if (isServer) then {
 	_val = _this select 1;
 	_actor = _val select 0;
 	if (local _actor) then {
-		(_val select 1) spawn (_actor getVariable "core_actors_messageHandler");
+		+(_val) spawn (_actor getVariable "core_actors_messageHandler");
 	};
 };

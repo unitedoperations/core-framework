@@ -4,6 +4,40 @@
 */
 
 /*
+	Function: core_fnc_modDegrees
+	Author(s): Naught
+	Description:
+		Rounds a degree value to 0 <= X <= 360.
+	Parameters:
+		0 - Degree number [number]
+	Returns:
+		Modulated degree [number]
+*/
+
+core_fnc_modDegrees = {
+	(((_this select 0) % 360) + 360) % 360
+};
+
+/*
+	Function: core_fnc_dirTo
+	Author(s): Naught
+	Description:
+		Calculates the direction to a position from a position.
+	Parameters:
+		0 - From object or position [any]
+		1 - To object or position [any]
+	Returns:
+		Direction in degrees [number]
+*/
+
+core_fnc_dirTo = {
+	private ["_from", "_to"];
+	_from = [_this select 0] call core_fnc_getPos;
+	_to = [_this select 1] call core_fnc_getPos;
+	[((_to select 0) - (_from select 0)) atan2 ((_to select 1) - (_from select 1))] call core_fnc_modDegrees
+};
+
+/*
 	Function: core_fnc_roundDecimal
 	Author(s): Naught
 	Description:

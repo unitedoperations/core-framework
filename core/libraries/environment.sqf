@@ -4,6 +4,33 @@
 */
 
 /*
+	Function: core_fnc_getMapInfo
+	Author(s): Naught
+	Description:
+		Gets general information about the current map.
+	Parameters:
+		None.
+	Returns:
+		Map Information [array]
+			0 - Map Center [array]
+			1 - Map Edge (top-right point) [array]
+			2 - Maximum radius from center [number]
+			3 - Minimum radius from center [number]
+*/
+
+core_fnc_getMapInfo = {
+	private ["_mapCenter"];
+	_mapCenter = getArray(configFile >> "CfgWorlds" >> worldName >> "centerPosition");
+	_mapCenter set [2,0]; // 2d position
+	[
+		_mapCenter, // Center
+		[(_mapCenter select 0) * 2, (_mapCenter select 1) * 2, 0], // Top-right point
+		(((_mapCenter select 0) max (_mapCenter select 1)) * sqrt(2)), // Max radius
+		(((_mapCenter select 0) min (_mapCenter select 1)) * sqrt(2)) // Min radius
+	]
+};
+
+/*
 	Function: core_fnc_processTerrain
 	Author(s): Naught
 	Description:
@@ -46,13 +73,11 @@ core_fnc_processTerrain = {
 	_boundingBox = [_this, 0, ["ARRAY"], []] call core_fnc_param;
 	_precision = [_this, 1, ["SCALAR"], 30] call core_fnc_param;
 	_multiProcess = [_this, 2, ["BOOL"], true] call core_fnc_param;
-	_decPrecision = [_this, 2, ["SCALAR"], 1] call core_fnc_param;
+	_decPrecision = [_this, 3, ["SCALAR"], 1] call core_fnc_param;
 	
 	// Retrieve map information
-	private ["_mapCenter", "_mapEdge"];
-	_mapCenter = getArray(configFile >> "CfgWorlds" >> worldName >> "centerPosition");
-	_mapCenter set [2,0]; // 2d position
-	_mapEdge = [(_mapCenter select 0) * 2, (_mapCenter select 1) * 2, 0];
+	private ["_mapEdge"];
+	_mapEdge = (call core_fnc_getMapInfo) select 1;
 	
 	// Formulate bounding area
 	private ["_bbX1", "_bbY1", "_bbX2", "_bbY2"];
