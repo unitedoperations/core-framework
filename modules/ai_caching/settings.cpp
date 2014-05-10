@@ -9,7 +9,7 @@
 
 aip_cache_distance = "viewDistance + 150"; // Meters; Either a code string or number.
 
-aip_loop_delay = 3; // Seconds; Time to sleep between AI caching checking. Lower values dramatically affect performance and bandwidth adversely.
+aip_loop_delay = 5; // Seconds; Time to sleep between AI caching checking. Lower values dramatically affect performance and bandwidth adversely.
 
 /* Advanced Settings */
 

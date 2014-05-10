@@ -22,7 +22,7 @@
 #include "ao_limit\config.cpp"
 #include "setup_timer\config.cpp"
 #include "briefing\config.cpp"
-#include "building_menu\config.cpp"
+//#include "building_menu\config.cpp"
 #include "auto_earplugs\config.cpp"
 #include "end_screen\config.cpp"
 #include "flexi_menu_helper\config.cpp"
