@@ -32,9 +32,8 @@ gear_fnc_setLoadout = {
 		private ["_obj"];
 		_obj = _this select 0;
 		
-		if (!isDedicated) then {
-			waitUntil {!isNull player};
-		};
+		if (isMultiplayer && isDedicated && {isPlayer _obj}) exitWith {}; // Servers don't load player gear!
+		if (!isDedicated) then {waitUntil {!isNull player}}; // Clients must wait for server unit hand-over.
 		
 		if (local _obj) then {
 			if (_obj isKindOf "Man") then {
