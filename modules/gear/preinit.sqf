@@ -26,16 +26,30 @@
 	Returns:
 		Nothing [nil]
 */
+
 gear_fnc_setLoadout = {
-	private ["_obj", "_class"];
-	_obj = _this select 0;
-	_class = _this select 3;
-	if (_obj isKindOf "Man") then {
-		(group _obj) setGroupId [_this select 1];
-		_obj assignTeam (_this select 2);
+	_this spawn {
+		private ["_obj"];
+		_obj = _this select 0;
+		
+		if (!isDedicated) then {
+			waitUntil {!isNull player};
+		};
+		
+		if (local _obj) then {
+			if (_obj isKindOf "Man") then {
+				(group _obj) setGroupId [_this select 1];
+				_obj assignTeam (_this select 2);
+			};
+			
+			private ["_class"];
+			_class = _this select 3;
+			
+			if !([_class] call core_fnc_isFilePath) then {
+				_class = _class + ".sqf";
+			};
+			
+			_this call compile preprocessFileLineNumbers ([_this, 4, ["STRING"], ("modules\gear\loadouts\" + _class)] call core_fnc_param);
+		};
 	};
-	if !([_class] call core_fnc_isFilePath) then {
-		_class = _class + ".sqf";
-	};
-	_this spawn compile preprocessFileLineNumbers ([_this, 4, ["STRING"], ("modules\gear\loadouts\" + _class)] call core_fnc_param);
 };
