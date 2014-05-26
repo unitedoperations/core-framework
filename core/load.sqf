@@ -34,7 +34,7 @@
 	[_x, true] call core_fnc_setLogLevel;
 } forEach ([(if (!isMultiplayer) then {C_GET_LOG_OPT("sp_log_level")} else {C_GET_LOG_OPT("mp_log_level")}), []] call core_fnc_getConfigValue);
 
-core_logToDiary = [[C_GET_LOG_OPT("log_to_diary"), 0] call core_fnc_getConfigValue] call core_fnc_toBool;
+core_logToDiary = hasInterface && {[[C_GET_LOG_OPT("log_to_diary"), 0] call core_fnc_getConfigValue] call core_fnc_toBool};
 
 /* Load Client ID Response System */
 if (isServer) then {
@@ -57,11 +57,10 @@ if (!isDedicated) then {
 		
 		/* Request Client ID */
 		if (isServer) then {
-			core_clientId = owner(player);
+			core_clientId = owner player;
 		} else {
 			core_clientIdRequest = player;
 			publicVariableServer "core_clientIdRequest";
-			waitUntil {!isNil "core_clientId"};
 		};
 		
 		/* Load Log-To-Diary Pages */
@@ -72,7 +71,7 @@ if (!isDedicated) then {
 		};
 		
 		/* Load Log-To-Diary System */
-		[] spawn {
+		0 spawn {
 			while {true} do {
 				if (core_logToDiary && {(count core_diaryLogQueue) > 0}) then {
 					{ // forEach

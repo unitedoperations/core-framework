@@ -24,7 +24,7 @@ core_fnc_hint = {
 		[core_hintQueue, _this] call core_fnc_push;
 		
 		if ((count core_hintQueue) == 1) then { // Run queue
-			[] spawn {
+			0 spawn {
 				while {(count core_hintQueue) > 0} do {
 					private ["_curHint", "_text"];
 					_curHint = core_hintQueue select 0;

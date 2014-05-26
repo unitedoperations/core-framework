@@ -11,10 +11,12 @@ if !(isNil "core_init") exitWith {};
 #define COMPONENT "Core-Init"
 
 /* Load Version Number */
-core_version = call compile preprocessFile "core\version";
+core_version = parseNumber(loadFile "core\version");
 
 /* Start Loading Screen */
-startLoadingScreen [format["Loading Core Mission Framework v%1...", core_version]];
+if (hasInterface) then {
+	startLoadingScreen [format["Loading Core Mission Framework v%1...", core_version]];
+};
 
 /* Load Data and Libraries */
 #include "load.sqf"
@@ -23,4 +25,6 @@ startLoadingScreen [format["Loading Core Mission Framework v%1...", core_version
 #include "init.sqf"
 
 /* End Loading Screen */
-endLoadingScreen;
+if (hasInterface) then {
+	endLoadingScreen;
+};
