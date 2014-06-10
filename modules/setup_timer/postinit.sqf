@@ -32,7 +32,8 @@ if (!isDedicated) then {
 			
 			if (((count _marker) > 0) && {time < (_marker select 0)}) then {
 				["<t size=3 align=left>You Have </t><t size=3 color='#6599FF' shadow='1' shadowColor='#000000' align=left>%1</t><t size=3 align=left> Seconds Setup Time.</t>", _marker, false, 10] call core_fnc_hint;
-				while {(count _marker) > 0} do {
+				
+				while {((count _marker) > 0) && {!(player getVariable ["spectating", false])}} do {
 					private ["_vehicle"];
 					_vehicle = (vehicle player);
 				

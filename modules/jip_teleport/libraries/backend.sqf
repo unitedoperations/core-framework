@@ -1,5 +1,5 @@
 jt_fnc_getTarget = {
-	if (isNull(group player)) then {
+	if (!isNull(group player)) then {
 		private["_target", "_rank"];
 		_target = leader(group player);
 		

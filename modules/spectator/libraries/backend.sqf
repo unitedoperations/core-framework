@@ -1,27 +1,26 @@
 sp_fnc_prep = {
 	player setVariable ["spectating", true, true];
+	
 	titleText ["You are dead\nEntering spectator mode", "BLACK", 0.2];
-	sleep 1;
-	titleText ["You are dead\nEntering spectator mode", "BLACK FADED", 10];
-
+	
+	0 spawn {
+		sleep 1;
+		titleText ["You are dead\nEntering spectator mode", "BLACK FADED", 10];
+	};
+	
 	waitUntil {alive player};
-
+	
 	[player] join grpNull;
-	player setPos [0, 0, 0];
+	player setPos [0,0,0];
 	player setCaptive true;
 	player addEventHandler ["HandleDamage", {false}];
-
+	
 	removeAllWeapons player;
 	removeAllItems player;
-	removebackpack player;
-
-	if (player getVariable ["spectating", false]) then {
-		[true] call acre_api_fnc_setSpectator;
-		[] call sp_fnc_spectate;
-	} 
-	else {
-		titleText ["You are dead\nEntering spectator mode", "BLACK IN", 0.2];
-	};
+	removeBackpack player;
+	
+	[true] call acre_api_fnc_setSpectator;
+	[] call sp_fnc_spectate;
 };
 
 sp_fnc_spectate = {

@@ -1,13 +1,14 @@
 #define ANY sideLogic
 
-if (!isDedicated) then {
-	
+if (!isDedicated) then
+{
 	al_fnc_addAoMarker = {
 		private["_side", "_marker"];
 		_side = _this select 0;
 		_marker = _this select 1;
 		
-		if (_side == (side player) || _side == ANY) then {
+		if (_side == (side player) || _side == ANY) then
+		{
 			al_markers set [count al_markers, _marker];	
 			_marker setMarkerAlphaLocal 1;
 		};
@@ -18,7 +19,8 @@ if (!isDedicated) then {
 		_side = _this select 0;
 		_marker = _this select 1;
 		
-		if (_side == (side player) || _side == ANY) then {
+		if (_side == (side player) || _side == ANY) then
+		{
 			al_markers = al_markers - [_marker];
 			_marker setMarkerAlphaLocal 0;
 		};
@@ -28,41 +30,54 @@ if (!isDedicated) then {
 	
 	#include "settings.sqf"
 	
-	if ((count al_markers) > 0) then {
-		0 spawn {
-			private ["_pos", "_allowedOutside"];
+	if ((count al_markers) > 0) then
+	{
+		0 spawn
+		{
+			private ["_pos", "_allowedOutside", "_sleep"];
 			_pos = getPosATL (vehicle player);
 			_allowedOutside = false;
+			_sleep = 5;
 			
-			while {true} do {
+			while {!(player getVariable ["spectating", false])} do
+			{
 				private ["_vehicle"];
-				_vehicle = (vehicle player);
+				_vehicle = vehicle player;
 				
-				if (!(_vehicle isKindOf "Air")) then {
+				if (!(_vehicle isKindOf "Air")) then
+				{
 					private ["_outSide"];
 					_outSide = true;
 					
-					{
+					{ // forEach
 						if ([_vehicle, _x] call core_fnc_inArea) exitWith {
 							_outSide = false;
 						};
 					} forEach al_markers;
 					
-					if (_outside) then {
-						if (!(_allowedOutside)) then {
+					if (_outside) then
+					{
+						if (!_allowedOutside) then
+						{
 							hint "Please stay in the AO!";
-							_vehicle setPos _pos;
+							_vehicle setPosATL _pos;
+							sleep 0.1;
 						};
-					} else {
-						_allowedOutside = false;
+					}
+					else // Inside AOs
+					{
+						if (_allowedOutside) then {_allowedOutside = false};
 						_pos = getPosATL _vehicle;
+						sleep 5;
 					};
 					
-				} else {
-					_allowedOutside = true;
+				}
+				else // In air vehicle
+				{
+					if (!_allowedOutside) then {_allowedOutside = true};
 				};
 				
-				sleep(0.1);
+				if (_allowedOutside) then {sleep 10};
 			};
 		};
 	};

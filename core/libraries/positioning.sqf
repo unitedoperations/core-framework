@@ -97,50 +97,42 @@ core_fnc_sortObjectDistance = {
 */
 
 core_fnc_inArea = {
-	private["_object", "_marker", "_pos", "_xSize", "_ySize", "_radius", "_result", "_x", "_y", "_temp"];
+	private["_object", "_marker", "_result"];
 	_object = _this select 0;
 	_marker = _this select 1;
 	
-	_pos = markerPos _marker;
-	_xSize = (markerSize _marker) select 0;
-	_ySize = (markerSize _marker) select 1;
-	_radius = _xSize;
+	private ["_mPos", "_mSize", "_mShape", "_mRadius", "_distance", "_maxMult"];
+	_mPos = markerPos _marker;
+	_mSize = markerSize _marker;
+	_mShape = markerShape _marker;
+	_mRadius = (_mSize select 0) max (_mSize select 1);
+	_distance = _object distance _mPos;
 	
-	if (_ySize > _xSize) then {
-		_radius = _ySize;
+	_maxMult = (switch (_mShape) do
+	{
+		case "ELLIPSE": {1};
+		case "RECTANGLE": {sqrt(2)};
+		default {0};
+	});
+	
+	if (_distance > (_mRadius * _maxMult)) exitWith {false}; // Object too far away
+	
+	private ["_x", "_y", "_dir"];
+	_x = ((getPosASL _object) select 0) - (_mPos select 0);
+	_y = ((getPosASL _object) select 1) - (_mPos select 1);
+	_dir = markerDir _marker;
+	
+	if (_dir != 0) then {
+		private ["_tmp"];
+		_tmp = _x * cos(_dir) - _y * sin(_dir);
+		_y = _x * sin(_dir) + _y * cos(_dir);
+		_x = _temp;
 	};
 	
-	_result = false;
-	
-	if ((_object distance _pos) <= (_radius * 1.5)) then {
-		_x = (getPosASL _object) select 0;
-		_y = (getPosASL _object) select 1;
-		_angle = markerDir _marker;
-		_x = _x - (_pos select 0);
-		_y = _y - (_pos select 1);
-		
-		if (_angle != 0) then {
-			_temp = _x * cos(_angle) - _y * sin(_angle);
-			_y = _x * sin(_angle) + _y * cos(_angle);
-			_x = _temp;
-		};	
-		
-		if ((markerShape _marker) == "ELLIPSE") then {
-			if (_xSize == _ySize) then {
-				if ((_object distance _pos) <= _radius) then {
-					_result = true;	
-				};
-			} else {
-				if (((_x ^ 2) / (_xSize ^ 2) + (_y ^ 2) / (_ySize ^ 2)) <= 1) then {
-					_result = true;
-				};
-			};
-		} else {
-			if ((abs _x) <= _xSize && (abs _y) <= _ySize) then {
-				_result = true;
-			};
-		};
+	switch (_mShape) do
+	{
+		case "ELLIPSE": {((_x ^ 2) / ((_mSize select 0) ^ 2) + (_y ^ 2) / ((_mSize select 1) ^ 2)) <= 1};
+		case "RECTANGLE": {((abs _x) <= (_mSize select 0)) && {(abs _y) <= (_mSize select 1)}};
+		default {false};
 	};
-	
-	_result
 };
