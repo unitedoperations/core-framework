@@ -20,7 +20,7 @@ if (!isDedicated) then {
 			_marker = [];
 			
 			{ // forEach
-				if (((_x select 0) == (side player)) && [(vehicle player), (_x select 2)] call core_fnc_inArea) exitWith {
+				if (((_x select 0) == (side player)) && {[(vehicle player), (_x select 2)] call core_fnc_inArea}) exitWith {
 					_marker = [(_x select 1), (_x select 2)];	
 					(_marker select 1) setMarkerAlphaLocal 1;
 				};

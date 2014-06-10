@@ -126,7 +126,7 @@ core_fnc_inArea = {
 		private ["_tmp"];
 		_tmp = _x * cos(_dir) - _y * sin(_dir);
 		_y = _x * sin(_dir) + _y * cos(_dir);
-		_x = _temp;
+		_x = _tmp;
 	};
 	
 	switch (_mShape) do
