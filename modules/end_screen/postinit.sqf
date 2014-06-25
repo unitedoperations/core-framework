@@ -1,8 +1,11 @@
 #include "libraries\backend.sqf"
 
 if (isServer) then {
-	sp_teams = [];
-	#include "settings.sqf"
+	0 spawn {
+		sp_teams = [];
+		uisleep 30;
+		#include "settings.sqf"
+	};
 };
 
 if (!isDedicated) then {

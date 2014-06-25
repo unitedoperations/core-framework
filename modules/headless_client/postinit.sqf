@@ -10,7 +10,6 @@ if (!isDedicated && !hasInterface) then { // HC
 
 if (isServer) then {
 	0 spawn {
-		uiSleep 10;
 		if (isMultiplayer && {[{!isNull hc_headlessClient}, 20, "Headless Client Module"] call core_fnc_wait}) then {
 			hc_processMissionObjects = hc_headlessClient;
 			owner(hc_headlessClient) publicVariableClient "hc_processMissionObjects";

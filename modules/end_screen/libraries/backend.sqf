@@ -87,27 +87,15 @@ es_fnc_addTeam = {
 };
 
 es_fnc_countPlayers = {
-	private["_i"];
-	_i = 0;
-	{
-		if (((side _x) == (_this select 0)) && {!(_x getVariable ["spectating", false]) && {!([_x] call ace_sys_wounds_fnc_isUncon) && {alive _x}}}) then {
-			_i = _i + 1;
-		};
-	} forEach playableUnits;
-	
-	_i
+	private ["_side"];
+	_side = _this select 0;
+	{((side _x) == _side) && {!(_x getVariable ["spectating", false]) && {!([_x] call ace_sys_wounds_fnc_isUncon) && {alive _x}}} count allUnits;
 };
 
 es_fnc_countAi = {
-	private["_i"];
-	_i = 0;
-	{
-		if ((side _x) == (_this select 0)) then {
-			_i = _i + 1;
-		};
-	} forEach allUnits;
-	
-	_i
+	private ["_side"];
+	_side = _this select 0;
+	{(side _x) == _side} count allUnits;
 };
 
 es_fnc_endMission = {
