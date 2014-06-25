@@ -9,7 +9,7 @@ sp_fnc_onKilled = {
 	{
 		_unit setVariable ["spectating", true, true];
 		
-		(if (sp_showKilledBy) then {
+		(if (sp_showKilledBy == 1) then {
 			format["%1 killed you\nEntering spectator mode", (name _killer)];
 		} else {
 			"You are dead\nEntering spectator mode";
@@ -24,7 +24,7 @@ sp_fnc_onKilled = {
 			waitUntil {alive player};
 			player setVariable ["spectating", true, true];
 			
-			if (sp_leaveGroup) then {[player] join grpNull};
+			if (sp_leaveGroup == 1) then {[player] join grpNull};
 			player setPos (call compile sp_spectatePos);
 			player setCaptive true;
 			//player addEventHandler ["HandleDamage", {false}];

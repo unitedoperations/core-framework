@@ -1432,7 +1432,7 @@ class Mission
 	};
 	class Markers
 	{
-		items=5;
+		items=7;
 		class Item0
 		{
 			position[]={3268.4524,4.7332792,4551.3145};
@@ -1485,6 +1485,18 @@ class Mission
 			a=100;
 			b=100;
 			drawBorder=1;
+		};
+		class Item5
+		{
+			position[]={3707.0635,27.164169,3390.9636};
+			name="respawn_east";
+			type="Empty";
+		};
+		class Item6
+		{
+			position[]={3246.9272,4.8712158,4573.6484};
+			name="respawn_west";
+			type="Empty";
 		};
 	};
 };
