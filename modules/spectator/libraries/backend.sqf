@@ -1,31 +1,47 @@
-sp_fnc_prep = {
-	player setVariable ["spectating", true, true];
+
+sp_fnc_onKilled = {
+	private ["_unit", "_killer", "_spectating"];
+	_unit = _this select 0;
+	_killer = _this select 1;
+	_spectating = _unit getVariable ["spectating", false];
 	
-	titleText ["You are dead\nEntering spectator mode", "BLACK", 0.2];
-	
-	0 spawn {
-		sleep 1;
-		titleText ["You are dead\nEntering spectator mode", "BLACK FADED", 10];
+	if (hasInterface && {!_spectating}) then
+	{
+		_unit setVariable ["spectating", true, true];
+		
+		(if (sp_showKilledBy) then {
+			format["%1 killed you\nEntering spectator mode", (name _killer)];
+		} else {
+			"You are dead\nEntering spectator mode";
+		}) spawn {
+			titleText [_this, "BLACK", 0.2];
+			uisleep 1;
+			titleText [_this, "BLACK FADED", 10];
+		};
+		
+		_unit spawn
+		{
+			waitUntil {alive player};
+			player setVariable ["spectating", true, true];
+			
+			if (sp_leaveGroup) then {[player] join grpNull};
+			player setPos (call compile sp_spectatePos);
+			player setCaptive true;
+			//player addEventHandler ["HandleDamage", {false}];
+			
+			removeAllWeapons player;
+			removeAllItems player;
+			removeBackpack player;
+			
+			[true] call acre_api_fnc_setSpectator;
+			[_this] call sp_fnc_spectate;
+		};
 	};
-	
-	waitUntil {alive player};
-	
-	[player] join grpNull;
-	player setPos [0,0,0];
-	player setCaptive true;
-	player addEventHandler ["HandleDamage", {false}];
-	
-	removeAllWeapons player;
-	removeAllItems player;
-	removeBackpack player;
-	
-	[true] call acre_api_fnc_setSpectator;
-	[] call sp_fnc_spectate;
 };
 
 sp_fnc_spectate = {
 	private["_keyDownNightVision", "_keyDownLeftClick", "_keyDownRightClick", "_keydownMouseWheel"];
-	sp_target = sp_body;
+	sp_target = _this select 0;
 	sp_index = 0;
 	
 	sp_viewModes = ["none"];
