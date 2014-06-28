@@ -30,9 +30,9 @@ gl_fnc_areaOccupied = {
 };
 
 gl_fnc_checkCasualties = {
-	private ["_side", "_limit", "_totalCount", "_aliveCount"];
+	private ["_side", "_percent", "_totalCount", "_aliveCount"];
 	_side = _this select 0;
-	_limit = _this select 1;
+	_percent = _this select 1;
 	_totalCount = {(side _x) == _side} count allUnits;
 	_aliveCount = { // count
 		((side _x) == _side) &&
@@ -40,5 +40,5 @@ gl_fnc_checkCasualties = {
 		{!(_x getVariable ["ace_sys_wounds_uncon", false])} &&
 		{!(_x getVariable ["spectating", false])}
 	} count allUnits;
-	_aliveCount < (_totalCount * ((_limit - 1) / 100))
+	_aliveCount <= (_totalCount * (1 - (_percent / 100)))
 };
