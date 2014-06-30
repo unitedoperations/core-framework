@@ -34,6 +34,7 @@ gl_fnc_checkCasualties = {
 	_side = _this select 0;
 	_percent = _this select 1;
 	_totalCount = {(side _x) == _side} count allUnits;
+	if (_totalCount == 0) exitWith {false};
 	_aliveCount = { // count
 		((side _x) == _side) &&
 		{alive _x} &&
