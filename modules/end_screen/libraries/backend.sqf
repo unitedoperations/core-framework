@@ -89,7 +89,7 @@ es_fnc_addTeam = {
 es_fnc_countPlayers = {
 	private ["_side"];
 	_side = _this select 0;
-	{((side _x) == _side) && {!(_x getVariable ["spectating", false]) && {!([_x] call ace_sys_wounds_fnc_isUncon) && {alive _x}}} count allUnits;
+	{((side _x) == _side) && {alive _x} && {!(_x getVariable ["spectating", false])} && {(isNil "ace_sys_wounds_fnc_isUncon") || {!([_x] call ace_sys_wounds_fnc_isUncon)}}} count allUnits;
 };
 
 es_fnc_countAi = {
