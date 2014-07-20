@@ -40,11 +40,11 @@ class briefings
 	{
 		
 	};
-	class resistance
+	class guer
 	{
 		
 	};
-	class civilian
+	class civ
 	{
 		
 	};
